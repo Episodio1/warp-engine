@@ -26,14 +26,17 @@ then
         '5.6.8')
             break
         ;;
-        '2.4.4')
-            break
-        ;;
         '2.4.6')
             break
         ;;
+        '2.4.4')
+            break
+        ;;
+        '1.7.6')
+            break
+        ;;
         *)
-            warp_message_info2 "Selected: $elasticsearch_version, the available versions are: 6.4.2, 5.6.8, 2.4.4, 2.4.6"
+            warp_message_info2 "Selected: $elasticsearch_version, the available versions are: 6.4.2, 5.6.8, 2.4.6, 2.4.4, 1.7.6"
         ;;
         esac        
     done
