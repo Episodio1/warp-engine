@@ -1,6 +1,10 @@
 Warp Releases
 =============
 
+### [2019.05.24](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.24)
+
+* Add Elasticsearch 1.7.6
+
 
 ### [2019.05.08](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.08)
 
