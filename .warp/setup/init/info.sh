@@ -1,6 +1,7 @@
 warp_message "* Configuring environment variable files $(warp_message_ok [ok])"
  [ ! -f $ENVIRONMENTVARIABLESFILE ] && cp $ENVIRONMENTVARIABLESFILESAMPLE $ENVIRONMENTVARIABLESFILE
  [ ! -f $DOCKERCOMPOSEFILE ] && cp $DOCKERCOMPOSEFILESAMPLE $DOCKERCOMPOSEFILE
+ [ ! -f $DOCKERIGNOREFILE ] && cp $PROJECTPATH/.warp/setup/init/.dockerignore $DOCKERIGNOREFILE
 
 # creating ext-xdebug.ini
 if  [ ! -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ]
