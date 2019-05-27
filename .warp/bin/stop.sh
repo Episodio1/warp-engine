@@ -31,8 +31,10 @@ function stop() {
 
       case "$(uname -s)" in
         Darwin)
-          docker stop $(basename $(pwd))-volume-sync
-          docker-sync stop
+          if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
+            docker stop $(basename $(pwd))-volume-sync
+            docker-sync stop
+          fi
 
           # stop docker containers in macOS
           docker-compose -f $DOCKERCOMPOSEFILE $DOCKERACTION

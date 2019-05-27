@@ -41,12 +41,17 @@ function reset_warninig_confirm_hard()
             warp_message "* deleting $(basename $DOCKERCOMPOSEFILE) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $DOCKERCOMPOSEFILESAMPLE) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $DOCKERCOMPOSEFILEMAC) $(warp_message_ok [ok])"
+            warp_message "* deleting $(basename $DOCKERCOMPOSEFILEMACSAMPLE) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
+            warp_message "* deleting $(basename $DOCKERSYNCMACSAMPLE) $(warp_message_ok [ok])"
             
             case "$(uname -s)" in
             Darwin)
+                USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
+                if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
                 # clean data sync
                 docker-sync clean
+                fi
             ;;
             esac
 
@@ -55,7 +60,9 @@ function reset_warninig_confirm_hard()
             rm $DOCKERCOMPOSEFILE 2> /dev/null
             rm $DOCKERCOMPOSEFILESAMPLE 2> /dev/null
             rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
+            rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
             rm $DOCKERSYNCMAC 2> /dev/null
+            rm $DOCKERSYNCMACSAMPLE 2> /dev/null
 
 	        rm -rf $PROJECTPATH/.warp/docker/config 2> /dev/null
             mkdir -p $PROJECTPATH/.warp/docker/config 2> /dev/null
@@ -79,9 +86,13 @@ function reset_warninig_confirm()
     then
         warp_message "* deleting $(basename $ENVIRONMENTVARIABLESFILE) $(warp_message_ok [ok])"
         warp_message "* deleting $(basename $DOCKERCOMPOSEFILE) $(warp_message_ok [ok])"
+        warp_message "* deleting $(basename $DOCKERCOMPOSEFILEMAC) $(warp_message_ok [ok])"
+        warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
 
         rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
         rm $DOCKERCOMPOSEFILE 2> /dev/null
+        rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
+        rm $DOCKERSYNCMAC 2> /dev/null
         warp_message ""
 
         warp_message_warn "files have been deleted, to start again run: $(warp_message_bold './warp init')"

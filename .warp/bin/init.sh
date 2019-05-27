@@ -50,6 +50,7 @@ function init_command() {
         warp_message_info "* Starting initial installation\n"
         . "$WARPFOLDER/setup/init/service.sh"
         . "$WARPFOLDER/setup/init/base.sh"
+        . "$WARPFOLDER/setup/mac/mac.sh"
         . "$WARPFOLDER/setup/webserver/webserver.sh"
         . "$WARPFOLDER/setup/php/php.sh"
         . "$WARPFOLDER/setup/init/volumes.sh"
@@ -59,7 +60,6 @@ function init_command() {
         . "$WARPFOLDER/setup/rabbit/rabbit.sh"
         . "$WARPFOLDER/setup/mailhog/mailhog.sh"
         . "$WARPFOLDER/setup/networks/networks.sh"
-        . "$WARPFOLDER/setup/mac/mac.sh"
         . "$WARPFOLDER/setup/init/info.sh"
     fi;
 }
