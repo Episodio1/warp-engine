@@ -249,6 +249,11 @@ case "$1" in
     fix_main $*
     ;;
 
+    xdebug)
+    shift 1
+    xdebug_main $*
+    ;;
+
     restart)
     restart_main $*
     ;;
@@ -298,6 +303,11 @@ case "$1" in
     redis)
     shift 1
     redis_main $*
+    ;;
+
+    sync)
+    shift 1
+    sync_main $*
     ;;
 
     rabbit)

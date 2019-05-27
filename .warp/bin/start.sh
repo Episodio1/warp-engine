@@ -33,8 +33,11 @@ function start() {
 
     case "$(uname -s)" in
       Darwin)
-        # start data sync
-        docker-sync start
+        USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
+        if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
+          # start data sync
+          docker-sync start
+        fi
         # start docker containers in macOS
         docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC up -d
       ;;

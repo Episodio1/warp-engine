@@ -29,3 +29,5 @@ sleep 1
 
         warp_network_mono
     fi    
+
+    echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE

@@ -45,7 +45,7 @@ fi;
 
 
 while : ; do
-    framework=$( warp_question_ask_default "Select the main framework for this project. Possible values are $(warp_message_info [m1/M2/oro/php]): " "m2" )
+    framework=$( warp_question_ask_default "Select the main framework for this project. Possible values are $(warp_message_info [m1/m2/oro/php]): " "m2" )
 
     case $framework in
         'm1')

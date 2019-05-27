@@ -31,3 +31,5 @@
 . "$WARPFOLDER/bin/crontab.sh"
 . "$WARPFOLDER/bin/fix.sh"
 . "$WARPFOLDER/bin/mailhog.sh"
+. "$WARPFOLDER/bin/xdebug.sh"
+. "$WARPFOLDER/bin/sync.sh"

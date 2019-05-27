@@ -19,15 +19,18 @@ if [ ! -z $WARP_DETECT_MODE_TL ] ; then
     then
         warp_message "* Preparing files for .gitignore $(warp_message_ok [ok])"
         # FILES TO ADD GITIGNORE
+        echo ""                  >> $GITIGNOREFILE
         echo "# WARP FRAMEWORK"  >> $GITIGNOREFILE
         echo "!/warp"            >> $GITIGNOREFILE
         echo "!/$(basename $WARPFOLDER)"                      >> $GITIGNOREFILE
         echo "/$(basename  $ENVIRONMENTVARIABLESFILE)"        >> $GITIGNOREFILE
         echo "/$(basename  $DOCKERCOMPOSEFILE)"               >> $GITIGNOREFILE
-        echo "!/$(basename $DOCKERCOMPOSEFILEMAC)"            >> $GITIGNOREFILE
-        echo "!/$(basename $DOCKERSYNCMAC)"                   >> $GITIGNOREFILE
+        echo "/$(basename  $DOCKERCOMPOSEFILEMAC)"            >> $GITIGNOREFILE
+        echo "/$(basename  $DOCKERSYNCMAC)"                   >> $GITIGNOREFILE
         echo "!/$(basename $ENVIRONMENTVARIABLESFILESAMPLE)"  >> $GITIGNOREFILE
-        echo "!/$(basename $DOCKERCOMPOSEFILESAMPLE)"   >> $GITIGNOREFILE
+        echo "!/$(basename $DOCKERCOMPOSEFILESAMPLE)"         >> $GITIGNOREFILE
+        echo "!/$(basename $DOCKERCOMPOSEFILEMACSAMPLE)"      >> $GITIGNOREFILE
+        echo "!/$(basename $DOCKERSYNCMACSAMPLE)"             >> $GITIGNOREFILE
         echo "/.docker-sync"                            >> $GITIGNOREFILE        
         echo "/.warp/docker/volumes"                    >> $GITIGNOREFILE
         echo "/.warp/docker/dumps"                      >> $GITIGNOREFILE
@@ -49,14 +52,14 @@ warp_message "* Applying permissions to subdirectories .warp/docker/volumes $(wa
 
     # SET PERMISSIONS FOLDERS
     mkdir -p $PROJECTPATH/.warp/docker/volumes/nginx/logs
-    sudo chmod -R 775 $PROJECTPATH/.warp/docker/volumes/nginx
+    sudo chmod -R 777 $PROJECTPATH/.warp/docker/volumes/nginx
     sudo chgrp -R 33 $PROJECTPATH/.warp/docker/volumes/nginx
 
     mkdir -p   $PROJECTPATH/.warp/docker/volumes/php-fpm/logs
     [ ! -f $PROJECTPATH/.warp/docker/volumes/php-fpm/logs/access.log ] && sudo touch $PROJECTPATH/.warp/docker/volumes/php-fpm/logs/access.log 
     [ ! -f $PROJECTPATH/.warp/docker/volumes/php-fpm/logs/fpm-error.log ] && sudo touch $PROJECTPATH/.warp/docker/volumes/php-fpm/logs/fpm-error.log 
     [ ! -f $PROJECTPATH/.warp/docker/volumes/php-fpm/logs/fpm-php.www.log ] && sudo touch $PROJECTPATH/.warp/docker/volumes/php-fpm/logs/fpm-php.www.log 
-    sudo chmod -R 775 $PROJECTPATH/.warp/docker/volumes/php-fpm
+    sudo chmod -R 777 $PROJECTPATH/.warp/docker/volumes/php-fpm
     sudo chgrp -R 33 $PROJECTPATH/.warp/docker/volumes/php-fpm
 
     mkdir -p   $PROJECTPATH/.warp/docker/volumes/elasticsearch

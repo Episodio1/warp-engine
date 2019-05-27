@@ -15,6 +15,7 @@ function fix_help_usage()
     warp_message_info   " --grunt            $(warp_message 'fix permissions grunt')"
     warp_message_info   " --elasticsearch    $(warp_message 'fix permissions with elasticsearch')"
     warp_message_info   " --addUser          $(warp_message 'add user docker and www-data to current user')"
+    warp_message_info   " --owner            $(warp_message 'fix owner and read/write permissions inside the container')"
     warp_message ""
 
     warp_message ""
