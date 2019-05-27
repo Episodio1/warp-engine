@@ -13,6 +13,42 @@
     # LOAD VARIABLES SAMPLE
     . $ENVIRONMENTVARIABLESFILESAMPLE
 
+case "$(uname -s)" in
+    Darwin)
+
+    warp_message ""
+    warp_message_info "Configuring mapping files to container"
+    warp_message ""
+        while : ; do
+            rta_use_docker_sync=$( warp_question_ask_default "Do you want to use docker-sync? $(warp_message_info [Y/n]) " "Y" )
+
+            if [ "$rta_use_docker_sync" = "Y" ] || [ "$rta_use_docker_sync" = "y" ] || [ "$rta_use_docker_sync" = "N" ] || [ "$rta_use_docker_sync" = "n" ] ; then
+                break
+            else
+                warp_message_warn "wrong answer, you must select between two options: $(warp_message_info [Y/n]) "
+            fi
+        done        
+
+        # Get sample from template
+        if [ "$rta_use_docker_sync" = "Y" ] || [ "$rta_use_docker_sync" = "y" ] ; then
+            cat $PROJECTPATH/.warp/setup/mac/tpl/docker-compose-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+        else
+            cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+        fi
+
+        VOLUME_WARP_DEFAULT="warp-volume-sync"
+        VOLUME_WARP="$(basename $(pwd))-volume-sync"
+
+        cat $DOCKERCOMPOSEFILEMAC | sed -e "s/$VOLUME_WARP_DEFAULT/$VOLUME_WARP/" > "$DOCKERCOMPOSEFILEMAC.tmp"
+        mv "$DOCKERCOMPOSEFILEMAC.tmp" $DOCKERCOMPOSEFILEMAC
+
+        cp $DOCKERSYNCMACSAMPLE $DOCKERSYNCMAC
+
+        cat $DOCKERSYNCMAC | sed -e "s/$VOLUME_WARP_DEFAULT/$VOLUME_WARP/" > "$DOCKERSYNCMAC.tmp"
+        mv "$DOCKERSYNCMAC.tmp" $DOCKERSYNCMAC
+    ;;
+esac
+
 warp_message ""
 warp_message_info "Configuring Web Server - Nginx"
 warp_message ""
@@ -219,6 +255,16 @@ warp_message ""
 
         cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$BINDED_PORT_OLD/$BINDED_PORT_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp8"
         mv "$ENVIRONMENTVARIABLESFILE.warp8" $ENVIRONMENTVARIABLESFILE
+    fi
+
+    if [ ! -z "$rta_use_docker_sync" ]
+    then
+        # SAVE OPTION SYNC
+        USE_DOCKER_SYNC_OLD="USE_DOCKER_SYNC=$USE_DOCKER_SYNC"
+        USE_DOCKER_SYNC_NEW="USE_DOCKER_SYNC=$rta_use_docker_sync"
+
+        cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$USE_DOCKER_SYNC_OLD/$USE_DOCKER_SYNC_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp9"
+        mv "$ENVIRONMENTVARIABLESFILE.warp9" $ENVIRONMENTVARIABLESFILE
     fi
 
     . "$WARPFOLDER/setup/init/info.sh"

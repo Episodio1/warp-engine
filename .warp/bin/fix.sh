@@ -73,6 +73,27 @@ function fix_mysql()
     exit 1;
 }
 
+function fix_owner()
+{
+    if [ ! -z "$2" ] ; then 
+        warp_message "* Correcting filesystem ownerships on \"$2\"..."
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find $2 -not -path '*/\.*' -exec chgrp -R 33 {} \;"
+
+        warp_message "* Correcting filesystem permissions on \"$2\"..."
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find $2 -type f -not -path '*/\.*' -exec chmod a+rw {} \;"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find $2 -type d -not -path '*/\.*' -exec chmod ug+rwx {} \;"
+    else
+        warp_message "* Correcting filesystem ownerships..."
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -not -path '*/\.*' -exec chgrp -R 33 {} \;"
+
+        warp_message "* Correcting filesystem permissions..."
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -type f -not -path '*/\.*' -exec chmod a+rw {} \;"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -type d -not -path '*/\.*' -exec chmod ug+rwx {} \;"
+    fi
+
+    warp_message "* Filesystem permissions corrected."
+}
+
 function fix_default()
 {
     # fix user and groups to current project
@@ -135,6 +156,10 @@ function fix_permissions()
       ;;
       "--mysql")
             fix_mysql
+            exit 1
+      ;;
+      "--owner")
+            fix_owner
             exit 1
       ;;
       "--all")

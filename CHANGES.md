@@ -1,6 +1,13 @@
 Warp Releases
 =============
 
+### [2019.05.27](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.27)
+
+* Add Image Elasticsearch 1.7.6
+* Add Image Rabbitmq 3.7 with delayed queue plugin
+* Add command for enable/disable xdebug
+* Add command for download/install Magento Community
+* Improve MacOS to be able to map files or synchronize folders
 
 ### [2019.05.08](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.08)
 

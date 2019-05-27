@@ -36,14 +36,25 @@ DOCKERCOMPOSEFILE="$PROJECTPATH/docker-compose-warp.yml"
 DOCKERCOMPOSEFILEMAC="$PROJECTPATH/docker-compose-warp-mac.yml"
 
 # DOCKERCOMPOSEFILE contains the path
+# to the docker-compose.yml sample file
+DOCKERCOMPOSEFILEMACSAMPLE="$PROJECTPATH/docker-compose-warp-mac.yml.sample"
+
+# DOCKERCOMPOSEFILE contains the path
 # to the docker-sync.yml file
 DOCKERSYNCMAC="$PROJECTPATH/docker-sync.yml"
+
+# DOCKERCOMPOSEFILE contains the path
+# to the docker-sync.yml sample file
+DOCKERSYNCMACSAMPLE="$PROJECTPATH/docker-sync.yml.sample"
 
 # PROJECTPATH FRAMEWORK
 WARPFOLDER="$PROJECTPATH/.warp"
 
 # FILE TO GIT IGNORE
 GITIGNOREFILE="$PROJECTPATH/.gitignore"
+
+# FILE TO IGNORE WARP FOLDER IN DOCKER CP
+DOCKERIGNOREFILE="$PROJECTPATH/.dockerignorefile"
 
 # NETWORK NAME
 NETWORK_NAME="warp_net"
