@@ -1,0 +1,6 @@
+-  Requeriments and dependencies
+-  How to install Docker Sync for Mac
+-  How to configure Xdebug
+-  How to use Composer
+-  Setting up the Cron Jobs
+-  Installing and configuring Grunt
