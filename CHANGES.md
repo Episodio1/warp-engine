@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.05.30](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.30)
+
+* Add command for enable/disable ionCube
+* Add attach custom yaml file
+* Improve command magento --install
+
 ### [2019.05.27](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.27)
 
 * Add Image Elasticsearch 1.7.6
