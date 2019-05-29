@@ -11,36 +11,8 @@ fi
 
 if [ ! -z $WARP_DETECT_MODE_TL ] ; then
 
-    #  CHECK IF GITIGNOREFILE CONTAINS FILES WARP TO IGNORE
-    [ -f $GITIGNOREFILE ] && cat $GITIGNOREFILE | grep --quiet -w "^# WARP FRAMEWORK"
-
-    # Exit status 0 means string was found
-    # Exit status 1 means string was not found
-    if [ $? = 1 ] || [ ! -f $GITIGNOREFILE ]
-    then
-        warp_message "* Preparing files for .gitignore $(warp_message_ok [ok])"
-        # FILES TO ADD GITIGNORE
-        echo ""                  >> $GITIGNOREFILE
-        echo "# WARP FRAMEWORK"  >> $GITIGNOREFILE
-        echo "!/warp"            >> $GITIGNOREFILE
-        echo "!/$(basename $WARPFOLDER)"                      >> $GITIGNOREFILE
-        echo "/$(basename  $ENVIRONMENTVARIABLESFILE)"        >> $GITIGNOREFILE
-        echo "/$(basename  $DOCKERCOMPOSEFILE)"               >> $GITIGNOREFILE
-        echo "/$(basename  $DOCKERCOMPOSEFILEMAC)"            >> $GITIGNOREFILE
-        echo "/$(basename  $DOCKERSYNCMAC)"                   >> $GITIGNOREFILE
-        echo "!/$(basename $ENVIRONMENTVARIABLESFILESAMPLE)"  >> $GITIGNOREFILE
-        echo "!/$(basename $DOCKERCOMPOSEFILESAMPLE)"         >> $GITIGNOREFILE
-        echo "!/$(basename $DOCKERCOMPOSEFILEMACSAMPLE)"      >> $GITIGNOREFILE
-        echo "!/$(basename $DOCKERSYNCMACSAMPLE)"             >> $GITIGNOREFILE
-        echo "/.docker-sync"                            >> $GITIGNOREFILE        
-        echo "/.warp/docker/volumes"                    >> $GITIGNOREFILE
-        echo "/.warp/docker/dumps"                      >> $GITIGNOREFILE
-        echo "/.warp/docker/setup"                      >> $GITIGNOREFILE
-        echo "/.warp/docker/lib"                        >> $GITIGNOREFILE
-        echo "/.warp/docker/bin"                        >> $GITIGNOREFILE
-        echo "/.warp/docker/config/php/ext-xdebug.ini"  >> $GITIGNOREFILE
-        
-    fi
+    # Add include/exclude files to gitignore
+    warp_check_gitignore
 fi
 
 if [ -d $PROJECTPATH/.warp ]; then

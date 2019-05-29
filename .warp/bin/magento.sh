@@ -155,6 +155,9 @@ function magento_download()
 
     [ -z "$1" ] && echo "Please specify the version to download (ex. 2.0.0)" && exit
     curl -L http://pubfiles.nexcess.net/magento/ce-packages/magento2-$1.tar.gz | tar xzf - -o -C .
+
+    # Add include/exclude files to gitignore
+    warp_check_gitignore
 }
 
 function magento_main()
