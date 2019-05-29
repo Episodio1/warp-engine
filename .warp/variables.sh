@@ -67,3 +67,9 @@ WARP_BINARY_FILE="/usr/local/bin/warp"
 
 # SET STRONG PASSWORD LENGTH
 STRONG_PASSWORD_LENGTH=8
+
+# Set minimum version for docker-compose
+DOCKER_COMPOSE_MINIMUM_VERSION=1.21
+
+# Set minimum version for Docker
+DOCKER_MINIMUM_VERSION=18.06

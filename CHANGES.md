@@ -6,6 +6,7 @@ Warp Releases
 * Add command for enable/disable ionCube
 * Add attach custom yaml file
 * Improve command magento --install
+* Check minimum version for Docker and docker-compose
 
 ### [2019.05.27](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.27)
 

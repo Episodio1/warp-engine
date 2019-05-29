@@ -37,7 +37,8 @@ if [ -d $PROJECTPATH/.warp ]; then
     include_warp_framework
 fi;
 
-
+# Check minimum versions
+warp_check_docker_version
 
 setup_main() {
 

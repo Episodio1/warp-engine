@@ -180,3 +180,24 @@ warp_check_gitignore()
         
     fi
 }
+
+warp_check_docker_version()
+{
+
+    DOCKER_VERSION=$(docker version --format '{{.Server.Version}}')
+    DOCKER_COMPOSE_VERSION=$(docker-compose version --short)  
+
+    if (( $(awk 'BEGIN {print ("'$DOCKER_COMPOSE_VERSION'" < "'$DOCKER_COMPOSE_MINIMUM_VERSION'")}') )); then
+        warp_message_warn "Warp Framework require docker-compose minimum version $DOCKER_COMPOSE_MINIMUM_VERSION"
+        warp_message_warn "actual version: $DOCKER_COMPOSE_VERSION"
+        warp_message_warn "should be update docker-compose"
+        warp_message  ""
+    fi
+
+    if (( $(awk 'BEGIN {print ("'$DOCKER_VERSION'" < "'$DOCKER_MINIMUM_VERSION'")}') )); then
+        warp_message_warn "Warp Framework require Docker minimum version $DOCKER_MINIMUM_VERSION"
+        warp_message_warn "actual version: $DOCKER_VERSION"
+        warp_message_warn "should be update Docker Community Edition"
+        warp_message  ""
+    fi
+}
