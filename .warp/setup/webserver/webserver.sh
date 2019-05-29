@@ -59,7 +59,7 @@ then
         done
     else 
         while : ; do
-            http_container_ip=$( warp_question_ask_default "Attach an IP number to the container $(warp_message_info '[range 172.50.0.'$MIN_RANGE_IP' - 172.50.0.255]') " "172.50.0.$MIN_RANGE_IP" )
+            http_container_ip=$( warp_question_ask_default "Attach an IP number to the container $(warp_message_info '[range 172.50.0.'$MIN_RANGE_IP' - 180.99.0.255]') " "172.50.0.$MIN_RANGE_IP" )
 
             if warp_check_range_ip $http_container_ip ; then
                 RANGE=$(echo $http_container_ip | cut -f1 -f2 -f3 -d .)
