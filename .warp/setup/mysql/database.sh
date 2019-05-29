@@ -86,7 +86,7 @@ then
     done
 
     # Default Random password for user root
-    default_mysql_root_password=$(warp_env_random_password 8)
+    default_mysql_root_password=$(warp_env_random_password $STRONG_PASSWORD_LENGTH)
 
     mysql_root_password=$( warp_question_ask_default "Set the MySQL main password (root user)? $(warp_message_info [$default_mysql_root_password]) " "$default_mysql_root_password" )
     warp_message_info2 "Root user password: $mysql_root_password"
