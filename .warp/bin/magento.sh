@@ -13,6 +13,13 @@ function magento_command()
         exit 1
     fi;
 
+    if [ "$1" = "--download" ]
+    then
+        shift 1
+        magento_download $*
+        exit 1
+    fi;
+
     if [ $(warp_check_is_running) = false ]; then
         warp_message_error "The containers are not running"
         warp_message_error "please, first run warp start"
@@ -23,13 +30,6 @@ function magento_command()
     if [ "$1" = "--install" ]
     then
         magento_install
-        exit 1
-    fi;
-
-    if [ "$1" = "--download" ]
-    then
-        shift 1
-        magento_download $*
         exit 1
     fi;
 
@@ -56,11 +56,19 @@ function magento_command()
 
 function magento_install()
 {
+    if ! warp_check_env_file ; then
+        warp_message_error "file not found $(basename $ENVIRONMENTVARIABLESFILE)"
+        exit
+    fi; 
+
     VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
     DATABASE_NAME=$(warp_env_read_var DATABASE_NAME)
     DATABASE_USER=$(warp_env_read_var DATABASE_USER)
     DATABASE_PASSWORD=$(warp_env_read_var DATABASE_PASSWORD)
     USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
+    REDIS_CACHE_VERSION=$(warp_env_read_var REDIS_CACHE_VERSION)
+    REDIS_FPC_VERSION=$(warp_env_read_var REDIS_FPC_VERSION)
+    REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
 
     case "$(uname -s)" in
       Darwin)
@@ -70,6 +78,9 @@ function magento_install()
         fi
       ;;
     esac
+
+    # Permissions
+    warp fix --owner
 
     warp_message "Forcing reinstall of composer deps to ensure perms & reqs..."
     warp composer install
@@ -94,16 +105,29 @@ function magento_install()
     warp_message "Turning on developer mode.."
     warp magento deploy:mode:set developer
 
+    warp_message "Reindex all indexers"
     warp magento indexer:reindex
 
     warp_message "Forcing deploy of static content to speed up initial requests..."
     warp magento setup:static-content:deploy -f 
 
-    warp_message "Enabling redis for cache..."
-    warp magento setup:config:set --no-interaction --cache-backend=redis --cache-backend-redis-server=redis-cache --cache-backend-redis-db=0
+    if [ ! -z "$REDIS_CACHE_VERSION" ]
+    then
+        warp_message "Enabling redis for cache..."
+        warp magento setup:config:set --no-interaction --cache-backend=redis --cache-backend-redis-server=redis-cache --cache-backend-redis-db=0
+    fi
 
-    warp_message "Enabling Redis for session..."
-    warp magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis-session --session-save-redis-log-level=4 --session-save-redis-db=1
+    if [ ! -z "$REDIS_FPC_VERSION" ]
+    then
+        warp_message "Enabling redis for full page cache..."
+        warp magento setup:config:set --no-interaction --page-cache=redis --page-cache-redis-server=redis-fpc --page-cache-redis-db=1
+    fi
+
+    if [ ! -z "$REDIS_SESSION_VERSION" ]
+    then
+        warp_message "Enabling Redis for session..."
+        warp magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis-session --session-save-redis-log-level=4 --session-save-redis-db=1
+    fi
 
     warp_message "Clearing the cache for good measure..."
     warp magento cache:flush
