@@ -9,6 +9,12 @@ then
     cp $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.sample $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini
 fi
 
+# creating ext-ioncube.ini
+if  [ ! -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ]
+then
+    cp $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini.sample $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini
+fi
+
 if [ ! -z $WARP_DETECT_MODE_TL ] ; then
 
     # Add include/exclude files to gitignore

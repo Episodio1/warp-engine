@@ -254,6 +254,11 @@ case "$1" in
     xdebug_main $*
     ;;
 
+    ioncube)
+    shift 1
+    ioncube_main $*
+    ;;
+
     restart)
     restart_main $*
     ;;
