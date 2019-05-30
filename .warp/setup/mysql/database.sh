@@ -85,7 +85,10 @@ then
         fi;
     done
 
-    mysql_root_password=$( warp_question_ask_default "Set the MySQL main password (root user)? $(warp_message_info [root]) " "root" )
+    # Default Random password for user root
+    default_mysql_root_password=$(warp_env_random_password $STRONG_PASSWORD_LENGTH)
+
+    mysql_root_password=$( warp_question_ask_default "Set the MySQL main password (root user)? $(warp_message_info [$default_mysql_root_password]) " "$default_mysql_root_password" )
     warp_message_info2 "Root user password: $mysql_root_password"
     mysql_config_file=$( warp_question_ask_default "Add the MySQL configuration file: $(warp_message_info [./.warp/docker/config/mysql/conf.d]) " "./.warp/docker/config/mysql/conf.d" )
     warp_message_info2 "Selected configuration file: $mysql_config_file"

@@ -20,3 +20,21 @@ function warp_env_read_var()
     echo $_VAR
 }
 
+# Generate RANDOM Password
+# Globals:
+#   PROJECTPATH
+# Arguments:
+#   $1 number long password to generate.
+# Returns:
+#   string
+function warp_env_random_password()
+{
+    set="abcdefghijklmonpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    n=$1
+    rand=""
+    for i in `seq 1 $n`; do
+        char=${set:$RANDOM % ${#set}:1}
+        rand+=$char
+    done
+    echo $rand
+}

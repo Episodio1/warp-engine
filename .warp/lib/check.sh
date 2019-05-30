@@ -145,3 +145,59 @@ warp_check_php_is_running() {
         echo false
     fi
 }
+
+warp_check_gitignore()
+{
+    #  CHECK IF GITIGNOREFILE CONTAINS FILES WARP TO IGNORE
+    [ -f $GITIGNOREFILE ] && cat $GITIGNOREFILE | grep --quiet -w "^# WARP FRAMEWORK"
+
+    # Exit status 0 means string was found
+    # Exit status 1 means string was not found
+    if [ $? = 1 ] || [ ! -f $GITIGNOREFILE ]
+    then
+        warp_message "* Preparing files for .gitignore $(warp_message_ok [ok])"
+        # FILES TO ADD GITIGNORE
+        echo ""                  >> $GITIGNOREFILE
+        echo "# WARP FRAMEWORK"  >> $GITIGNOREFILE
+        echo "!/warp"            >> $GITIGNOREFILE
+        echo "!/$(basename $WARPFOLDER)"                      >> $GITIGNOREFILE
+        echo "/$(basename  $ENVIRONMENTVARIABLESFILE)"        >> $GITIGNOREFILE
+        echo "/$(basename  $DOCKERCOMPOSEFILE)"               >> $GITIGNOREFILE
+        echo "/$(basename  $DOCKERCOMPOSEFILEMAC)"            >> $GITIGNOREFILE
+        echo "/$(basename  $DOCKERSYNCMAC)"                   >> $GITIGNOREFILE
+        echo "!/$(basename $ENVIRONMENTVARIABLESFILESAMPLE)"  >> $GITIGNOREFILE
+        echo "!/$(basename $DOCKERCOMPOSEFILESAMPLE)"         >> $GITIGNOREFILE
+        echo "!/$(basename $DOCKERCOMPOSEFILEMACSAMPLE)"      >> $GITIGNOREFILE
+        echo "!/$(basename $DOCKERSYNCMACSAMPLE)"             >> $GITIGNOREFILE
+        echo "/.docker-sync"                            >> $GITIGNOREFILE        
+        echo "/.warp/docker/volumes"                    >> $GITIGNOREFILE
+        echo "/.warp/docker/dumps"                      >> $GITIGNOREFILE
+        echo "/.warp/docker/setup"                      >> $GITIGNOREFILE
+        echo "/.warp/docker/lib"                        >> $GITIGNOREFILE
+        echo "/.warp/docker/bin"                        >> $GITIGNOREFILE
+        echo "/.warp/docker/config/php/ext-xdebug.ini"  >> $GITIGNOREFILE
+        echo "/.warp/docker/config/php/ext-ioncube.ini" >> $GITIGNOREFILE
+        
+    fi
+}
+
+warp_check_docker_version()
+{
+
+    DOCKER_VERSION=$(docker version --format '{{.Server.Version}}')
+    DOCKER_COMPOSE_VERSION=$(docker-compose version --short)  
+
+    if (( $(awk 'BEGIN {print ("'$DOCKER_COMPOSE_VERSION'" < "'$DOCKER_COMPOSE_MINIMUM_VERSION'")}') )); then
+        warp_message_warn "Warp Framework require docker-compose minimum version $DOCKER_COMPOSE_MINIMUM_VERSION"
+        warp_message_warn "actual version: $DOCKER_COMPOSE_VERSION"
+        warp_message_warn "should be update docker-compose"
+        warp_message  ""
+    fi
+
+    if (( $(awk 'BEGIN {print ("'$DOCKER_VERSION'" < "'$DOCKER_MINIMUM_VERSION'")}') )); then
+        warp_message_warn "Warp Framework require Docker minimum version $DOCKER_MINIMUM_VERSION"
+        warp_message_warn "actual version: $DOCKER_VERSION"
+        warp_message_warn "should be update Docker Community Edition"
+        warp_message  ""
+    fi
+}

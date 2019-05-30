@@ -37,7 +37,8 @@ if [ -d $PROJECTPATH/.warp ]; then
     include_warp_framework
 fi;
 
-
+# Check minimum versions
+warp_check_docker_version
 
 setup_main() {
 
@@ -252,6 +253,11 @@ case "$1" in
     xdebug)
     shift 1
     xdebug_main $*
+    ;;
+
+    ioncube)
+    shift 1
+    ioncube_main $*
     ;;
 
     restart)
