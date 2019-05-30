@@ -20,7 +20,7 @@
 
 ##  Warp Architecture
 
-![Warp Architecture](release/landing/img/warp_ architecture.jpg)
+![Warp Architecture](release/landing/img/warp_architecture.jpg)
 
 
 ## Features
