@@ -18,6 +18,7 @@ edit_uri: 'src/master/docs'
 # Main menu
 nav:
   - Introduction: index.md
+  - Workshop video: 'workshop/workshop.md'
   - Get Started:
     - Requirements: 'started/requirements.md'
     - Usage: 'started/usage.md'
