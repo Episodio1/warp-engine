@@ -1,6 +1,10 @@
 Warp Releases
 =============
 
+### [2019.06.06](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.06)
+
+* Add extension redis on php image
+
 ### [2019.05.30](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.05.30)
 
 * Add command for enable/disable ionCube
