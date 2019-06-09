@@ -72,15 +72,20 @@ function magento_install()
 
     case "$(uname -s)" in
       Darwin)
-        if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
+        if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
             warp_message "Copying all files from host to container..."
             warp sync push --all
-        fi
+
+            warp_message "Restarting containers with host bind mounts for dev..."
+            warp restart
+            sleep 2 #Ensure containers are started...
+        fi        
+      ;;
+      Linux)
+        # Permissions
+        warp fix --owner
       ;;
     esac
-
-    # Permissions
-    warp fix --owner
 
     warp_message "Forcing reinstall of composer deps to ensure perms & reqs..."
     warp composer install
@@ -134,7 +139,7 @@ function magento_install()
 
     case "$(uname -s)" in
       Darwin)
-        if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
+        if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
             warp_message "Copying files from container to host after install..."
             warp sync pull app
             warp sync pull vendor
