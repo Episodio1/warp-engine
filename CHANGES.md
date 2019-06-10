@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.06.10](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.10)
+
+* Fix install Magento
+* Fix redis.so
+* Fix warp_check_docker_version
+
 ### [2019.06.06](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.06)
 
 * Add extension redis on php image
