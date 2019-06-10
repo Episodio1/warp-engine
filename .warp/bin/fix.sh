@@ -90,6 +90,7 @@ function fix_owner()
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find .* -maxdepth 0 -type f -exec chmod a+rw {} \;"
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -type f -not -path '*/\.*' -exec chmod a+rw {} \;"
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -type d -not -path '*/\.*' -exec chmod ug+rwx {} \;"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod +x /var/www/html/bin/*"
     fi
 
     warp_message "* Filesystem permissions corrected."
