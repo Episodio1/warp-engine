@@ -49,8 +49,10 @@ function reset_warninig_confirm_hard()
             Darwin)
                 USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
                 if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
-                # clean data sync
-                docker-sync clean
+                    # clean data sync
+                    docker-sync clean
+                else
+                    docker volume rm ${PWD##*/}_${PWD##*/}-volume-sync 2>/dev/null 
                 fi
             ;;
             esac

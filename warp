@@ -37,8 +37,10 @@ if [ -d $PROJECTPATH/.warp ]; then
     include_warp_framework
 fi;
 
-# Check minimum versions
-warp_check_docker_version
+if [ -d $PROJECTPATH/.warp/lib ]; then
+    # Check minimum versions
+    warp_check_docker_version
+fi;
 
 setup_main() {
 
@@ -71,6 +73,7 @@ setup_help_usage()
         echo "  4) Service of elasticsearch"
         echo "  5) Redis service for cache, session, fpc"
         echo "  6) Rabbit service"
+        echo "  7) Mailhog Server SMTP"
         echo "  "
         echo "  If the program detects a previous configuration, it shows a shorter menu of options, to configure:"
         echo "  1) Work with one or more projects in parallel"
