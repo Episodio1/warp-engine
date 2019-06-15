@@ -28,7 +28,7 @@ function push_to_container() {
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy to container (ex. vendor, --all)" && exit
 
   if [ "$1" == "--all" ]; then
-    docker cp ./ $(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}'):/var/www/html 2>/dev/null 
+    docker cp ./ $(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}'):/var/www/html
     warp_message "Completed copying all files from host to container"
     warp fix --owner
   else
