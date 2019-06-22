@@ -73,6 +73,19 @@ function fix_mysql()
     exit 1;
 }
 
+function fix_composer()
+{
+    warp_message "* chmod() permission correction"
+
+    # add user & group www-data on bin/magento binary
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/vendor ] && chown -R www-data:www-data /var/www/html/vendor"
+
+    warp_message "* Success $(warp_message_ok [ok])"
+
+    exit 1;
+}
+
 function fix_owner()
 {
     if [ ! -z "$2" ] ; then 
@@ -146,6 +159,10 @@ function fix_permissions()
       ;;
       "--php")
             fix_php
+            exit 1
+      ;;
+      "--composer")
+            fix_composer
             exit 1
       ;;
       "--grunt")
