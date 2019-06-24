@@ -42,6 +42,7 @@ function start() {
         USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
         if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
           # start without docker-sync
+          WITHOUT_DOCKER_SYNC="Y"
         else
           # start data sync
           docker-sync start
