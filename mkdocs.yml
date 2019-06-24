@@ -30,6 +30,7 @@ nav:
     - Magento: 'features/magento.md'
     - Oro: 'features/oro.md'
   - FAQs: 'faq/index.md'
+  - Troubleshooting: 'troubleshooting/index.md'
 
 use_directory_urls: false
 

@@ -42,6 +42,11 @@ case "$(uname -s)" in
         cat $DOCKERCOMPOSEFILEMAC | sed -e "s/$VOLUME_WARP_DEFAULT/$VOLUME_WARP/" > "$DOCKERCOMPOSEFILEMAC.tmp"
         mv "$DOCKERCOMPOSEFILEMAC.tmp" $DOCKERCOMPOSEFILEMAC
 
+        if [ ! -f $DOCKERSYNCMACSAMPLE ] 
+        then
+            cat $PROJECTPATH/.warp/setup/mac/tpl/docker-sync.yml > $DOCKERSYNCMACSAMPLE
+        fi;
+        
         cp $DOCKERSYNCMACSAMPLE $DOCKERSYNCMAC
 
         cat $DOCKERSYNCMAC | sed -e "s/$VOLUME_WARP_DEFAULT/$VOLUME_WARP/" > "$DOCKERSYNCMAC.tmp"
