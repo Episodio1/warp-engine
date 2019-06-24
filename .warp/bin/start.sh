@@ -40,7 +40,10 @@ function start() {
     case "$(uname -s)" in
       Darwin)
         USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
-        if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
+        if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
+          # start without docker-sync
+          WITHOUT_DOCKER_SYNC="Y"
+        else
           # start data sync
           docker-sync start
         fi

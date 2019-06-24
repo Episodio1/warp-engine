@@ -73,6 +73,19 @@ function fix_mysql()
     exit 1;
 }
 
+function fix_composer()
+{
+    warp_message "* chmod() permission correction"
+
+    # add user & group www-data on bin/magento binary
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/vendor ] && chown -R www-data:www-data /var/www/html/vendor"
+
+    warp_message "* Success $(warp_message_ok [ok])"
+
+    exit 1;
+}
+
 function fix_owner()
 {
     if [ ! -z "$2" ] ; then 
@@ -90,7 +103,7 @@ function fix_owner()
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find .* -maxdepth 0 -type f -exec chmod a+rw {} \;"
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -type f -not -path '*/\.*' -exec chmod a+rw {} \;"
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -type d -not -path '*/\.*' -exec chmod ug+rwx {} \;"
-        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod +x /var/www/html/bin/*"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
     fi
 
     warp_message "* Filesystem permissions corrected."
@@ -117,7 +130,7 @@ function fix_default()
     warp_message "* Applying permissions to binaries $(warp_message_ok [ok])"
     # restart correct permissions to warp and binaries
     [ -f $PROJECTPATH/warp ] && sudo chmod a+x $PROJECTPATH/warp
-    [ -d $PROJECTPATH/bin ] && sudo chmod a+x $PROJECTPATH/bin/*
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
 
     warp_message "* Success $(warp_message_ok [ok])"
     exit 1;
@@ -146,6 +159,10 @@ function fix_permissions()
       ;;
       "--php")
             fix_php
+            exit 1
+      ;;
+      "--composer")
+            fix_composer
             exit 1
       ;;
       "--grunt")
