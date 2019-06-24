@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.06.24](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.24)
+
+* add command warp fix --composer
+* workaround error session handler
+* compatibility with previous version
+
 ### [2019.06.10](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.10)
 
 * Fix install Magento

@@ -9,7 +9,7 @@ do
 	# Change group to 33 (www-data inside the container)
 	chmod ug+rwx $PATH_ROOT_SITE
 	chgrp 33 $PATH_ROOT_SITE
-	chgrp 33 $PATH_ROOT_SITE/bin/magento
+	chown 33:33 $PATH_ROOT_SITE/bin/magento
 
 	for D in $(ls $PATH_ROOT_SITE); do
 		chgrp -R 33 "$PATH_ROOT_SITE/${D}"
@@ -18,8 +18,8 @@ do
 		find "$PATH_ROOT_SITE/${D}" -type f -exec chmod a+rw {} \;  # Make files read/write 
 	done
 
-	chmod 775 $PATH_ROOT_SITE/warp
-	chmod 775 $PATH_ROOT_SITE/bin/magento
+	[ -f $PATH_ROOT_SITE/warp ] && chmod 775 $PATH_ROOT_SITE/warp
+	[ -f $PATH_ROOT_SITE/bin/magento ] && chmod 775 $PATH_ROOT_SITE/bin/magento
 
   sleep 1800 # 30 minutes
 done
