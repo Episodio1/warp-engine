@@ -268,8 +268,16 @@ warp_message ""
         USE_DOCKER_SYNC_OLD="USE_DOCKER_SYNC=$USE_DOCKER_SYNC"
         USE_DOCKER_SYNC_NEW="USE_DOCKER_SYNC=$rta_use_docker_sync"
 
-        cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$USE_DOCKER_SYNC_OLD/$USE_DOCKER_SYNC_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp9"
-        mv "$ENVIRONMENTVARIABLESFILE.warp9" $ENVIRONMENTVARIABLESFILE
+        if [ -z "$USE_DOCKER_SYNC" ]
+        then
+            echo "" >> $ENVIRONMENTVARIABLESFILE
+            echo "# Docker Sync" >> $ENVIRONMENTVARIABLESFILE
+            echo "USE_DOCKER_SYNC=${rta_use_docker_sync}" >> $ENVIRONMENTVARIABLESFILE
+            echo "" >> $ENVIRONMENTVARIABLESFILE
+        else
+            cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$USE_DOCKER_SYNC_OLD/$USE_DOCKER_SYNC_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp9"
+            mv "$ENVIRONMENTVARIABLESFILE.warp9" $ENVIRONMENTVARIABLESFILE
+        fi;
     fi
 
     . "$WARPFOLDER/setup/init/info.sh"
