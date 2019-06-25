@@ -1,7 +1,7 @@
 Warp Releases
 =============
 
-### [2019.06.24](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.24)
+### [2019.06.25](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.25)
 
 * add command warp fix --composer
 * workaround error session handler
