@@ -81,3 +81,6 @@ See [LICENSE](LICENSE) for the full license text.
 
 ### See what has changed: [changes](CHANGES.md)
 
+## Author Information
+
+This project was started by [Matias Anoniz](https://github.com/yosoyfunes/) and [Sebastian Arrubia](https://github.com/sarrubia/)
