@@ -16,6 +16,7 @@ RUN \
   htop \
   mc \
   nano \
+  mysql-client \
   libcurl4-gnutls-dev \
   libxml2-dev \
   libssl-dev
@@ -51,7 +52,7 @@ RUN \
   libmagic-dev \
   libexif-dev \
   file \
-  libssh2-1-dev \
+# libssh2-1-dev \
   libjpeg-dev \
   gnupg \
   git \
@@ -80,12 +81,28 @@ RUN \
     opcache \
     zip
 
-# Install Node, NVM, NPM and Grunt
+# Install Node, NVM, NPM and Grunt, Gulp
 
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
     && apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh \
-    && npm i -g grunt-cli yarn
+    && npm i -g grunt-cli yarn \
+    && npm install gulp-cli -g
+
+# Magento 2.3.2 
+# https://github.com/magento/magento2/issues/23405 
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
+
+RUN apt-get update && apt-get -t stretch-backports install -y \
+  libsodium-dev
+
+RUN pecl install -f libsodium-1.0.17 \
+  && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/sodium.ini
+
+# ssh2 module
+RUN apt-get install -y libssh2-1-dev \
+  && pecl install ssh2-1.1.2 \
+  && docker-php-ext-enable ssh2
 
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
@@ -128,12 +145,3 @@ RUN no | pecl install -o -f redis && docker-php-ext-enable redis
 RUN pecl install -o -f xdebug-2.6.1
 
 RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so 
-
-# ENV PHP_MEMORY_LIMIT 2G
-# ENV PHP_PORT 9000
-# ENV PHP_PM dynamic
-# ENV PHP_PM_MAX_CHILDREN 10
-# ENV PHP_PM_START_SERVERS 4
-# ENV PHP_PM_MIN_SPARE_SERVERS 2
-# ENV PHP_PM_MAX_SPARE_SERVERS 6
-# ENV APP_MAGE_MODE default

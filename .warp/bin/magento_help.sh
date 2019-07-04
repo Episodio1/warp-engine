@@ -24,7 +24,7 @@ function magento_help_usage()
     warp_message_info "Example:"
     warp_message " warp magento cache:clean"
     warp_message " warp magento --download 2.3.1"
-    warp_message " warp magento install"
+    warp_message " warp magento --install"
     warp_message ""    
 }
 
