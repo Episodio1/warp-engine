@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.07.04](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.07.04)
+
+* add sodium module php
+* add mysql-client
+* add gulp binary
+
 ### [2019.06.25](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.06.25)
 
 * add command warp fix --composer
