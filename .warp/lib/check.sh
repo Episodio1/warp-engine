@@ -172,9 +172,9 @@ warp_check_gitignore()
         echo "/.docker-sync"                            >> $GITIGNOREFILE        
         echo "/.warp/docker/volumes"                    >> $GITIGNOREFILE
         echo "/.warp/docker/dumps"                      >> $GITIGNOREFILE
-        echo "/.warp/docker/setup"                      >> $GITIGNOREFILE
-        echo "/.warp/docker/lib"                        >> $GITIGNOREFILE
-        echo "/.warp/docker/bin"                        >> $GITIGNOREFILE
+        echo "/.warp/setup"                             >> $GITIGNOREFILE
+        echo "/.warp/lib"                               >> $GITIGNOREFILE
+        echo "/.warp/bin"                               >> $GITIGNOREFILE
         echo "/.warp/docker/config/php/ext-xdebug.ini"  >> $GITIGNOREFILE
         echo "/.warp/docker/config/php/ext-ioncube.ini" >> $GITIGNOREFILE
         
