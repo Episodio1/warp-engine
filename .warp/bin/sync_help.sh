@@ -54,6 +54,7 @@ function pull_help_usage()
 
     warp_message_info "Example:"
     warp_message " warp sync pull vendor"
+    warp_message " warp sync pull file1 file2"
     warp_message " warp sync pull --all"
     warp_message ""    
 
@@ -79,7 +80,8 @@ function push_help_usage()
 
     warp_message_info "Example:"
     warp_message " warp sync push vendor"
-    warp_message " warp sync push --all"
+    warp_message " warp sync push file1 file2"
+    warp_message " warp sync push --all"    
     warp_message ""    
 
 }

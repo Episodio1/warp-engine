@@ -26,17 +26,30 @@ function push_to_container() {
   esac
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy to container (ex. vendor, --all)" && exit
+  CONTAINER_PHP_NAME=$(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}')
 
   if [ "$1" == "--all" ]; then
-    docker cp ./ $(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}'):/var/www/html
+    docker cp ./ $CONTAINER_PHP_NAME:/var/www/html
     warp_message "Completed copying all files from host to container"
     warp fix --owner
   else
-    docker cp ./$1 $(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}'):/var/www/html
-    warp_message "Completed copying $1 from host to container"
+    
+    for i in "$@"
+    do
+      if [ -f $i ] || [ -d $i ] ; then
+        docker cp ./$i $CONTAINER_PHP_NAME:/var/www/html
+        warp_message "Completed copying $i from host to container"  
+      else
+        warp_message_error "do not copy $i from host to container"  
+      fi
+    done;    
 
     # fix permissions
-    warp fix --owner $1
+    if [ $# -eq 1 ] ; then
+      warp fix --owner $1
+    else
+      [ $# -ge 2 ] && warp fix --owner
+    fi;     
   fi  
 }
 
@@ -62,13 +75,17 @@ function pull_from_container() {
   esac
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
+  CONTAINER_PHP_NAME=$(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}')
 
   if [ "$1" == "--all" ]; then
-    docker cp $(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}'):/var/www/html/./ ./
+    docker cp $CONTAINER_PHP_NAME:/var/www/html/./ ./
     warp_message "Completed copying all files from container to host"
   else
-    docker cp $(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}'):/var/www/html/$1 ./
-    warp_message "Completed copying $1 from container to host"
+    for i in "$@"
+    do
+        docker cp $CONTAINER_PHP_NAME:/var/www/html/$i ./
+        warp_message "Completed copying $i from container to host"
+    done;    
   fi  
 }
 
