@@ -110,6 +110,11 @@ RUN mkdir -p /var/log/php-fpm && \
     touch /var/log/php-fpm/fpm-php.www.log && \
     chown -R www-data:www-data /var/log/php-fpm
 
+# Install module for Postgress
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
+
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr \
     && docker-php-ext-install gd
 
