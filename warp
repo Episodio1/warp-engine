@@ -288,6 +288,10 @@ case "$1" in
     magento_main $*
     ;;
 
+    oro)
+    oro_main $*
+    ;;
+
     crontab)
     crontab_main $*
     ;;

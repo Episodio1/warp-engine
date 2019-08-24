@@ -19,6 +19,7 @@
 . "$WARPFOLDER/bin/php.sh"
 . "$WARPFOLDER/bin/ps.sh"
 . "$WARPFOLDER/bin/magento.sh"
+. "$WARPFOLDER/bin/oro.sh"
 . "$WARPFOLDER/bin/logs.sh"
 . "$WARPFOLDER/bin/elasticsearch.sh"
 . "$WARPFOLDER/bin/restart.sh"
