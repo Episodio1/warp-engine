@@ -35,3 +35,4 @@
 . "$WARPFOLDER/bin/xdebug.sh"
 . "$WARPFOLDER/bin/ioncube.sh"
 . "$WARPFOLDER/bin/sync.sh"
+. "$WARPFOLDER/bin/docker.sh"
