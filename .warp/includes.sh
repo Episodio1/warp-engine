@@ -22,6 +22,7 @@
 . "$WARPFOLDER/bin/oro.sh"
 . "$WARPFOLDER/bin/logs.sh"
 . "$WARPFOLDER/bin/elasticsearch.sh"
+. "$WARPFOLDER/bin/selenium.sh"
 . "$WARPFOLDER/bin/restart.sh"
 . "$WARPFOLDER/bin/init.sh"
 . "$WARPFOLDER/bin/redis.sh"

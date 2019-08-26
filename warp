@@ -332,6 +332,11 @@ case "$1" in
     rabbit_main $*
     ;;
 
+    selenium)
+    shift 1
+    selenium_main $*
+    ;;
+
     mailhog)
     shift 1
     mailhog_main $*

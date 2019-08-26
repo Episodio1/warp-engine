@@ -37,6 +37,10 @@ function start() {
       CUSTOM_YML_FILE=$2;      
     fi
 
+    if [ "$1" = "--selenium" ] ; then
+      CUSTOM_YML_FILE=$DOCKERCOMPOSEFILESELENIUM;      
+    fi
+
     case "$(uname -s)" in
       Darwin)
         USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)

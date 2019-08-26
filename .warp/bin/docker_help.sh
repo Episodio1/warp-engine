@@ -23,7 +23,7 @@ function docker_help_usage()
     warp_message ""    
 }
 
-function logs_help()
+function docker_help()
 {
-    warp_message_info   " docker             $(warp_message 'view logs containers')"
+    warp_message_info   " docker             $(warp_message 'allows run docker-compose commands')"
 }

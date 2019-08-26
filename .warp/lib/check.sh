@@ -146,6 +146,30 @@ warp_check_php_is_running() {
     fi
 }
 
+function warp_check_selenium_is_installed() {
+
+  if [ ! -f $DOCKERCOMPOSEFILESELENIUM ]
+  then
+    warp_message_warn "selenium has not been installed yet, first run: warp selenium setup";
+    exit 1;
+  fi;
+}
+
+function warp_check_selenium_is_running() {
+    if [ -f $DOCKERCOMPOSEFILESELENIUM ]
+    then        
+        dockerStatusOutput=$(docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILESELENIUM ps -q selenium)
+        outputSize=${#dockerStatusOutput}
+        if [ "$outputSize" -gt 0 ] ; then
+            echo true
+        else
+            echo false
+        fi
+    else
+        echo false
+    fi
+}
+
 warp_check_gitignore()
 {
     #  CHECK IF GITIGNOREFILE CONTAINS FILES WARP TO IGNORE
