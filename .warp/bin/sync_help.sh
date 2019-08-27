@@ -22,13 +22,14 @@ function sync_help_usage()
     warp_message_info "Help:"
     warp_message " Run your application at full speed while syncing your code for development," 
     warp_message " finally empowering you to utilize docker for development under OSX/"
+    warp_message " warp sync push/pull available only is not working with docker-sync"
 
     warp_message ""
 
     warp_message_info "Example:"
     warp_message " warp sync clean"
-    warp_message " warp push --all"
-    warp_message " warp pull vendor"
+    warp_message " warp sync push --all"
+    warp_message " warp sync pull vendor"
     warp_message ""    
 
 }
