@@ -77,7 +77,7 @@ function setup() {
     warp_message_info "* Starting setup Selenium"
     warp_message ""
 
-    . "$WARPFOLDER/setup/init/selenium.sh"
+    . "$WARPFOLDER/setup/selenium/selenium.sh"
 }
 
 function selenium_main()

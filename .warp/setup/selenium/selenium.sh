@@ -18,5 +18,5 @@ then
     cp -R $PROJECTPATH/.warp/setup/selenium/test $PROJECTPATH/.warp/docker/selenium
     
     warp_message_info "Creating file $(basename $DOCKERCOMPOSEFILESELENIUM)"
-    cat $PROJECTPATH/.warp/setup/selenium/docker-selenium-warp.yml > $DOCKERCOMPOSEFILESELENIUM
+    cat $PROJECTPATH/.warp/setup/selenium/tpl/docker-selenium-warp.yml > $DOCKERCOMPOSEFILESELENIUM
 fi; 
