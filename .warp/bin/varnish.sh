@@ -13,11 +13,13 @@ function varnish_info()
     fi; 
 
     USE_VARNISH=$(warp_env_read_var USE_VARNISH)
+    VARNISH_VERSION=$(warp_env_read_var VARNISH_VERSION)
 
     if [ ! -z "$USE_VARNISH" ]
     then
         warp_message ""
         warp_message_info "* Varnish"
+        warp_message "Version:                    $(warp_message_info $VARNISH_VERSION)"
         warp_message "container .host:            $(warp_message_info 'web')"
         warp_message "container .port:            $(warp_message_info '80')"
         warp_message "container acl purge:        $(warp_message_info 'web')"
