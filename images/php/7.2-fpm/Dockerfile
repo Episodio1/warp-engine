@@ -112,9 +112,6 @@ RUN apt-get install -y libssh2-1-dev \
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
 
-# Make sure the volume mount point is empty
-RUN rm -rf /var/www/html/*
-
 # Create .ssh file
 RUN mkdir -p /var/www/.ssh
 
@@ -146,6 +143,9 @@ RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN no | pecl install -o -f redis && docker-php-ext-enable redis
+
+# Make sure the volume mount point is empty
+RUN rm -rf /var/www/html/*
 
 RUN pecl install -o -f xdebug-2.6.1
 

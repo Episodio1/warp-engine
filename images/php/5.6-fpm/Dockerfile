@@ -71,12 +71,8 @@ RUN \
     opcache \
     zip
 
-
-# Make sure the volume mount point is empty
-RUN rm -rf /var/www/html/*
-
 # Create .ssh file
-# RUN mkdir /var/www/.ssh
+RUN mkdir -p /var/www/.ssh
 
 # Set www-data as owner for /var/www
 RUN chown -R www-data:www-data /var/www/
@@ -106,6 +102,9 @@ RUN curl -sS https://getcomposer.org/installer | \
  php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN pecl install -o -f xdebug-2.5.5
+
+# Make sure the volume mount point is empty
+RUN rm -rf /var/www/html/*
 
 RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so
 
