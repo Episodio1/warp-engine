@@ -37,3 +37,4 @@
 . "$WARPFOLDER/bin/ioncube.sh"
 . "$WARPFOLDER/bin/sync.sh"
 . "$WARPFOLDER/bin/docker.sh"
+. "$WARPFOLDER/bin/varnish.sh"

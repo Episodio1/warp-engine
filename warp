@@ -175,6 +175,7 @@ function warp_info()
         webserver_main info   
         php_main info   
         elasticsearch_main info   
+        varnish_main info   
         redis_main info   
         rabbit_main info   
         mailhog_main info   
@@ -315,6 +316,11 @@ case "$1" in
     elasticsearch)
     shift 1
     elasticsearch_main $*
+    ;;
+
+    varnish)
+    shift 1
+    varnish_main $*
     ;;
 
     redis)
