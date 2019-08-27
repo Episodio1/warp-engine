@@ -59,6 +59,7 @@ function init_command() {
         . "$WARPFOLDER/setup/redis/redis.sh"
         . "$WARPFOLDER/setup/rabbit/rabbit.sh"
         . "$WARPFOLDER/setup/mailhog/mailhog.sh"
+        . "$WARPFOLDER/setup/varnish/varnish.sh"
         . "$WARPFOLDER/setup/networks/networks.sh"
         . "$WARPFOLDER/setup/init/info.sh"
     fi;

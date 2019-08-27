@@ -201,6 +201,194 @@ warp_network_mono() {
 
 }
 
+warp_network_varnish_mono_yes() {
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_ports/i
+	   .
+	   /BEGIN webserver_ports/+1,/END webserver_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_ports/i
+	   .
+	   /BEGIN proxy_ports/+1,/END proxy_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_network_ip/i
+	   .
+	   /BEGIN webserver_network_ip/+1,/END webserver_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_network_ip/i
+	   .
+	   /BEGIN proxy_network_ip/+1,/END proxy_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN networks/i
+	   .
+	   /BEGIN networks/+1,/END networks/-1d
+	   .-1r ./.warp/setup/networks/tpl/network_mono.yml
+	   wq
+	EOF
+}
+
+warp_network_varnish_mono_no() {
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_ports/i
+	   .
+	   /BEGIN webserver_ports/+1,/END webserver_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_ports/i
+	   .
+	   /BEGIN proxy_ports/+1,/END proxy_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_network_ip/i
+	   .
+	   /BEGIN webserver_network_ip/+1,/END webserver_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_network_ip/i
+	   .
+	   /BEGIN proxy_network_ip/+1,/END proxy_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN networks/i
+	   .
+	   /BEGIN networks/+1,/END networks/-1d
+	   .-1r ./.warp/setup/networks/tpl/network_mono.yml
+	   wq
+	EOF
+}
+
+warp_network_varnish_multi_yes() {
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_ports/i
+	   .
+	   /BEGIN webserver_ports/+1,/END webserver_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_ports/i
+	   .
+	   /BEGIN proxy_ports/+1,/END proxy_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_network_ip/i
+	   .
+	   /BEGIN webserver_network_ip/+1,/END webserver_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_network_ip/i
+	   .
+	   /BEGIN proxy_network_ip/+1,/END proxy_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN networks/i
+	   .
+	   /BEGIN networks/+1,/END networks/-1d
+	   .-1r ./.warp/setup/networks/tpl/network_multi.yml
+	   wq
+	EOF
+}
+
+warp_network_varnish_multi_no() {
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_ports/i
+	   .
+	   /BEGIN webserver_ports/+1,/END webserver_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_ports/i
+	   .
+	   /BEGIN proxy_ports/+1,/END proxy_ports/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_ports_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN webserver_network_ip/i
+	   .
+	   /BEGIN webserver_network_ip/+1,/END webserver_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_multi.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN proxy_network_ip/i
+	   .
+	   /BEGIN proxy_network_ip/+1,/END proxy_network_ip/-1d
+	   .-1r ./.warp/setup/webserver/tpl/webserver_network_mono.yml
+	   wq
+	EOF
+
+	cat <<-'EOF' | sed -e 's/^ *//' -e 's/ *$//' | ed -s $DOCKERCOMPOSEFILE
+	   H
+	   /BEGIN networks/i
+	   .
+	   /BEGIN networks/+1,/END networks/-1d
+	   .-1r ./.warp/setup/networks/tpl/network_multi.yml
+	   wq
+	EOF
+}
+
 #warp_network_create() {
 
 #	CHECK "Subnet": "172.33.50.0/24" $NETWORK_NAME
