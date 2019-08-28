@@ -158,7 +158,7 @@ function warp_check_selenium_is_installed() {
 function warp_check_selenium_is_running() {
     if [ -f $DOCKERCOMPOSEFILESELENIUM ]
     then        
-        dockerStatusOutput=$(docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILESELENIUM ps -q selenium)
+        dockerStatusOutput=$(docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILESELENIUM ps -q seleniumhub)
         outputSize=${#dockerStatusOutput}
         if [ "$outputSize" -gt 0 ] ; then
             echo true

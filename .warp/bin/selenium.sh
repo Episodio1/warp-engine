@@ -14,7 +14,7 @@
 # Returns:
 #   None
 #######################################
-function start() {
+function selenium_start() {
   if [ "$1" = "-h" ] || [ "$1" = "--help" ]
   then
       selenium_start_help 
@@ -26,14 +26,14 @@ function start() {
   warp start --selenium  
 }
 
-function stop() {
+function selenium_stop() {
   if [ "$1" = "-h" ] || [ "$1" = "--help" ]
   then
       selenium_stop_help 
       exit 1
   fi;
 
-  warp stop $*
+  warp stop --hard
 }
 
 function selenium_info()
@@ -45,7 +45,7 @@ function selenium_info()
     warp_message ""
 }
 
-function ssh() {    
+function selenium_ssh() {    
   
     if [ "$1" = "-h" ] || [ "$1" = "--help" ]
     then
@@ -64,10 +64,10 @@ function ssh() {
 
     warp_message_warn "entering to selenium container, to exit please run: exit";
 
-    docker-compose -f $DOCKERCOMPOSEFILE exec selenium bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
+    docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILESELENIUM exec seleniumhub bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 }
 
-function setup() {
+function selenium_setup() {
     if [ "$1" = "-h" ] || [ "$1" = "--help" ]
     then
         selenium_setup_help 
@@ -85,26 +85,26 @@ function selenium_main()
     case "$1" in
         start)
           shift 1
-          start $*
+          selenium_start $*
         ;;
 
         stop)
           shift 1
-          stop $*
+          selenium_stop $*
         ;;
 
         info)
-            selenium_info
+          selenium_info
         ;;
 
         ssh)
           shift 1
-          ssh $*
+          selenium_ssh $*
         ;;
 
         setup)
           shift 1
-          setup $*
+          selenium_setup $*
         ;;
 
         *)

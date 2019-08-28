@@ -24,7 +24,7 @@ function stop() {
     if [ $(warp_check_is_running) = true ]; then
 
       if [ "$1" = "--hard" ] ; then
-        DOCKERACTION=down
+        DOCKERACTION="down --remove-orphans"
       else
         DOCKERACTION=stop
       fi;
