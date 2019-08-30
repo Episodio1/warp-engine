@@ -32,6 +32,10 @@ DOCKERCOMPOSEFILESAMPLE="$PROJECTPATH/docker-compose-warp.yml.sample"
 DOCKERCOMPOSEFILE="$PROJECTPATH/docker-compose-warp.yml"
 
 # DOCKERCOMPOSEFILE contains the path
+# to the docker-compose for selenium yaml file
+DOCKERCOMPOSEFILESELENIUM="$PROJECTPATH/docker-selenium-warp.yml"
+
+# DOCKERCOMPOSEFILE contains the path
 # to the docker-compose.yml file
 DOCKERCOMPOSEFILEMAC="$PROJECTPATH/docker-compose-warp-mac.yml"
 

@@ -18,7 +18,7 @@ case "$(uname -s)" in
 
     warp_message ""
     warp_message_info "Configuring mapping files to container"
-    warp_message ""
+
         while : ; do
             rta_use_docker_sync=$( warp_question_ask_default "Do you want to use docker-sync? $(warp_message_info [Y/n]) " "Y" )
 
@@ -56,7 +56,6 @@ esac
 
 warp_message ""
 warp_message_info "Configuring Web Server - Nginx"
-warp_message ""
 
     warp_check_os_mac
 
@@ -118,7 +117,6 @@ warp_message ""
     then
         warp_message ""
         warp_message_info "Configuring the MySQL Service"
-        warp_message ""
 
         while : ; do
             mysql_binded_port=$( warp_question_ask_default "Mapping container port 3306 to your machine port (host): $(warp_message_info [3306]) " "3306" )
@@ -138,7 +136,6 @@ warp_message ""
     
         warp_message ""
         warp_message_info "Configuring the Rabbit Service"
-        warp_message ""
 
         while : ; do
             rabbit_binded_port=$( warp_question_ask_default "Mapping container port 15672 to your machine port (host): $(warp_message_info [8080]) " "8080" )
@@ -157,7 +154,6 @@ warp_message ""
     
         warp_message ""
         warp_message_info "Configuring Mailhog SMTP server"
-        warp_message ""
 
         while : ; do
             mailhog_binded_port=$( warp_question_ask_default "Plase select the port of your machine (host) to Web interface to view the messages: $(warp_message_info [8025]) " "8025" )
@@ -230,6 +226,37 @@ warp_message ""
     cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$NETWORK_GATEWAY_OLD/$NETWORK_GATEWAY_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp5"
     mv "$ENVIRONMENTVARIABLESFILE.warp5" $ENVIRONMENTVARIABLESFILE
 
+    if [ ! -z "$USE_VARNISH" ]
+    then
+        if [ "$USE_VARNISH" = "Y" ] || [ "$USE_VARNISH" = "y" ] ; then
+            warp_message ""
+            warp_message_info "Configuring Varnish Service"
+
+            while : ; do
+                respuesta_varnish=$( warp_question_ask_default "Do you want to use varnish service? $(warp_message_info [y/N]) " "N" )
+
+                if [ "$respuesta_varnish" = "Y" ] || [ "$respuesta_varnish" = "y" ] || [ "$respuesta_varnish" = "N" ] || [ "$respuesta_varnish" = "n" ] ; then
+                    break
+                else
+                    warp_message_warn "wrong answer, you must select between two options: $(warp_message_info [Y/n]) "
+                fi
+            done
+
+            if [ "$respuesta_varnish" = "Y" ] || [ "$respuesta_varnish" = "y" ] ; then
+                if [ $useproxy = 0 ]; then
+                    warp_network_varnish_multi_yes
+                else
+                    warp_network_varnish_mono_yes
+                fi
+            else
+                if [ $useproxy = 0 ]; then
+                    warp_network_varnish_multi_no
+                else
+                    warp_network_varnish_mono_no
+                fi
+            fi
+        fi
+    fi
 
     if [ ! -z "$DATABASE_BINDED_PORT" ]
     then
@@ -277,6 +304,24 @@ warp_message ""
         else
             cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$USE_DOCKER_SYNC_OLD/$USE_DOCKER_SYNC_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp9"
             mv "$ENVIRONMENTVARIABLESFILE.warp9" $ENVIRONMENTVARIABLESFILE
+        fi;
+    fi
+
+    if [ ! -z "$respuesta_varnish" ]
+    then
+        # SAVE OPTION VARNISH
+        USE_VARNISH_OLD="USE_VARNISH=$USE_VARNISH"
+        USE_VARNISH_NEW="USE_VARNISH=$respuesta_varnish"
+
+        if [ -z "$USE_VARNISH" ]
+        then
+            echo "" >> $ENVIRONMENTVARIABLESFILE
+            echo "# VARNISH Configuration" >> $ENVIRONMENTVARIABLESFILE
+            echo "USE_VARNISH=$respuesta_varnish" >> $ENVIRONMENTVARIABLESFILE
+            echo "" >> $ENVIRONMENTVARIABLESFILE    
+        else
+            cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$USE_VARNISH_OLD/$USE_VARNISH_NEW/" > "$ENVIRONMENTVARIABLESFILE.warp10"
+            mv "$ENVIRONMENTVARIABLESFILE.warp10" $ENVIRONMENTVARIABLESFILE
         fi;
     fi
 

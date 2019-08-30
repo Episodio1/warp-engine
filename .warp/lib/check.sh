@@ -146,6 +146,30 @@ warp_check_php_is_running() {
     fi
 }
 
+function warp_check_selenium_is_installed() {
+
+  if [ ! -f $DOCKERCOMPOSEFILESELENIUM ]
+  then
+    warp_message_warn "selenium has not been installed yet, first run: warp selenium setup";
+    exit 1;
+  fi;
+}
+
+function warp_check_selenium_is_running() {
+    if [ -f $DOCKERCOMPOSEFILESELENIUM ]
+    then        
+        dockerStatusOutput=$(docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILESELENIUM ps -q seleniumhub)
+        outputSize=${#dockerStatusOutput}
+        if [ "$outputSize" -gt 0 ] ; then
+            echo true
+        else
+            echo false
+        fi
+    else
+        echo false
+    fi
+}
+
 warp_check_gitignore()
 {
     #  CHECK IF GITIGNOREFILE CONTAINS FILES WARP TO IGNORE
@@ -172,9 +196,9 @@ warp_check_gitignore()
         echo "/.docker-sync"                            >> $GITIGNOREFILE        
         echo "/.warp/docker/volumes"                    >> $GITIGNOREFILE
         echo "/.warp/docker/dumps"                      >> $GITIGNOREFILE
-        echo "/.warp/docker/setup"                      >> $GITIGNOREFILE
-        echo "/.warp/docker/lib"                        >> $GITIGNOREFILE
-        echo "/.warp/docker/bin"                        >> $GITIGNOREFILE
+        echo "/.warp/setup"                             >> $GITIGNOREFILE
+        echo "/.warp/lib"                               >> $GITIGNOREFILE
+        echo "/.warp/bin"                               >> $GITIGNOREFILE
         echo "/.warp/docker/config/php/ext-xdebug.ini"  >> $GITIGNOREFILE
         echo "/.warp/docker/config/php/ext-ioncube.ini" >> $GITIGNOREFILE
         

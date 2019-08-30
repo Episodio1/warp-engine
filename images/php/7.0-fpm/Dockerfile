@@ -90,9 +90,6 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
 
-# Make sure the volume mount point is empty
-RUN rm -rf /var/www/html/*
-
 # Create .ssh file
 RUN mkdir -p /var/www/.ssh
 
@@ -108,6 +105,11 @@ RUN mkdir -p /var/log/php-fpm && \
     touch /var/log/php-fpm/fpm-php.www.log && \
     chown -R www-data:www-data /var/log/php-fpm
 
+RUN wget https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
+  tar -zxf ioncube_loaders_lin_x86-64.tar.gz && \
+  mv ioncube/ioncube_loader_lin_7.0.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/iocube.so && \
+  echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20151012/iocube.so" > /usr/local/etc/php/conf.d/10-php-ext-ioncube.ini
+
 RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 && \
     chmod +x mhsendmail_linux_amd64 && \
     mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
@@ -117,6 +119,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --
 
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
+
+# Make sure the volume mount point is empty
+RUN rm -rf /var/www/html/*
 
 RUN pecl install -o -f xdebug-2.6.1
 

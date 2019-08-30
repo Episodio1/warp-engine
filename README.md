@@ -31,6 +31,8 @@
 * Rabbit
 * MailHog
 * Elasticsearch
+* Varnish
+* Selenium
 
 ## Requirements
 

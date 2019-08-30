@@ -1,6 +1,19 @@
 Warp Releases
 =============
 
+### [2019.08.30](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.08.30)
+
+* add Varnish service v4.0.5, v5.2.1
+* add Selenium service
+* add postgress module on image PHP 7.1.17-fpm, 7.1.26-fpm
+* add ionCube to PHP 7.0-fpm, 5.6-fpm
+* add plugin delete-by-query on image elasticsearch 2.4
+* add plugin x-delayer on image Rabbit
+* allows to synchronize several files in warp sync command
+* add command for Oro Framework (warp oro <command>)
+* add command for check update images
+* add command warp docker
+
 ### [2019.07.04](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.07.04)
 
 * add sodium module php

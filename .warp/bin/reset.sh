@@ -103,6 +103,13 @@ function reset_warninig_confirm()
         warp_message "* deleting $(basename $DOCKERCOMPOSEFILEMAC) $(warp_message_ok [ok])"
         warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
 
+        if [ -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ] || [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ]
+        then
+            warp_message "* reset php configurations files $(warp_message_ok [ok])"
+            rm $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini 2> /dev/null
+            rm $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini 2> /dev/null
+        fi
+        
         rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
         rm $DOCKERCOMPOSEFILE 2> /dev/null
         rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
