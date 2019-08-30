@@ -10,6 +10,10 @@ function update_command() {
         
       update_help_usage
       exit 1;
+  elif [ "$1" = "--images" ] ; then
+
+      warp_message_warn "checking if there are images available to update"
+      docker-compose -f $DOCKERCOMPOSEFILE pull
   else
 
       warp_setup update

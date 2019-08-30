@@ -175,6 +175,7 @@ function warp_info()
         webserver_main info   
         php_main info   
         elasticsearch_main info   
+        varnish_main info   
         redis_main info   
         rabbit_main info   
         mailhog_main info   
@@ -288,6 +289,10 @@ case "$1" in
     magento_main $*
     ;;
 
+    oro)
+    oro_main $*
+    ;;
+
     crontab)
     crontab_main $*
     ;;
@@ -304,9 +309,18 @@ case "$1" in
     logs_main $*
     ;;
 
+    docker)
+    docker_main $*
+    ;;
+
     elasticsearch)
     shift 1
     elasticsearch_main $*
+    ;;
+
+    varnish)
+    shift 1
+    varnish_main $*
     ;;
 
     redis)
@@ -322,6 +336,11 @@ case "$1" in
     rabbit)
     shift 1
     rabbit_main $*
+    ;;
+
+    selenium)
+    shift 1
+    selenium_main $*
     ;;
 
     mailhog)

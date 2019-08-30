@@ -178,7 +178,7 @@ function fix_permissions()
             exit 1
       ;;
       "--owner")
-            fix_owner
+            fix_owner $@
             exit 1
       ;;
       "--all")

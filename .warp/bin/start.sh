@@ -37,6 +37,10 @@ function start() {
       CUSTOM_YML_FILE=$2;      
     fi
 
+    if [ "$1" = "--selenium" ] ; then
+      CUSTOM_YML_FILE=$DOCKERCOMPOSEFILESELENIUM;      
+    fi
+
     case "$(uname -s)" in
       Darwin)
         USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
@@ -47,19 +51,19 @@ function start() {
 
         if [ ! -z $CUSTOM_YML_FILE ] ; then
           # start docker with custom yml file
-          docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC -f $CUSTOM_YML_FILE up -d
+          docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC -f $CUSTOM_YML_FILE up --remove-orphans -d
         else
           # start docker containers in macOS
-          docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC up -d
+          docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC up --remove-orphans -d
         fi
       ;;
       Linux)
         if [ ! -z $CUSTOM_YML_FILE ] ; then
           # start docker with custom yml file
-          docker-compose -f $DOCKERCOMPOSEFILE -f $CUSTOM_YML_FILE up -d
+          docker-compose -f $DOCKERCOMPOSEFILE -f $CUSTOM_YML_FILE up --remove-orphans -d
         else
           # start docker containers in linux
-          docker-compose -f $DOCKERCOMPOSEFILE up -d
+          docker-compose -f $DOCKERCOMPOSEFILE up --remove-orphans -d
         fi
       ;;
     esac

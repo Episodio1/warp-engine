@@ -70,6 +70,9 @@ function magento_install()
     REDIS_FPC_VERSION=$(warp_env_read_var REDIS_FPC_VERSION)
     REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
 
+    ADMIN_USER="admin"
+    ADMIN_PASS="password123"
+
     case "$(uname -s)" in
       Darwin)
         if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
@@ -88,7 +91,7 @@ function magento_install()
     esac
 
     warp_message "Forcing reinstall of composer deps to ensure perms & reqs..."
-    warp composer install
+    warp composer install --prefer-dist --ignore-platform-reqs
 
     warp magento setup:install \
         --backend-frontname=admin \
@@ -100,8 +103,8 @@ function magento_install()
         --admin-firstname=Admin \
         --admin-lastname=Admin \
         --admin-email=admin@admin.com \
-        --admin-user=admin \
-        --admin-password=password123 \
+        --admin-user=$ADMIN_USER \
+        --admin-password=$ADMIN_PASS \
         --language=es_AR \
         --currency=ARS \
         --timezone=America/Argentina/Buenos_Aires \
@@ -152,6 +155,8 @@ function magento_install()
 
     warp_message "Docker development environment setup complete."
     warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"
+    warp_message "Admin user: $ADMIN_USER"
+    warp_message "Admin pass: $ADMIN_PASS"
 }
 
 function magento_download()

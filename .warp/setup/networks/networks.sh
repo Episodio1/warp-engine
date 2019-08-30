@@ -19,7 +19,16 @@ sleep 1
         echo "NETWORK_GATEWAY=$A.$B.$C.1" >> $ENVIRONMENTVARIABLESFILESAMPLE
         echo "NETWORK_NAME=$NETWORK_NAME" >> $ENVIRONMENTVARIABLESFILESAMPLE
 
-        warp_network_multi
+        if [ ! -z "$USE_VARNISH" ] ; then
+            if [ "$USE_VARNISH" = "Y" ] || [ "$USE_VARNISH" = "y" ] ; then
+                warp_network_varnish_multi_yes
+            else
+                #warp_network_varnish_multi_no
+                warp_network_multi
+            fi
+        else
+            warp_network_multi
+        fi
     else
 
         echo "# Network information" >> $ENVIRONMENTVARIABLESFILESAMPLE
@@ -27,7 +36,16 @@ sleep 1
         echo "NETWORK_GATEWAY=0.0.0.0" >> $ENVIRONMENTVARIABLESFILESAMPLE
         echo "NETWORK_NAME=$NETWORK_NAME" >> $ENVIRONMENTVARIABLESFILESAMPLE
 
-        warp_network_mono
+        if [ ! -z "$USE_VARNISH" ] ; then
+            if [ "$USE_VARNISH" = "Y" ] || [ "$USE_VARNISH" = "y" ] ; then
+                warp_network_varnish_mono_yes
+            else
+                #warp_network_varnish_mono_no
+                warp_network_mono
+            fi
+        else
+            warp_network_mono
+        fi
     fi    
 
     echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE

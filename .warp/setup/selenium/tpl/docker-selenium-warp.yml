@@ -1,6 +1,7 @@
 # To execute this docker-compose yml file use `docker-compose -f <file_name> up`
 # Add the `-d` flag at the end for detached execution
-version: '2'
+version: "2"
+services:
   seleniumhub:
     image: summasolutions/selenium:hub
     #image: selenium/hub
