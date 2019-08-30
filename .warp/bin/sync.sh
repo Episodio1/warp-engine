@@ -96,7 +96,7 @@ function warp_clean_volume()
       exit 0;
   fi
 
-  docker-sync -f $DOCKERSYNCMAC clean
+  docker-sync clean
 }
 
 function sync_main()
@@ -113,7 +113,7 @@ function sync_main()
         ;;
 
         clean)
-          warp_clean_volume
+          warp_clean_volume $*
         ;;
 
         *)
