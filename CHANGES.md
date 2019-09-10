@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.09.10](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.09.10)
+
+* fix Varnish image
+* set startup command to background
+* add command to update images (warp update --images)
+
 ### [2019.08.30](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.08.30)
 
 * add Varnish service v4.0.5, v5.2.1
