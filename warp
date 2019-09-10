@@ -21,7 +21,7 @@ case "$(uname -s)" in
     Darwin)
     # autodetect docker in Mac
     # Check availability of docker-sync
-    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\""; exit 1; }
+    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync\"  "; exit 1; }
     ;;
 esac    
 
@@ -121,6 +121,12 @@ warp_update()
     if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
         . "$PROJECTPATH/.warp/bin/update_help.sh"
         update_help_usage
+        exit 1;
+    fi
+
+    if [ "$1" = "--images" ] ; then
+        echo "checking if there are images available to update"
+        docker-compose -f $DOCKERCOMPOSEFILE pull
         exit 1;
     fi
 
