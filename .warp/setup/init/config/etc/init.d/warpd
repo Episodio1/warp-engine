@@ -28,7 +28,7 @@ cd $WARP_PROJECT
 case "$1" in
 	start)
 
-        $WARP_FILE start
+        $WARP_FILE start &
 		;;
 
 	stop)
@@ -39,7 +39,7 @@ case "$1" in
 	restart)
 
 		$WARP_FILE stop
-		$WARP_FILE start
+		$WARP_FILE start &
 		;;
 
 	status)
