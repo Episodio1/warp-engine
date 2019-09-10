@@ -103,8 +103,14 @@ then
     cp -R $PROJECTPATH/.warp/setup/webserver/config/nginx $CONFIGFOLDER/nginx
 
     # prepare files for Varnish service
-    cp -R $PROJECTPATH/.warp/setup/varnish/config/varnish $CONFIGFOLDER/varnish
-    
+    if [ ! -d $CONFIGFOLDER/varnish ]
+    then
+        cp -R $PROJECTPATH/.warp/setup/varnish/config/varnish $CONFIGFOLDER/varnish
+    fi;
+
+    # Copying proxy configuration
+    cat $CONFIGFOLDER/nginx/sites-enabled/proxy.conf | sed -e "s/{{SERVER_NAME}}/${nginx_virtual_host}/" > $CONFIGFOLDER/nginx/sites-enabled/proxy.conf
+
     # Copying nginx base framework configuration
     #cp $CONFIGFOLDER/nginx/sites-enabled/default.conf $CONFIGFOLDER/nginx/sites-enabled/$nginx_config_file
     case $framework in

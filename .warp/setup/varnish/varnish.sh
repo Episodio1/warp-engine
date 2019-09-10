@@ -16,7 +16,7 @@ done
 if [ "$respuesta_varnish" = "Y" ] || [ "$respuesta_varnish" = "y" ]
 then
     
-    if [ ! -f $CONFIGFOLDER/varnish ]
+    if [ ! -d $CONFIGFOLDER/varnish ]
     then
         cp -R $PROJECTPATH/.warp/setup/varnish/config/varnish $CONFIGFOLDER/varnish
     fi;
