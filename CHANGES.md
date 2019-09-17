@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.09.17](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.09.17)
+
+* fix command init
+* fix webserver varnish
+* add template webserver multisite
+
 ### [2019.09.10](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.09.10)
 
 * fix Varnish image

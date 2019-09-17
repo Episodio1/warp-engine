@@ -33,7 +33,7 @@ include_warp_framework() {
     . "$PROJECTPATH/.warp/includes.sh"
 }
 
-if [ -d $PROJECTPATH/.warp ]; then
+if [ -d $PROJECTPATH/.warp/lib ]; then
     include_warp_framework
 fi;
 
@@ -48,7 +48,7 @@ setup_main() {
         setup_help_usage
         exit 1
     else
-        if [ ! -d $PROJECTPATH/.warp ]; then
+        if [ ! -d $PROJECTPATH/.warp/setup ]; then
             warp_setup install
             exit 0;
         fi;
@@ -59,7 +59,7 @@ setup_main() {
 
 setup_help_usage()
 {
-    if [ -d $PROJECTPATH/.warp ]; then
+    if [ -d $PROJECTPATH/.warp/lib ]; then
         init_help_usage
         exit 1
     else
@@ -87,7 +87,7 @@ setup_help_usage()
 
 help() {
     
-    if [ -d $PROJECTPATH/.warp ]; then
+    if [ -d $PROJECTPATH/.warp/bin ]; then
         warp_banner
 
         . $PROJECTPATH/.warp/bin/help.sh
@@ -102,6 +102,7 @@ help() {
         help_usage
     else
         warp_message_not_install_yet
+        exit;
     fi;
 }
 
@@ -113,7 +114,7 @@ warp_message_not_install_yet()
 
 warp_update()
 {
-    if [ ! -d $PROJECTPATH/.warp ]; then
+    if [ ! -d $PROJECTPATH/.warp/lib ]; then
         warp_message_not_install_yet
         exit 0;
     fi;
@@ -203,7 +204,7 @@ function warp_setup()
 
     if [ "$OPTION" = "install" ]
     then
-        if [ -d $PROJECTPATH/.warp ]; then    
+        if [ -d $PROJECTPATH/.warp/lib ] && [ -d $PROJECTPATH/.warp/bin ] ; then    
             echo "Installing Warp, wait a few moments"
             sleep 1
             echo "Successful installation!, starting configurations.."
