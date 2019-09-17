@@ -109,7 +109,7 @@ then
     fi;
 
     # Copying proxy configuration
-    cat $CONFIGFOLDER/nginx/sites-enabled/proxy.conf | sed -e "s/{{SERVER_NAME}}/${nginx_virtual_host}/" > $CONFIGFOLDER/nginx/sites-enabled/proxy.conf
+    cat $PROJECTPATH/.warp/setup/webserver/config/nginx/sites-enabled/proxy.conf | sed -e "s/{{SERVER_NAME}}/${nginx_virtual_host}/" > $CONFIGFOLDER/nginx/sites-enabled/proxy.conf
 
     # Copying nginx base framework configuration
     #cp $CONFIGFOLDER/nginx/sites-enabled/default.conf $CONFIGFOLDER/nginx/sites-enabled/$nginx_config_file

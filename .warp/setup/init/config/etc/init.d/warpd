@@ -33,12 +33,12 @@ case "$1" in
 
 	stop)
 
-		$WARP_FILE stop
+		$WARP_FILE stop &
 		;;
 
 	restart)
 
-		$WARP_FILE stop
+		$WARP_FILE stop &
 		$WARP_FILE start &
 		;;
 
