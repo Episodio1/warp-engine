@@ -65,23 +65,16 @@ function reset_warninig_confirm_hard()
             rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
             rm $DOCKERSYNCMAC 2> /dev/null
             rm $DOCKERSYNCMACSAMPLE 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILESELENIUM ] && rm $DOCKERCOMPOSEFILESELENIUM 2> /dev/null
 
-	        rm -rf $PROJECTPATH/.warp/docker/config 2> /dev/null
-            mkdir -p $PROJECTPATH/.warp/docker/config 2> /dev/null
-            touch $PROJECTPATH/.warp/docker/config/.empty 2> /dev/null
+	        rm -rf $PROJECTPATH/.warp/docker/config/* 2> /dev/null
 
-            if [ -d $PROJECTPATH/.warp/docker/volumes/mysql ]
+            if [ -d $PROJECTPATH/.warp/docker/volumes ]
             then
-                warp_message "* deleting databases mysql $(warp_message_ok [ok])"
-                sudo rm -rf $PROJECTPATH/.warp/docker/volumes/mysql 2> /dev/null
+                warp_message "* deleting persistence data $(warp_message_ok [ok])"
+                sudo rm -rf $PROJECTPATH/.warp/docker/volumes/* 2> /dev/null
             fi
             
-            if [ -d $PROJECTPATH/.warp/docker/volumes/elasticsearch ]
-            then
-                warp_message "* deleting nodes elasticsearch $(warp_message_ok [ok])"
-                sudo rm -rf $PROJECTPATH/.warp/docker/volumes/elasticsearch 2> /dev/null
-            fi
-
             warp_message ""
 
             warp_message_warn "files have been deleted, to start again run: $(warp_message_bold './warp init')"

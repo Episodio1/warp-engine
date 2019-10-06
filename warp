@@ -248,6 +248,11 @@ case "$1" in
     mysql_main $*
     ;;
 
+    postgres)
+    shift 1
+    postgres_main $*
+    ;;
+
     php)
     shift 1
     php_main $*
