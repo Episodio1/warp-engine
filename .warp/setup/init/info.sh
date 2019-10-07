@@ -7,6 +7,17 @@ warp_message "* Configuring environment variable files $(warp_message_ok [ok])"
 if  [ ! -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ] && [ -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.sample ]
 then
     cp $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.sample $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini
+
+    case "$(uname -s)" in
+        Darwin)
+
+        IP_XDEBUG_MAC="10.254.254.254"
+        IP_XDEBUG_LINUX="172.17.0.1"
+
+        cat $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini | sed -e "s/$IP_XDEBUG_LINUX/$IP_XDEBUG_MAC/" > $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.tmp
+        mv $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.tmp $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini
+        ;;
+    esac
 fi
 
 # creating ext-ioncube.ini

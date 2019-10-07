@@ -16,7 +16,7 @@ RUN \
   htop \
   mc \
   nano \
-  mysql-client \
+  default-mysql-client \
   libcurl4-gnutls-dev \
   libxml2-dev \
   libssl-dev
