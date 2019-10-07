@@ -38,3 +38,4 @@
 . "$WARPFOLDER/bin/sync.sh"
 . "$WARPFOLDER/bin/docker.sh"
 . "$WARPFOLDER/bin/varnish.sh"
+. "$WARPFOLDER/bin/postgres.sh"

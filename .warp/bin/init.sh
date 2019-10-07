@@ -55,6 +55,7 @@ function init_command() {
         . "$WARPFOLDER/setup/php/php.sh"
         . "$WARPFOLDER/setup/init/volumes.sh"
         . "$WARPFOLDER/setup/mysql/database.sh"
+        . "$WARPFOLDER/setup/postgres/postgres.sh"
         . "$WARPFOLDER/setup/elasticsearch/elasticsearch.sh"
         . "$WARPFOLDER/setup/redis/redis.sh"
         . "$WARPFOLDER/setup/rabbit/rabbit.sh"

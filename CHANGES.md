@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2019.10.07](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.10.07)
+
+* add PostgreSQL service 
+* update image PHP to 7.1.32
+* disable ionCube by default
+
 ### [2019.09.17](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.09.17)
 
 * fix command init
@@ -17,7 +23,7 @@ Warp Releases
 
 * add Varnish service v4.0.5, v5.2.1
 * add Selenium service
-* add postgress module on image PHP 7.1.17-fpm, 7.1.26-fpm
+* add postgres module on image PHP 7.1.17-fpm, 7.1.26-fpm
 * add ionCube to PHP 7.0-fpm, 5.6-fpm
 * add plugin delete-by-query on image elasticsearch 2.4
 * add plugin x-delayer on image Rabbit
