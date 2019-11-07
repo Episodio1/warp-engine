@@ -65,6 +65,8 @@ function reset_warninig_confirm_hard()
             rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
             rm $DOCKERSYNCMAC 2> /dev/null
             rm $DOCKERSYNCMACSAMPLE 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILEDEV ] && rm $DOCKERCOMPOSEFILEDEV 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILEDEVSAMPLE ] && rm $DOCKERCOMPOSEFILEDEVSAMPLE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILESELENIUM ] && rm $DOCKERCOMPOSEFILESELENIUM 2> /dev/null
 
 	        rm -rf $PROJECTPATH/.warp/docker/config/* 2> /dev/null
@@ -74,7 +76,13 @@ function reset_warninig_confirm_hard()
                 warp_message "* deleting persistence data $(warp_message_ok [ok])"
                 sudo rm -rf $PROJECTPATH/.warp/docker/volumes/* 2> /dev/null
             fi
-            
+
+            if [ -d $PROJECTPATH/.platform ]
+            then
+                warp_message "* deleting sandbox folder $(warp_message_ok [ok])"
+                sudo rm -rf $PROJECTPATH/.platform 2> /dev/null
+            fi
+
             warp_message ""
 
             warp_message_warn "files have been deleted, to start again run: $(warp_message_bold './warp init')"
@@ -95,6 +103,7 @@ function reset_warninig_confirm()
         warp_message "* deleting $(basename $DOCKERCOMPOSEFILE) $(warp_message_ok [ok])"
         warp_message "* deleting $(basename $DOCKERCOMPOSEFILEMAC) $(warp_message_ok [ok])"
         warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
+        warp_message "* deleting $(basename $DOCKERCOMPOSEFILEDEV) $(warp_message_ok [ok])"
 
         if [ -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ] || [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ]
         then
@@ -107,6 +116,7 @@ function reset_warninig_confirm()
         rm $DOCKERCOMPOSEFILE 2> /dev/null
         rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
         rm $DOCKERSYNCMAC 2> /dev/null
+        [ -f $DOCKERCOMPOSEFILEDEV ] && rm $DOCKERCOMPOSEFILEDEV 2> /dev/null
         warp_message ""
 
         warp_message_warn "files have been deleted, to start again run: $(warp_message_bold './warp init')"

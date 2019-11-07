@@ -109,6 +109,20 @@ function fix_owner()
     warp_message "* Filesystem permissions corrected."
 }
 
+function fix_sandbox()
+{
+    warp_message "* Correcting filesystem ownerships..."
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chgrp -R 33 /var/www/html/"
+
+    warp_message "* Correcting filesystem permissions..."
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod -R a+rw /var/www/html/"        
+
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/2.2.9-ce/bin/magento ] && chown www-data:www-data /var/www/html/2.2.9-ce/bin/magento"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/2.3.1-ce/bin/magento ] && chown www-data:www-data /var/www/html/2.3.1-ce/bin/magento"
+
+    warp_message "* Filesystem permissions corrected."
+}
+
 function fix_default()
 {
     # fix user and groups to current project
@@ -131,6 +145,10 @@ function fix_default()
     # restart correct permissions to warp and binaries
     [ -f $PROJECTPATH/warp ] && sudo chmod a+x $PROJECTPATH/warp
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
+
+    # workaround Magento 2.3.x
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/.github ] && chown www-data:www-data /var/www/html/.github"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/.github ] && chmod -R a+rw /var/www/html/.github"
 
     warp_message "* Success $(warp_message_ok [ok])"
     exit 1;
@@ -179,6 +197,10 @@ function fix_permissions()
       ;;
       "--owner")
             fix_owner $@
+            exit 1
+      ;;
+      "--sandbox")
+            fix_sandbox $@
             exit 1
       ;;
       "--all")
