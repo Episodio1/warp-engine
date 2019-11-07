@@ -10,7 +10,6 @@ services:
       - "web:${VIRTUAL_HOST}"
     volumes:
       - /dev/shm:/dev/shm
-    volumes:
       - ./.warp/docker/selenium:/selenium
     ports:
       - 4444
