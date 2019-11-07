@@ -75,5 +75,25 @@ STRONG_PASSWORD_LENGTH=8
 # Set minimum version for docker-compose
 DOCKER_COMPOSE_MINIMUM_VERSION=1.21
 
+# Set docker-compose timeout, default 60
+DOCKER_COMPOSE_HTTP_TIMEOUT=300
+
 # Set minimum version for Docker
 DOCKER_MINIMUM_VERSION=17.05
+
+## SANDBOX MODE
+VHOST_M22_CE="local.m229-ce.com"
+VHOST_M23_CE="local.m231-ce.com"
+
+DB_M22_CE="m229_ce"
+DB_M23_CE="m231_ce"
+
+ES_SB1="5.6.8"
+
+# DOCKERCOMPOSEFILE contains the path
+# to the docker-compose.yml file
+DOCKERCOMPOSEFILEDEV="$PROJECTPATH/docker-compose-warp-dev.yml"
+
+# DOCKERCOMPOSEFILE contains the path
+# to the docker-compose.yml sample file
+DOCKERCOMPOSEFILEDEVSAMPLE="$PROJECTPATH/docker-compose-warp-dev.yml.sample"

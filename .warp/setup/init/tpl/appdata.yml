@@ -2,6 +2,7 @@
   appdata:
     image: alpine:latest
     volumes:
+      - ~/.composer:/var/www/.composer:delegated
       - ./.warp/docker/config/appdata/startup.sh:/startup.sh
       - ./.warp/docker/config/bash/.bashrc:/var/www/.bashrc
       - ./.warp/docker/config/bash/.bashrc:/root/.bashrc
