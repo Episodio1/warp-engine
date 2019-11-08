@@ -115,7 +115,7 @@ function fix_sandbox()
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chgrp -R 33 /var/www/html/"
 
     warp_message "* Correcting filesystem permissions..."
-    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod -R a+rw /var/www/html/"        
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod -R ug+rw /var/www/html/"
 
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/2.2.9-ce/bin/magento ] && chown www-data:www-data /var/www/html/2.2.9-ce/bin/magento"
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/2.3.1-ce/bin/magento ] && chown www-data:www-data /var/www/html/2.3.1-ce/bin/magento"
@@ -127,13 +127,34 @@ function fix_default()
 {
     # fix user and groups to current project
     warp_message "* Applying user: $(whoami) and group: www-data to files and folders $(warp_message_ok [ok])"
-    sudo chown -R $(whoami):33 $(ls)
+    case "$(uname -s)" in
+      Darwin)
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chown -R $(id -u):33 /var/www/html/*"
+      ;;
+      Linux)
+        sudo chown -R $(whoami):33 $(ls)
+      ;;
+    esac
 
     warp_message "* Make folders traversable and read/write $(warp_message_ok [ok])"
-    sudo find $(ls) -type d -exec chmod ug+rwx {} \; # Make folders traversable and read/write
+    case "$(uname -s)" in
+      Darwin)
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "find /var/www/html/ -type d -exec chmod ug+rwx {} \;"
+      ;;
+      Linux)
+        sudo find $(ls) -type d -exec chmod ug+rwx {} \; # Make folders traversable and read/write
+      ;;
+    esac
 
     warp_message "* Make files read/write $(warp_message_ok [ok])"
-    sudo find $(ls) -type f -exec chmod a+rw {} \;  # Make files read/write
+    case "$(uname -s)" in
+      Darwin)
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "find /var/www/html/ -type f -exec chmod a+rw {} \;"
+      ;;
+      Linux)
+        sudo find $(ls) -type f -exec chmod a+rw {} \;  # Make files read/write
+      ;;
+    esac
 
     warp_message "* Applying permissions to subdirectories .warp/docker/volumes $(warp_message_ok [ok])"
 
