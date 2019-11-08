@@ -1,6 +1,11 @@
 Warp Releases
 =============
 
+### [2019.11.08](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.08)
+
+* add Mode Sandbox
+* improve command fix for macOS
+
 ### [2019.10.07](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.10.07)
 
 * add PostgreSQL service 

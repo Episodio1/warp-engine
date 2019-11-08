@@ -20,7 +20,7 @@ function mysql_info()
     MYSQL_CONFIG_FILE=$(warp_env_read_var MYSQL_CONFIG_FILE)
     MYSQL_VERSION=$(warp_env_read_var MYSQL_VERSION)
 
-    if [ ! -z "$DATABASE_NAME" ]
+    if [ ! -z "$DATABASE_ROOT_PASSWORD" ]
     then
         warp_message ""
         warp_message_info "* MySQL"
