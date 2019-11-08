@@ -56,19 +56,38 @@ fi;
 ######## VENDOR MODULE
 echo ""
 warp_message_info "Configuring Vendor & Module name"
+warp_message_warn "if you want to work on app/code leave blank: Vendor Name"
+
+work_on_app_code=1
 
 while : ; do    
-    vendor_name=$( warp_question_ask_default "Vendor name: $(warp_message_info [Starfleet]) " "Starfleet" )
-    module_name=$( warp_question_ask_default "Module name: $(warp_message_info [Warp]) " "Warp" )
-
-    ask_module_ok=$( warp_question_ask_default "do you want to set: app/code/$vendor_name/$module_name? $(warp_message_info [Y/n]) " "Y" )
+    vendor_name=$( warp_question_ask "Vendor name: ")
+    
+    if [ -z "$vendor_name" ]
+    then
+        ask_module_ok=$( warp_question_ask_default "do you want to work on app/code/? $(warp_message_info [Y/n]) " "Y" )
+        work_on_app_code=1
+    else
+        module_name=$( warp_question_ask "Module name: ")
+        if [ -z "$module_name" ]
+        then
+            warp_message_warn "if you want to set Vendor Name, you must set Module Name"
+        else
+            ask_module_ok=$( warp_question_ask_default "do you want to set: app/code/$vendor_name/$module_name? $(warp_message_info [Y/n]) " "Y" )
+            work_on_app_code=0
+        fi
+    fi
 
     if [ "$ask_module_ok" = "Y" ] || [ "$ask_module_ok" = "y" ] ; then
         break
     fi
 done
 
-warp_message_info2 "Set app/code/$vendor_name/$module_name"
+if [ $work_on_app_code = 1 ] ; then
+    warp_message_info2 "Set app/code/ as main folder"
+else
+    warp_message_info2 "Set app/code/$vendor_name/$module_name"
+fi
 
 echo "# Module configurations" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "VENDOR_NAME=${vendor_name}" >> $ENVIRONMENTVARIABLESFILESAMPLE
@@ -212,7 +231,12 @@ warp_message_info "Configuring mapping files $(warp_message_ok [ok])"
     cp -R $PROJECTPATH/.warp/setup/init/config/etc $PROJECTPATH/.warp/docker/config/etc
 
     # Generate sample files
-    cat $PROJECTPATH/.warp/setup/sandbox/tpl/docker-mapping-warp-dev.yml > $DOCKERCOMPOSEFILEDEVSAMPLE
+    if [ $work_on_app_code = 1 ] ; then
+        cat $PROJECTPATH/.warp/setup/sandbox/tpl/docker-mapping-app-code.yml > $DOCKERCOMPOSEFILEDEVSAMPLE
+    else
+        cat $PROJECTPATH/.warp/setup/sandbox/tpl/docker-mapping-warp-dev.yml > $DOCKERCOMPOSEFILEDEVSAMPLE
+    fi
+
     cat $PROJECTPATH/.warp/setup/sandbox/tpl/appdata.yml >> $DOCKERCOMPOSEFILESAMPLE
 
     VOLUME_WARP_DEFAULT="warp-volume-sync"
@@ -309,7 +333,7 @@ warp_message_info "Configuring the Redis Service"
     warp_message ""
 
 ######## ELASTICSEARCH
-warp_message_info "Configuring ElasticSearch Service $(warp_message_ok [ok])"
+warp_message "* Configuring ElasticSearch Service $(warp_message_ok [ok])"
 
 cat $PROJECTPATH/.warp/setup/elasticsearch/tpl/elasticsearch.yml >> $DOCKERCOMPOSEFILESAMPLE
 
@@ -318,12 +342,12 @@ echo "ES_VERSION=$ES_SB1" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
 
 ######## NETWORK
-warp_message_info "Configuring Network $(warp_message_ok [ok])"
+warp_message "* Configuring Network $(warp_message_ok [ok])"
 
 cat $PROJECTPATH/.warp/setup/sandbox/tpl/network.yml >> $DOCKERCOMPOSEFILESAMPLE
 
 ######## MAGENTO FILES
-warp_message_info "Generate Magento templates $(warp_message_ok [ok])"
+warp_message "* Generate Magento templates $(warp_message_ok [ok])"
 
 if [ ! -d $PROJECTPATH/.platform ]
 then

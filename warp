@@ -391,7 +391,7 @@ case "$1" in
     mailhog_main $*
     ;;
 
-    sandbox)
+    sandbox | sb)
     shift 1
     setup_sandbox_main $*
     ;;

@@ -6,8 +6,9 @@ if ! warp_check_env_file ; then
 fi; 
 
 if [ $(warp_check_is_running) = false ]; then
-    warp_message "Staring mode Sandbox"
+    warp_message "starting containers, please wait"
     warp sandbox start
+    sleep 6
 fi
 
 #echo "Create Project"

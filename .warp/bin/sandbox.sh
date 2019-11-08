@@ -61,12 +61,6 @@ function sandbox_command() {
 
 function sandbox_start() {
 
-  if [ $(warp_check_is_running) = true ]; then
-    warp_message_warn "the containers is running";
-    warp_message_warn "for stop, please run: warp stop";
-    exit 1;
-  fi
-
   docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEDEV up --remove-orphans -d
 }
 
@@ -89,6 +83,18 @@ function sandbox_stop() {
 function sandbox_restart() {
   warp sandbox stop
   warp sandbox start
+}
+
+function sandbox_remove() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then      
+      sandbox_remove_help
+      exit 0;
+  fi
+
+  warp reset --hard
+
+  rm -rf $PROJECTPATH/.dockerignore 2> /dev/null
+  sudo rm -rf $PROJECTPATH/.warp/ 2> /dev/null
 }
 
 function sandbox_ssh() {
@@ -195,9 +201,9 @@ function sandbox_pull() {
 function sandbox_install() {
 
   if [ $(warp_check_is_running) = false ]; then
-    warp_message_warn "the containers is not running";
-    warp_message_warn "for start, please run: warp sandbox start";
-    exit 1;
+    warp_message "starting containers, please wait"
+    warp sandbox start
+    sleep 6
   fi
 
   . "$WARPFOLDER/setup/sandbox/m2-install.sh"
@@ -237,6 +243,11 @@ function sandbox_main()
         ssh)
           shift 1
           sandbox_ssh $*
+        ;;
+
+        remove | rm)
+          shift 1
+          sandbox_remove $*
         ;;
 
         php71)
