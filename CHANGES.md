@@ -1,7 +1,7 @@
 Warp Releases
 =============
 
-### [2019.11.07](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.07)
+### [2019.11.08](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.08)
 
 * add Mode Sandbox
 * improve command fix for macOS
