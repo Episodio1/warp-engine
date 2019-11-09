@@ -33,6 +33,8 @@
 * Elasticsearch
 * Varnish
 * Selenium
+* PostgreSQL
+* Sandbox Mode _(for developer modules on Magento 2)_
 
 ## Requirements
 
@@ -86,3 +88,9 @@ See [LICENSE](LICENSE) for the full license text.
 ## Author Information
 
 This project was started by [Matias Anoniz](https://github.com/yosoyfunes/) and [Sebastian Arrubia](https://github.com/sarrubia/)
+
+![Matias Anoniz](https://github.com/yosoyfunes.png?size=100)
+![Sebastian Arrubia](https://github.com/sarrubia.png?size=100)
+
+
+
