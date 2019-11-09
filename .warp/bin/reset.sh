@@ -81,6 +81,11 @@ function reset_warninig_confirm_hard()
             then
                 warp_message "* deleting sandbox folder $(warp_message_ok [ok])"
                 sudo rm -rf $PROJECTPATH/.platform 2> /dev/null
+
+                docker volume rm ${PWD##*/}_${PWD##*/}-volume-sync 2>/dev/null 
+                docker volume rm ${PWD##*/}_2.2.9-ce 2>/dev/null 
+                docker volume rm ${PWD##*/}_2.3.1-ce 2>/dev/null 
+                docker volume rm ${PWD##*/}_warp-mysql-db 2>/dev/null 
             fi
 
             warp_message ""

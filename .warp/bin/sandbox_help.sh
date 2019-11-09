@@ -6,6 +6,7 @@ function sandbox_help_usage()
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp sandbox command [options] [arguments]"
+    warp_message      " shortcut: warp sb command [options] [arguments]"
     warp_message ""
 
     warp_message ""
@@ -22,11 +23,13 @@ function sandbox_help_usage()
     warp_message_info   " start              $(warp_message 'start mode sandbox')"
     warp_message_info   " stop               $(warp_message 'stop mode sandbox')"
     warp_message_info   " restart            $(warp_message 'stop and start mode sandbox')"
+    warp_message_info   " remove             $(warp_message 'unistall mode sandbox')"
     warp_message_info   " init               $(warp_message 'init mode sandbox TL/Dev')"
 
     warp_message ""
     warp_message_info "Help:"
     warp_message " warp sandbox ssh --help"
+    warp_message " warp sb ssh --help"
 
     warp_message ""
 
@@ -80,6 +83,23 @@ function sandbox_ssh_help()
     warp_message " warp sandbox ssh --root"
     warp_message ""    
 
+}
+
+function sandbox_remove_help()
+{
+    warp_message ""
+    warp_message_info "Usage:"
+    warp_message      " warp sandbox remove [options]"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Help:"
+    warp_message " Unistall files and volumes on mode sandbox "
+    warp_message ""
+
+    warp_message_info "Example:"
+    warp_message " warp sandbox remove"
+    warp_message ""        
 }
 
 function sandbox_help()
