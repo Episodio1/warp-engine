@@ -99,18 +99,25 @@ function sandbox_remove() {
 
 function sandbox_ssh() {
 
-  if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then      
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ "$2" = "-h" ] || [ "$2" = "--help" ] ; then      
       sandbox_ssh_help
       exit 0;
   fi
 
+  if [ "$2" = "--root" ]
+  then
+    SSH_OPTION="-uroot"
+  else
+    SSH_OPTION=""
+  fi
+
   case "$1" in
       php71)
-          docker-compose -f $DOCKERCOMPOSEFILE exec php71 bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
+          docker-compose -f $DOCKERCOMPOSEFILE exec $SSH_OPTION php71 bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash" 
       ;;
 
       php72)
-          docker-compose -f $DOCKERCOMPOSEFILE exec php72 bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
+          docker-compose -f $DOCKERCOMPOSEFILE exec $SSH_OPTION php72 bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
       ;;
 
       --root)
@@ -251,11 +258,13 @@ function sandbox_main()
         ;;
 
         php71)
-          warp sandbox ssh php71
+          shift 1
+          warp sandbox ssh php71 $*
         ;;
 
         php72)
-          warp sandbox ssh php72
+          shift 1
+          warp sandbox ssh php72 $*
         ;;
 
         --install)
