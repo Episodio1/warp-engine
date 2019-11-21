@@ -13,6 +13,7 @@ function elasticsearch_info()
     fi; 
 
     ES_VERSION=$(warp_env_read_var ES_VERSION)
+    ES_MEMORY=$(warp_env_read_var ES_MEMORY)
 
     if [ ! -z "$ES_VERSION" ]
     then
@@ -22,6 +23,7 @@ function elasticsearch_info()
         warp_message "Host:                       $(warp_message_info 'elasticsearch')"
         warp_message "Ports (container):          $(warp_message_info '9200, 9300')"
         warp_message "Data:                       $(warp_message_info $PROJECTPATH/.warp/docker/volumes/elasticsearch)"
+        warp_message "Memory:                     $(warp_message_info $ES_MEMORY)"
 
         warp_message ""
     fi

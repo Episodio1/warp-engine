@@ -71,7 +71,7 @@ function magento_install()
     REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
 
     ADMIN_USER="admin"
-    ADMIN_PASS="password123"
+    ADMIN_PASS="Password123"
 
     case "$(uname -s)" in
       Darwin)

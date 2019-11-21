@@ -41,12 +41,15 @@ then
         esac        
     done
     warp_message_info2 "Selected version of elasticsearch: $elasticsearch_version, in the internal ports 9200, 9300 $(warp_message_bold 'elasticsearch:9200, elasticsearch:9300')"
-    
+    elasticsearch_memory=$( warp_question_ask_default "Set memory limit of elasticsearch: $(warp_message_info [512m]) " "512m" )
+    warp_message_info2 "Selected memory limit of elasticsearch: $elasticsearch_memory"
+
     cat $PROJECTPATH/.warp/setup/elasticsearch/tpl/elasticsearch.yml >> $DOCKERCOMPOSEFILESAMPLE
 
     echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "# Elasticsearch" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "ES_VERSION=$elasticsearch_version" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "ES_MEMORY=$elasticsearch_memory" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
 
 fi; 

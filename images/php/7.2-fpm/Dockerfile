@@ -18,7 +18,7 @@ RUN \
   htop \
   mc \
   nano \
-  mysql-client \
+  default-mysql-client \
   libcurl4-gnutls-dev \
   libxml2-dev \
   libssl-dev
@@ -101,8 +101,8 @@ RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/s
 RUN apt-get update && apt-get -t stretch-backports install -y \
   libsodium-dev
 
-RUN pecl install -f libsodium-1.0.17 \
-  && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/sodium.ini
+RUN pecl install -f libsodium \
+  && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
 
 # ssh2 module
 RUN apt-get install -y libssh2-1-dev \

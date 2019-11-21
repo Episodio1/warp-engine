@@ -19,8 +19,14 @@ function mysql_info()
     DATABASE_BINDED_PORT=$(warp_env_read_var DATABASE_BINDED_PORT)
     MYSQL_CONFIG_FILE=$(warp_env_read_var MYSQL_CONFIG_FILE)
     MYSQL_VERSION=$(warp_env_read_var MYSQL_VERSION)
+    MODE_SANDBOX=$(warp_env_read_var MODE_SANDBOX)
 
-    if [ ! -z "$DATABASE_NAME" ]
+    if [ "$MODE_SANDBOX" = "Y" ] || [ "$MODE_SANDBOX" = "y" ] ; then 
+        DATABASE_USER=null
+        DATABASE_PASSWORD=null
+    fi
+
+    if [ ! -z "$DATABASE_ROOT_PASSWORD" ]
     then
         warp_message ""
         warp_message_info "* MySQL"
@@ -28,6 +34,7 @@ function mysql_info()
         warp_message "Host: (container)           $(warp_message_info mysql)"
         warp_message "Username:                   $(warp_message_info $DATABASE_USER)"
         warp_message "Password:                   $(warp_message_info $DATABASE_PASSWORD)"
+        warp_message "Root user:                  $(warp_message_info root)"
         warp_message "Root password:              $(warp_message_info $DATABASE_ROOT_PASSWORD)"
         warp_message "Binded port (host):         $(warp_message_info $DATABASE_BINDED_PORT)"
         warp_message "MySQL version:              $(warp_message_info $MYSQL_VERSION)"

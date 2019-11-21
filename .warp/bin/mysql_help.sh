@@ -44,6 +44,9 @@ function mysql_import_help()
 
     warp_message_info "Example:"
     warp_message " warp mysql import warp_db < /path/to/restore/backup/warp_db.sql"
+    warp_message " gunzip < /path/to/restore/backup/warp_db.sql.gz | warp mysql import warp_db"
+    warp_message " gunzip < /path/to/restore/backup/warp_db.sql.gz | pv | warp mysql import warp_db"
+
     warp_message ""
 
 }
@@ -63,6 +66,7 @@ function mysql_dump_help()
 
     warp_message_info "Example:"
     warp_message " warp mysql dump warp_db | gzip > /path/to/save/backup/warp_db.sql.gz"
+    warp_message " warp mysql dump warp_db | gzip | pv > /path/to/save/backup/warp_db.sql.gz"
     warp_message " warp mysql dump warp_db > /path/to/save/backup/warp_db.sql"
     warp_message ""
 

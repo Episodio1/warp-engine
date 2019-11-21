@@ -1,6 +1,16 @@
 Warp Releases
 =============
 
+### [2019.11.21](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.21)
+
+* add Mode Sandbox
+* improve command fix for macOS
+* add option for set memory on elasticsearch
+* add cache composer from host
+* increment timeout in docker-compose
+* add images magento2-community 2.3.1, 2.2.9
+* fix sodium in image php 7.2-fpm
+
 ### [2019.10.07](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.10.07)
 
 * add PostgreSQL service 
