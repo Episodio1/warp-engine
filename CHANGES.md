@@ -1,10 +1,11 @@
 Warp Releases
 =============
 
-### [2019.11.11](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.11)
+### [2019.11.21](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.21)
 
 * add Mode Sandbox
 * improve command fix for macOS
+* add option for set memory on elasticsearch
 
 ### [2019.10.07](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.10.07)
 

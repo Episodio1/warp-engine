@@ -5,6 +5,12 @@
     ports:
       - "9200"
       - "9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms${ES_MEMORY} -Xmx${ES_MEMORY}"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
       - "./.warp/docker/volumes/elasticsearch:/usr/share/elasticsearch/data"
     networks:
