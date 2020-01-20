@@ -1,6 +1,8 @@
 
   php:
     image: summasolutions/php:${PHP_VERSION}
+    ports:
+      - 9001
     volumes:
       - ./.warp/docker/config/php/php.ini:/usr/local/etc/php/php.ini
       - ./.warp/docker/config/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
