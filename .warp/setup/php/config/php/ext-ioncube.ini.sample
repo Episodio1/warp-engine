@@ -9,3 +9,6 @@
 
 # PHP 7.2
 #zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20170718/iocube.so
+
+# PHP 7.3
+#zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20180731/iocube.so
