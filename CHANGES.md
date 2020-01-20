@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2020.01.20](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.01.20)
+
+* Add PHP 7.3-fpm
+* Add dashboad web for supervisor
+* Add templates for supervisor 
+
 ### [2019.11.21](https://github.com/SummaSolutions/warp-engine/releases/tag/2019.11.21)
 
 * add Mode Sandbox
