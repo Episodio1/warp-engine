@@ -22,8 +22,13 @@ function init_command() {
     if [ -f $DOCKERCOMPOSEFILE ] || [ -f $ENVIRONMENTVARIABLESFILESAMPLE ]; then
 
         if [ ! -f $ENVIRONMENTVARIABLESFILE ]; then
-            # INIT WIZARD MODE DEVELOPER
-            . "$WARPFOLDER/setup/init/developer.sh"
+            if [ "$1" = "-n" ] || [ "$1" = "--no-interaction" ] ; then
+                # INIT WITHOUT WIZARD MODE
+                . "$WARPFOLDER/setup/init/autoload.sh"
+            else
+                # INIT WIZARD MODE DEVELOPER
+                . "$WARPFOLDER/setup/init/developer.sh"
+            fi
         else
             INFRA_FILES_ERROR="FALSE"
             if [ -f $DOCKERCOMPOSEFILE ]; then
@@ -70,6 +75,7 @@ function init_main()
 {
     case "$1" in
         init)
+          shift 1
           init_command $*
         ;;
 

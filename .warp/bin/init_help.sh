@@ -10,6 +10,8 @@ function init_help_usage()
     warp_message ""
     warp_message_info "Options:"
     warp_message_info   " -h, --help         $(warp_message 'display this help message')"
+    warp_message_info   " -n                 $(warp_message 'init without wizard on mode developer')"
+    warp_message_info   " --no-interaction   $(warp_message 'init without wizard on mode developer')"
     warp_message ""
 
     warp_message ""
