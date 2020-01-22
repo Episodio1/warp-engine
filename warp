@@ -139,6 +139,11 @@ warp_message_not_install_yet()
 
 warp_update()
 {
+    if [ "$1" = "-f" ] || [ "$1" = "--force" ] ; then
+        warp_setup --force
+        exit 0;
+    fi;
+
     if [ ! -d $PROJECTPATH/.warp/lib ]; then
         warp_message_not_install_yet
         exit 0;
@@ -252,6 +257,16 @@ function warp_setup()
             include_warp_framework
             init_main init --no-interaction
         fi
+    fi
+
+    if [ "$OPTION" = "--force" ]
+    then
+        echo "Force updating Warp, wait a few moments"
+        sleep 1
+        echo "Successful update!"
+        sleep 1
+        # Init Instalation
+        include_warp_framework
     fi
 
     if [ "$OPTION" = "install" ]
