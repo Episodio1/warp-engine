@@ -343,6 +343,9 @@ echo "ES_VERSION64=$ES_SB2" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "ES_MEMORY=$ES_SBMEM" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
 
+mkdir -p   $PROJECTPATH/.warp/docker/volumes/elasticsearch56
+mkdir -p   $PROJECTPATH/.warp/docker/volumes/elasticsearch64
+
 ######## NETWORK
 warp_message "* Configuring Network $(warp_message_ok [ok])"
 
