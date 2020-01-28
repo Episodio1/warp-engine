@@ -43,7 +43,8 @@ function fix_elasticsearch()
     warp_message "* Applying permissions to subdirectories .warp/docker/volumes/elasticsearch $(warp_message_ok [ok])"
 
     mkdir -p   $PROJECTPATH/.warp/docker/volumes/elasticsearch
-    sudo chmod -R a+rwx $PROJECTPATH/.warp/docker/volumes/elasticsearch
+    sudo chmod -R a+rwx $PROJECTPATH/.warp/docker/volumes/elasticsearch*
+    sudo chown -R 102:102 $PROJECTPATH/.warp/docker/volumes/elasticsearch*
 
     exit 1;
 }
@@ -159,7 +160,7 @@ function fix_default()
     warp_message "* Applying permissions to subdirectories .warp/docker/volumes $(warp_message_ok [ok])"
 
     # add permission elasticsearch inside the container    
-    [ -d $PROJECTPATH/.warp/docker/volumes/elasticsearch/ ] && sudo chmod -R a+rwx $PROJECTPATH/.warp/docker/volumes/elasticsearch/
+    [ -d $PROJECTPATH/.warp/docker/volumes/elasticsearch/ ] && sudo chmod -R a+rwx $PROJECTPATH/.warp/docker/volumes/elasticsearch*
     [ -d $PROJECTPATH/.warp/docker/volumes/php-fpm/ ] && sudo chmod -R a+rwx $PROJECTPATH/.warp/docker/volumes/php-fpm
 
     warp_message "* Applying permissions to binaries $(warp_message_ok [ok])"
