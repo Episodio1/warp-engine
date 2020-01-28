@@ -90,6 +90,7 @@ DB_M23_CE="m231_ce"
 
 ES_SB1="5.6.8"
 ES_SB2="6.4.2"
+ES_SBMEM="1g"
 
 # DOCKERCOMPOSEFILE contains the path
 # to the docker-compose.yml file
