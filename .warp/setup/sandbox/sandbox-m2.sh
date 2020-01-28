@@ -27,7 +27,7 @@ warp_message ""
     warp_message ""
 
     warp_message_info "* Elasticsearch"
-    warp_message "Version:                    $(warp_message_info '5.6.8')"
+    warp_message "Version:                    $(warp_message_info '5.6.8, 6.4.2')"
     warp_message ""
 
 ######## MODE SANDBOX ########
@@ -335,7 +335,7 @@ warp_message_info "Configuring the Redis Service"
 ######## ELASTICSEARCH
 warp_message "* Configuring ElasticSearch Service $(warp_message_ok [ok])"
 
-cat $PROJECTPATH/.warp/setup/elasticsearch/tpl/elasticsearch.yml >> $DOCKERCOMPOSEFILESAMPLE
+cat $PROJECTPATH/.warp/setup/sandbox/tpl/elasticsearch.yml >> $DOCKERCOMPOSEFILESAMPLE
 
 echo "# Elasticsearch" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "ES_VERSION56=$ES_SB1" >> $ENVIRONMENTVARIABLESFILESAMPLE
