@@ -12,16 +12,16 @@ function elasticsearch_info()
         exit
     fi; 
 
-    ES_HOST=$(warp_env_read_var ES_HOST)
+    ES_HOST="elasticsearch"
     ES_VERSION=$(warp_env_read_var ES_VERSION)
     ES_MEMORY=$(warp_env_read_var ES_MEMORY)
 
     MODE_SANDBOX=$(warp_env_read_var MODE_SANDBOX)
 
     if [ "$MODE_SANDBOX" = "Y" ] || [ "$MODE_SANDBOX" = "y" ] ; then
-        ES_HOST=$(warp_env_read_var ES_SBHOST)
-        ES_VERSION=$(warp_env_read_var ES_SBVER)
-        ES_MEMORY=$(warp_env_read_var ES_SBMEM)
+        ES_HOST=$ES_SBHOST
+        ES_VERSION=$ES_SBVER
+        ES_MEMORY=$ES_SBMEM
     fi
 
     if [ ! -z "$ES_VERSION" ]
