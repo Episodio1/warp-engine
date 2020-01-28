@@ -338,7 +338,8 @@ warp_message "* Configuring ElasticSearch Service $(warp_message_ok [ok])"
 cat $PROJECTPATH/.warp/setup/elasticsearch/tpl/elasticsearch.yml >> $DOCKERCOMPOSEFILESAMPLE
 
 echo "# Elasticsearch" >> $ENVIRONMENTVARIABLESFILESAMPLE
-echo "ES_VERSION=$ES_SB1" >> $ENVIRONMENTVARIABLESFILESAMPLE
+echo "ES_VERSION56=$ES_SB1" >> $ENVIRONMENTVARIABLESFILESAMPLE
+echo "ES_VERSION64=$ES_SB2" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
 
 ######## NETWORK
