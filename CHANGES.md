@@ -1,6 +1,13 @@
 Warp Releases
 =============
 
+### [2020.02.03](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.02.03)
+
+* fix permission ES mode sandbox
+* Add ES 6.4.2 mode sandbox
+* Add no-interaction mode
+* Add option to force update without confirmation
+
 ### [2020.01.20](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.01.20)
 
 * Add PHP 7.3-fpm
