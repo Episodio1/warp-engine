@@ -17,7 +17,7 @@
 function start() {
 
   if [ $(warp_check_is_running) = true ]; then
-    warp_message_warn "the containers is running";
+    warp_message_warn "the containers are running";
     warp_message_warn "for stop, please run: warp stop";
     exit 1;
   fi
