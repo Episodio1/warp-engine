@@ -392,6 +392,10 @@ case "$1" in
     docker_main $*
     ;;
 
+    build)
+    build_main $*
+    ;;
+
     elasticsearch)
     shift 1
     elasticsearch_main $*

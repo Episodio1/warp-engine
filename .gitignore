@@ -8,3 +8,4 @@
 *.tar.xz
 .warp/lib/commit.sh
 .warp/lib/version.sh
+**/auth.json
