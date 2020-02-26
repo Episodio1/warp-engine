@@ -225,3 +225,26 @@ warp_check_docker_version()
         warp_message  ""
     fi
 }
+
+warp_check_current_version()
+{
+    if [ -f "$ENVIRONMENTVARIABLESFILE" ] && [ -f "$ENVIRONMENTVARIABLESFILESAMPLE" ]
+    then
+        WARP_ENV_VERSION=$(grep "^WARP_VERSION" $ENVIRONMENTVARIABLESFILESAMPLE | cut -d '=' -f2)
+
+        if [ -f $PROJECTPATH/.warp/lib/version.sh ] && [ ! -z "$WARP_ENV_VERSION" ]
+        then
+            . $PROJECTPATH/.warp/lib/version.sh
+            WARP_VERSION_CURRENT=$(echo $WARP_VERSION | tr -d ".")
+            WARP_ENV_VERSION=$(echo $WARP_ENV_VERSION | tr -d ".")
+            
+            if [ $WARP_VERSION_CURRENT -lt $WARP_ENV_VERSION ] && [ ! $WARP_VERSION_CURRENT -eq $WARP_ENV_VERSION ]
+            then
+                # diferent version  binary and current, force update
+                warp_message_warn "diferent version binary and current, force update"
+                warp_setup --force
+                exit 0;
+            fi
+        fi
+    fi
+}
