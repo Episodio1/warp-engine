@@ -161,8 +161,7 @@ warp_check_latest_version()
             if [ "$respuesta_update_warp_online" = "Y" ] || [ "$respuesta_update_warp_online" = "y" ]
             then
                 curl --silent -L -o warp http://ct.summasolutions.net/warp-engine/warp && chmod 755 warp
-                ./warp_tmp update --self-update
-                mv warp_tmp warp
+                warp_setup --self-update
             fi
         fi
     fi
@@ -178,11 +177,6 @@ warp_update()
 {
     if [ "$1" = "-f" ] || [ "$1" = "--force" ] ; then
         warp_setup --force
-        exit 0;
-    fi;
-
-    if [ "$1" = "--self-update" ] ; then
-        warp_setup --self-update
         exit 0;
     fi;
 
@@ -360,6 +354,32 @@ function warp_setup()
         fi
     fi
 }
+
+function warp_check_binary_was_updated()
+{
+    if [ -f "$ENVIRONMENTVARIABLESFILE" ] && [ -f "$ENVIRONMENTVARIABLESFILESAMPLE" ] && [ -d $PROJECTPATH/.warp/lib ]
+    then
+        WARP_ENV_VERSION=$(grep "^WARP_VERSION" $ENVIRONMENTVARIABLESFILESAMPLE | cut -d '=' -f2)
+        _WARP_ENV_VERSION=$(echo $WARP_ENV_VERSION | tr -d ".")
+
+        . $PROJECTPATH/.warp/lib/version.sh
+        _WARP_VERSION=$(echo $WARP_VERSION | tr -d ".")
+
+        if [ ! -z "$WARP_ENV_VERSION" ]
+        then
+            # .env.sample > version.sh and not equal
+            if [ $_WARP_ENV_VERSION -gt $_WARP_VERSION ] && [ ! $_WARP_ENV_VERSION -eq $_WARP_VERSION ]
+            then
+                # different version binary and current, force update
+                warp_message_warn "binary and current version different, force update"
+                warp_setup --force
+            fi
+        fi
+    fi
+}
+
+# check if binary was updated
+warp_check_binary_was_updated
 
 case "$1" in
     init)
