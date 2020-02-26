@@ -1,10 +1,11 @@
 Warp Releases
 =============
 
-### [2020.XX.XX](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.XX.XX)
+### [2020.02.XX](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.02.XX)
 
 * Allow alphanumeric characters on project and client name
 * Add feature to build images
+* Add feature self update
 
 ### [2020.02.03](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.02.03)
 

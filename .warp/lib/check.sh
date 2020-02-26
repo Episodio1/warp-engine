@@ -193,6 +193,7 @@ warp_check_gitignore()
         echo "!/$(basename $DOCKERCOMPOSEFILESAMPLE)"         >> $GITIGNOREFILE
         echo "!/$(basename $DOCKERCOMPOSEFILEMACSAMPLE)"      >> $GITIGNOREFILE
         echo "!/$(basename $DOCKERSYNCMACSAMPLE)"             >> $GITIGNOREFILE
+        echo "/$(basename  $CHECK_UPDATE_FILE)"               >> $GITIGNOREFILE
         echo "/.docker-sync"                            >> $GITIGNOREFILE        
         echo "/.warp/docker/volumes"                    >> $GITIGNOREFILE
         echo "/.warp/docker/dumps"                      >> $GITIGNOREFILE
