@@ -21,7 +21,8 @@ RUN \
   default-mysql-client \
   libcurl4-gnutls-dev \
   libxml2-dev \
-  libssl-dev
+  libssl-dev \
+  libpq-dev
 
 RUN \
   /usr/local/bin/docker-php-ext-install \
@@ -73,6 +74,7 @@ RUN \
     pdo \
     sockets \
     pdo_mysql \
+    pdo_pgsql \
     mysqli \
     mbstring \
 #   mcrypt \
@@ -86,8 +88,17 @@ RUN \
     opcache \
     zip
 
-# Install Node, NVM, NPM and Grunt, Gulp
+#####################################
+# LDAP:
+#####################################
+RUN \
+    apt-get update && \
+    apt-get install libldap2-dev -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+    docker-php-ext-install ldap
 
+# Install Node, NVM, NPM and Grunt, Gulp
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
     && apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh \
@@ -98,10 +109,18 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
 # https://github.com/magento/magento2/issues/23405 
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
 
-RUN apt-get update && apt-get -t stretch-backports install -y \
-  libsodium-dev
-
-RUN pecl install -f libsodium \
+RUN rm -f /usr/local/etc/php/conf.d/*sodium.ini \
+  && rm -f /usr/local/lib/php/extensions/*/*sodium.so \
+  && apt-get remove libsodium* -y  \
+  && mkdir -p /tmp/libsodium  \
+  && curl -sL https://github.com/jedisct1/libsodium/archive/1.0.18-RELEASE.tar.gz | tar xzf - -C  /tmp/libsodium \
+  && cd /tmp/libsodium/libsodium-1.0.18-RELEASE/ \
+  && ./configure \
+  && make && make check \
+  && make install  \
+  && cd / \
+  && rm -rf /tmp/libsodium  \
+  && pecl install -o -f libsodium \
   && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
 
 # ssh2 module
@@ -145,7 +164,8 @@ RUN curl -sS https://getcomposer.org/installer | \
 RUN no | pecl install -o -f redis && docker-php-ext-enable redis
 
 # Make sure the volume mount point is empty
-RUN rm -rf /var/www/html/*
+RUN rm -rf /var/www/html/* && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN pecl install -o -f xdebug-2.6.1
 
