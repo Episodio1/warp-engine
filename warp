@@ -386,8 +386,7 @@ if [ ! -z "$CHECK_UPDATE_FILE" ] && [ ! -z "$CHECK_FREQUENCY_DAYS" ]
 then
     case "$(uname -s)" in
         Darwin)
-        # autodetect docker in Mac
-        # Check availability of docker-sync
+        # autodetect docker in OSX
         DATE_OSX_LINUX=$(date -v +${CHECK_FREQUENCY_DAYS}d +%Y%m%d)
         ;;
         Linux)
