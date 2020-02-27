@@ -2,6 +2,7 @@
 /.vscode
 /.env
 /.env.sample
+/.self-update-warp
 /docker-compose.yml
 .DS_Store
 /dist/warp*
