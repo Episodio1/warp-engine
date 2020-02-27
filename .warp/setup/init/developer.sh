@@ -33,7 +33,12 @@ case "$(uname -s)" in
         if [ "$rta_use_docker_sync" = "Y" ] || [ "$rta_use_docker_sync" = "y" ] ; then
             cat $PROJECTPATH/.warp/setup/mac/tpl/docker-compose-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
         else
-            cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+            if [ "$FRAMEWORK" = 'oro' ]
+            then
+                cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-oro-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+            else
+                cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+            fi
         fi
 
         VOLUME_WARP_DEFAULT="warp-volume-sync"
