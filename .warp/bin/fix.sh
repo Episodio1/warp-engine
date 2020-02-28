@@ -130,6 +130,8 @@ function fix_default()
     warp_message "* Applying user: $(whoami) and group: www-data to files and folders $(warp_message_ok [ok])"
     case "$(uname -s)" in
       Darwin)
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chown 33:33 /var/www/html/"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod ug+rwx /var/www/html/"
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chown -R $(id -u):33 /var/www/html/*"
       ;;
       Linux)
