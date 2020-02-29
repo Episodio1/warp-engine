@@ -44,6 +44,7 @@ function reset_warninig_confirm_hard()
             warp_message "* deleting $(basename $DOCKERCOMPOSEFILEMACSAMPLE) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $DOCKERSYNCMACSAMPLE) $(warp_message_ok [ok])"
+            warp_message "* deleting $(basename $CHECK_UPDATE_FILE) $(warp_message_ok [ok])"
             
             case "$(uname -s)" in
             Darwin)
@@ -65,6 +66,7 @@ function reset_warninig_confirm_hard()
             rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
             rm $DOCKERSYNCMAC 2> /dev/null
             rm $DOCKERSYNCMACSAMPLE 2> /dev/null
+            [ -f $CHECK_UPDATE_FILE ] $$ rm CHECK_UPDATE_FILE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILEDEV ] && rm $DOCKERCOMPOSEFILEDEV 2> /dev/null
             [ -f $DOCKERCOMPOSEFILEDEVSAMPLE ] && rm $DOCKERCOMPOSEFILEDEVSAMPLE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILESELENIUM ] && rm $DOCKERCOMPOSEFILESELENIUM 2> /dev/null
