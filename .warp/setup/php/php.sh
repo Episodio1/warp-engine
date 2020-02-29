@@ -17,7 +17,7 @@ if [ "$respuesta_php" = "Y" ] || [ "$respuesta_php" = "y" ]
 then
     warp_message_info2 "You can check the available PHP versions from: $(warp_message_info '[ https://hub.docker.com/r/summasolutions/php/tags/ ]')"
     while : ; do
-        php_version=$( warp_question_ask_default "Set the PHP version of your project: $(warp_message_info [7.1-fpm]) " "7.1-fpm" )
+        php_version=$( warp_question_ask_default "Set the PHP version of your project: $(warp_message_info [7.2-fpm]) " "7.2-fpm" )
     
         case $php_version in
         '5.6-fpm')

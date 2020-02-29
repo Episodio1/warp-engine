@@ -23,6 +23,10 @@ ENVIRONMENTVARIABLESFILESAMPLE="$PROJECTPATH/.env.sample"
 # variables for this script.
 ENVIRONMENTVARIABLESFILE="$PROJECTPATH/.env"
 
+# Check self update
+CHECK_UPDATE_FILE="$PROJECTPATH/.self-update-warp"
+CHECK_FREQUENCY_DAYS=7
+
 # DOCKERCOMPOSEFILE contains the path
 # to the docker-compose.yml sample file
 DOCKERCOMPOSEFILESAMPLE="$PROJECTPATH/docker-compose-warp.yml.sample"

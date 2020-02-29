@@ -38,3 +38,25 @@ function warp_env_random_password()
     done
     echo $rand
 }
+
+function warp_env_change_version_sample_file()
+{
+    WARP_ENV_VERSION=$(grep "^WARP_VERSION" $ENVIRONMENTVARIABLESFILESAMPLE | cut -d '=' -f2)
+    _WARP_ENV_VERSION=$(echo $WARP_ENV_VERSION | tr -d ".")
+
+    . $PROJECTPATH/.warp/lib/version.sh
+    _WARP_VERSION=$(echo $WARP_VERSION | tr -d ".")
+
+    if [ ! -z "$WARP_ENV_VERSION" ]
+    then        
+        # SAVE OPTION VERSION
+        WARP_VERSION_OLD="WARP_VERSION=$WARP_ENV_VERSION"
+        WARP_VERSION_NEW="WARP_VERSION=$WARP_VERSION"
+
+        if [ $_WARP_ENV_VERSION -lt $_WARP_VERSION ] && [ ! $_WARP_ENV_VERSION -eq $_WARP_VERSION ]
+        then
+            cat $ENVIRONMENTVARIABLESFILESAMPLE | sed -e "s/$WARP_VERSION_OLD/$WARP_VERSION_NEW/" > "$ENVIRONMENTVARIABLESFILESAMPLE.tmp"
+            mv "$ENVIRONMENTVARIABLESFILESAMPLE.tmp" $ENVIRONMENTVARIABLESFILESAMPLE
+        fi
+    fi
+}

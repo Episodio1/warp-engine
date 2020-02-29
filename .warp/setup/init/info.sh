@@ -20,6 +20,25 @@ then
     esac
 fi
 
+if [ -f $ENVIRONMENTVARIABLESFILE ]
+then
+    case "$(uname -s)" in
+        Darwin)
+
+        IP_XDEBUG_MAC="10.254.254.254"
+        IP_XDEBUG_LINUX="172.17.0.1"
+
+        cat $ENVIRONMENTVARIABLESFILE | sed -e "s/$IP_XDEBUG_LINUX/$IP_XDEBUG_MAC/" > $ENVIRONMENTVARIABLESFILE.tmp
+        mv $ENVIRONMENTVARIABLESFILE.tmp $ENVIRONMENTVARIABLESFILE
+        ;;
+    esac
+
+    VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
+
+    cat $ENVIRONMENTVARIABLESFILE | sed -e "s/PHP_IDE_CONFIG=serverName=docker/PHP_IDE_CONFIG=serverName=$VIRTUAL_HOST/" > $ENVIRONMENTVARIABLESFILE.tmp
+    mv $ENVIRONMENTVARIABLESFILE.tmp $ENVIRONMENTVARIABLESFILE
+fi
+
 # creating ext-ioncube.ini
 if  [ ! -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ] && [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini.sample ]
 then
