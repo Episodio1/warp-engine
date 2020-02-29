@@ -16,11 +16,21 @@ done
 if [ "$respuesta_psql" = "Y" ] || [ "$respuesta_psql" = "y" ]
 then
 
-    warp_message_info2 "You can check the available versions of PostgreSQL here: $(warp_message_info '[ https://hub.docker.com/r/library/postgres/tags/ ]')"
-    psql_version=$( warp_question_ask_default "Choose the PostgreSQL engine version: $(warp_message_info [9.6.15]) " "9.6.15" )
-    warp_message_info2 "Selected PostgreSQL Version: $psql_version"
+    warp_message_info2 "You can check the available versions of PostgreSQL here: $(warp_message_info '[ https://hub.docker.com/r/summasolutions/postgres/tags/ ]')"
+    while : ; do
+        psql_version=$( warp_question_ask_default "Choose the PostgreSQL engine version: $(warp_message_info [9.6.15]) " "9.6.15" )
+    
+        case $psql_version in
+        '9.6.15')
+            break
+        ;;
+        *)
+            warp_message_info2 "Selected: $psql_version, the available versions is 9.6.15"
+        ;;
+        esac        
+    done
 
-    mysql_docker_image="postgres:${psql_version}"
+    warp_message_info2 "Selected PostgreSQL Version: $psql_version"
 
     while : ; do
         psql_name_database=$( warp_question_ask_default "Set the database name: $(warp_message_info [warp_db]) " "warp_db" )

@@ -1,6 +1,19 @@
 Warp Releases
 =============
 
+### [2020.02.29](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.02.29)
+
+* Allow alphanumeric characters on project and client name
+* Add feature to build images
+* Add feature self update
+* Add module pdo_pgsql and ldap on PHP 7.2-fpm
+* Add module pdo_pgsql and ldap on PHP 7.3-fpm
+* Add templates docker-sync-osx on projects Oro
+* Change permissions chmod 400 before copying --credential
+* Configure IP for xdebug cli on osx and linux
+* Add custom Image with Postgres and UUID Support
+* Set default php 7.2-fpm
+
 ### [2020.02.03](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.02.03)
 
 * fix permission ES mode sandbox
