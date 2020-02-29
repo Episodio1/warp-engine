@@ -381,6 +381,7 @@ function warp_check_binary_was_updated()
 # check if binary was updated
 warp_check_binary_was_updated
 
+## Generate file to check self-update
 # check if the variables are not empty
 if [ ! -z "$CHECK_UPDATE_FILE" ] && [ ! -z "$CHECK_FREQUENCY_DAYS" ]
 then
@@ -399,16 +400,16 @@ then
         _NEXT_CHECK=$(cat "$CHECK_UPDATE_FILE")
         _TODAY=$(date +%Y%m%d)
 
-        if [ $_TODAY -ge $_NEXT_CHECK ]
+        if [[ $_TODAY -ge $_NEXT_CHECK ]]
         then
             warp_check_latest_version
             # update next check
-            cat $DATE_OSX_LINUX > "$CHECK_UPDATE_FILE" 2> /dev/null
+            echo $DATE_OSX_LINUX > "$CHECK_UPDATE_FILE" 2> /dev/null
         fi    
     else
         touch "$CHECK_UPDATE_FILE" 2> /dev/null
         # save next check
-        cat $DATE_OSX_LINUX > "$CHECK_UPDATE_FILE" 2> /dev/null
+        echo $DATE_OSX_LINUX > "$CHECK_UPDATE_FILE" 2> /dev/null
     fi
 fi
 
