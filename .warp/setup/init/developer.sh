@@ -20,7 +20,7 @@ case "$(uname -s)" in
     warp_message_info "Configuring mapping files to container"
 
         while : ; do
-            rta_use_docker_sync=$( warp_question_ask_default "Do you want to use docker-sync? $(warp_message_info [Y/n]) " "Y" )
+            rta_use_docker_sync=$( warp_question_ask_default "Do you want to use docker-sync? $(warp_message_info [y/N]) " "N" )
 
             if [ "$rta_use_docker_sync" = "Y" ] || [ "$rta_use_docker_sync" = "y" ] || [ "$rta_use_docker_sync" = "N" ] || [ "$rta_use_docker_sync" = "n" ] ; then
                 break
