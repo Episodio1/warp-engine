@@ -20,6 +20,16 @@ then
     esac
 fi
 
+if [ ! -z "$DOCKER_PRIVATE_REGISTRY" ]
+then
+    # CONFIGURE VOLUME_DB MYSQL
+    VOLUME_DB_WARP_DEFAULT="warp-volume-db"
+    VOLUME_DB_WARP="$(basename $(pwd))-volume-db"
+
+    cat $DOCKERCOMPOSEFILE | sed -e "s/$VOLUME_DB_WARP_DEFAULT/$VOLUME_DB_WARP/" > "$DOCKERCOMPOSEFILE.tmp"
+    mv "$DOCKERCOMPOSEFILE.tmp" $DOCKERCOMPOSEFILE
+fi
+
 if [ -f $ENVIRONMENTVARIABLESFILE ]
 then
     case "$(uname -s)" in
@@ -88,4 +98,15 @@ fi
 
 warp_message_warn "To start the containers: $(warp_message_bold './warp start')"
 warp_message_warn "To see detailed information for each service configured: $(warp_message_bold './warp info')"
+
+case "$(uname -s)" in
+    Darwin)
+        USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
+        if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ]
+        then 
+            warp_message_warn "To copy all files from host to container: $(warp_message_bold './warp sync push --all')"
+        fi
+    ;;
+esac
+
 sleep 1
