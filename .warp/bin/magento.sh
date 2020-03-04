@@ -48,6 +48,9 @@ function magento_command()
     elif [ "$1" = "-T" ] ; then
         shift 1
         docker-compose -f $DOCKERCOMPOSEFILE exec -T php bash -c "$MAGENTOBIN $*"
+    elif [ "$1" = "--xdebug" ] || [ "$1" = "-x" ] ; then
+        shift 1
+        docker-compose -f $DOCKERCOMPOSEFILE exec -T php_xdebug bash -c "$MAGENTOBIN $*"
     else
 
         docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "$MAGENTOBIN $*"
