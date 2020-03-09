@@ -49,9 +49,9 @@ function composer() {
 
     if [ "$1" = "-T" ]; then
       shift 1
-      docker-compose -f $DOCKERCOMPOSEFILE exec -T php bash -c "composer $*"
+      docker-compose -f $DOCKERCOMPOSEFILE exec -T php bash -c "php -dmemory_limit=-1 /usr/local/bin/composer $*"
     else
-      docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "composer $*"
+      docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "php -dmemory_limit=-1 /usr/local/bin/composer $*"
     fi;
   fi;
 }
