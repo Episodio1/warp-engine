@@ -25,14 +25,14 @@ function rsync_push_to_container() {
   CONTAINER_APPDATA_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "873/tcp") 0).HostPort}}' $(warp docker ps -q appdata))
 
   if [ "$1" == "--all" ]; then
-    rsync -aogvEh * --executability --chown=$(id -u):33  rsync://localhost:$CONTAINER_APPDATA_PORT/warp
+    rsync -aogvEh * --chown=$(id -u):33 --chmod=ug+rw rsync://localhost:$CONTAINER_APPDATA_PORT/warp
     warp_message "Completed copying all files from host to container"
   else
     
     for i in "$@"
     do
       if [ -f $i ] || [ -d $i ] ; then
-        rsync -aogvEh $i --executability --chown=$(id -u):33  rsync://localhost:$CONTAINER_APPDATA_PORT/warp
+        rsync -aogvEh $i --chown=$(id -u):33 --chmod=ug+rw rsync://localhost:$CONTAINER_APPDATA_PORT/warp
         warp_message "Completed copying $i from host to container"  
       else
         warp_message_error "do not copy $i from host to container"  
