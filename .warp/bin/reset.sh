@@ -46,27 +46,37 @@ function reset_warninig_confirm_hard()
             warp_message "* deleting $(basename $DOCKERSYNCMACSAMPLE) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $CHECK_UPDATE_FILE) $(warp_message_ok [ok])"
             
-            case "$(uname -s)" in
-            Darwin)
-                USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
-                if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
-                    # clean data sync
-                    docker-sync clean
-                else
-                    docker volume rm ${PWD##*/}_${PWD##*/}-volume-sync 2>/dev/null 
-                fi
-            ;;
-            esac
+            if [ -f $ENVIRONMENTVARIABLESFILE ] 
+            then
+                case "$(uname -s)" in
+                Darwin)
+                    USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
+                    if [ "$USE_DOCKER_SYNC" = "Y" ] || [ "$USE_DOCKER_SYNC" = "y" ] ; then 
+                        # clean data sync
+                        docker-sync clean
+                    else
+                        docker volume rm ${PWD##*/}_${PWD##*/}-volume-sync 2>/dev/null 
+                    fi
+                ;;
+                esac
 
-            rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
-            rm $ENVIRONMENTVARIABLESFILESAMPLE 2> /dev/null
-            rm $DOCKERCOMPOSEFILE 2> /dev/null
-            rm $DOCKERCOMPOSEFILESAMPLE 2> /dev/null
-            rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
-            rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
-            rm $DOCKERSYNCMAC 2> /dev/null
-            rm $DOCKERSYNCMACSAMPLE 2> /dev/null
-            [ -f $CHECK_UPDATE_FILE ] $$ rm CHECK_UPDATE_FILE 2> /dev/null
+                DOCKER_PRIVATE_REGISTRY=$(warp_env_read_var DOCKER_PRIVATE_REGISTRY)
+                if [ ! -z "$DOCKER_PRIVATE_REGISTRY" ]
+                then
+                    docker volume rm ${PWD##*/}_${PWD##*/}-volume-db 2>/dev/null 
+                fi
+                
+                rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
+            fi
+
+            [ -f $ENVIRONMENTVARIABLESFILESAMPLE ] && rm $ENVIRONMENTVARIABLESFILESAMPLE 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILE ] && rm $DOCKERCOMPOSEFILE 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILESAMPLE ] && rm $DOCKERCOMPOSEFILESAMPLE 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILEMAC ] && rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
+            [ -f $DOCKERCOMPOSEFILEMACSAMPLE ] && rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
+            [ -f $DOCKERSYNCMAC ] && rm $DOCKERSYNCMAC 2> /dev/null
+            [ -f $DOCKERSYNCMACSAMPLE ] && rm $DOCKERSYNCMACSAMPLE 2> /dev/null
+            [ -f $CHECK_UPDATE_FILE ] && rm CHECK_UPDATE_FILE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILEDEV ] && rm $DOCKERCOMPOSEFILEDEV 2> /dev/null
             [ -f $DOCKERCOMPOSEFILEDEVSAMPLE ] && rm $DOCKERCOMPOSEFILEDEVSAMPLE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILESELENIUM ] && rm $DOCKERCOMPOSEFILESELENIUM 2> /dev/null
@@ -85,6 +95,7 @@ function reset_warninig_confirm_hard()
                 sudo rm -rf $PROJECTPATH/.platform 2> /dev/null
 
                 docker volume rm ${PWD##*/}_${PWD##*/}-volume-sync 2>/dev/null 
+                docker volume rm ${PWD##*/}_${PWD##*/}-volume-db 2>/dev/null 
                 docker volume rm ${PWD##*/}_2.2.9-ce 2>/dev/null 
                 docker volume rm ${PWD##*/}_2.3.1-ce 2>/dev/null 
                 docker volume rm ${PWD##*/}_warp-mysql-db 2>/dev/null 
@@ -119,10 +130,10 @@ function reset_warninig_confirm()
             rm $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini 2> /dev/null
         fi
         
-        rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
-        rm $DOCKERCOMPOSEFILE 2> /dev/null
-        rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
-        rm $DOCKERSYNCMAC 2> /dev/null
+        [ -f $ENVIRONMENTVARIABLESFILE ] && rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
+        [ -f $DOCKERCOMPOSEFILE ] && rm $DOCKERCOMPOSEFILE 2> /dev/null
+        [ -f $DOCKERCOMPOSEFILEMAC ] && rm $DOCKERCOMPOSEFILEMAC 2> /dev/null
+        [ -f $DOCKERSYNCMAC ] && rm $DOCKERSYNCMAC 2> /dev/null
         [ -f $DOCKERCOMPOSEFILEDEV ] && rm $DOCKERCOMPOSEFILEDEV 2> /dev/null
         warp_message ""
 

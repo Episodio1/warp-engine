@@ -16,7 +16,7 @@
 ##
 function warp_env_read_var()
 {
-    _VAR=$(grep "^$1=" $ENVIRONMENTVARIABLESFILE | cut -d '=' -f2)
+    [ -f $ENVIRONMENTVARIABLESFILE ] && _VAR=$(grep "^$1=" $ENVIRONMENTVARIABLESFILE | cut -d '=' -f2)
     echo $_VAR
 }
 

@@ -1,9 +1,12 @@
 #!/bin/bash +x
 
+# LOAD VARIABLES SAMPLE
+. $ENVIRONMENTVARIABLESFILESAMPLE
+
 case "$(uname -s)" in
     Darwin)
         while : ; do
-            rta_use_docker_sync=$( warp_question_ask_default "Do you want to use docker-sync? $(warp_message_info [Y/n]) " "Y" )
+            rta_use_docker_sync=$( warp_question_ask_default "Do you want to use docker-sync? $(warp_message_info [y/N]) " "N" )
 
             if [ "$rta_use_docker_sync" = "Y" ] || [ "$rta_use_docker_sync" = "y" ] || [ "$rta_use_docker_sync" = "N" ] || [ "$rta_use_docker_sync" = "n" ] ; then
                 break
@@ -25,7 +28,12 @@ cat $PROJECTPATH/.warp/setup/mac/tpl/docker-sync.yml > $DOCKERSYNCMACSAMPLE
 if [ "$rta_use_docker_sync" = "Y" ] || [ "$rta_use_docker_sync" = "y" ] ; then
     cat $PROJECTPATH/.warp/setup/mac/tpl/docker-compose-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
 else
-    cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+    if [[ "$FRAMEWORK" = "oro" ]]
+    then
+        cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-oro-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+    else
+        cat $PROJECTPATH/.warp/setup/mac/tpl/docker-mapping-warp-mac.yml > $DOCKERCOMPOSEFILEMAC
+    fi
 fi
 
 VOLUME_WARP_DEFAULT="warp-volume-sync"

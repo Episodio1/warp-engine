@@ -22,11 +22,13 @@ function xdebug_command()
 
     if [ "$1" == "--disable" ]; then
         sed -i -e 's/^zend_extension/\;zend_extension/g' $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini
-        warp restart
+        warp docker stop php 
+        warp docker start php 
         warp_message "Xdebug has been disabled."    
     elif [ "$1" == "--enable" ]; then
         sed -i -e 's/^\;zend_extension/zend_extension/g' $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini
-        warp restart
+        warp docker stop php 
+        warp docker start php 
         warp_message "Xdebug has been enabled."    
     elif [ "$1" == "--status" ]; then
             [ -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ] && cat $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini | grep --quiet -w "^;zend_extension"

@@ -23,20 +23,21 @@ then
     mysql_docker_image="mysql:${mysql_version}"
 
     if [ "$private_registry_mode" = "Y" ] || [ "$private_registry_mode" = "y" ] ; then
-        while : ; do
-            mysql_use_project_specific=$( warp_question_ask_default "Do you want to use a custom specific DB image from your private registry? $(warp_message_info [y/N]) " "N" )
+        # while : ; do
+        #     mysql_use_project_specific=$( warp_question_ask_default "Do you want to use a custom specific DB image from your private registry? $(warp_message_info [Y/n]) " "Y" )
 
-            if [ "$mysql_use_project_specific" = "Y" ] || [ "$mysql_use_project_specific" = "y" ] || [ "$mysql_use_project_specific" = "N" ] || [ "$mysql_use_project_specific" = "n" ] ; then
-                break
-            else
-                warp_message_warn "wrong answer, you must select between two options: $(warp_message_info [Y/n]) "
-            fi
-        done;
-
-        if [ "$mysql_use_project_specific" = "Y" ] || [ "$mysql_use_project_specific" = "y" ]
+        #     if [ "$mysql_use_project_specific" = "Y" ] || [ "$mysql_use_project_specific" = "y" ] || [ "$mysql_use_project_specific" = "N" ] || [ "$mysql_use_project_specific" = "n" ] ; then
+        #         break
+        #     else
+        #         warp_message_warn "wrong answer, you must select between two options: $(warp_message_info [Y/n]) "
+        #     fi
+        # done;
+        
+        if [ ! -z "$docker_private_registry" ]
         then
             # Overwrite default mysql image.
             mysql_docker_image="${namespace_name}-${project_name}-dbs"    
+            mysql_use_project_specific=Y
         fi    
     fi
 

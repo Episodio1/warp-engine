@@ -1,4 +1,3 @@
-warp_message ""
 warp_message "* Configuring Network services in containers $(warp_message_ok [ok])"
 sleep 1
 

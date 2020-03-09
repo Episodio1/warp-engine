@@ -26,7 +26,7 @@ function push_to_container() {
   esac
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy to container (ex. vendor, --all)" && exit
-  CONTAINER_PHP_NAME=$(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}')
+  CONTAINER_PHP_NAME=$(docker-compose -f $DOCKERCOMPOSEFILE ps -q php)
 
   if [ "$1" == "--all" ]; then
     docker cp ./ $CONTAINER_PHP_NAME:/var/www/html
@@ -75,7 +75,7 @@ function pull_from_container() {
   esac
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
-  CONTAINER_PHP_NAME=$(docker-compose -f $DOCKERCOMPOSEFILE ps|grep php|awk '{print $1}')
+  CONTAINER_PHP_NAME=$(docker-compose -f $DOCKERCOMPOSEFILE ps -q php)
 
   if [ "$1" == "--all" ]; then
     docker cp $CONTAINER_PHP_NAME:/var/www/html/./ ./
