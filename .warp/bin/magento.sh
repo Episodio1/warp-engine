@@ -27,6 +27,12 @@ function magento_command()
         exit 1;
     fi
 
+    if [ "$1" = "--install-only" ]
+    then
+        magento_install_only
+        exit 1
+    fi;
+
     if [ "$1" = "--install" ]
     then
         magento_install
@@ -48,9 +54,6 @@ function magento_command()
     elif [ "$1" = "-T" ] ; then
         shift 1
         docker-compose -f $DOCKERCOMPOSEFILE exec -T php bash -c "$MAGENTOBIN $*"
-    elif [ "$1" = "--xdebug" ] || [ "$1" = "-x" ] ; then
-        shift 1
-        docker-compose -f $DOCKERCOMPOSEFILE exec -T php_xdebug bash -c "$MAGENTOBIN $*"
     else
 
         docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "$MAGENTOBIN $*"
@@ -155,6 +158,45 @@ function magento_install()
 
     warp_message "Restarting containers with host bind mounts for dev..."
     warp restart
+
+    warp_message "Docker development environment setup complete."
+    warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"
+    warp_message "Admin user: $ADMIN_USER"
+    warp_message "Admin pass: $ADMIN_PASS"
+}
+
+function magento_install_only()
+{
+    VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
+    DATABASE_NAME=$(warp_env_read_var DATABASE_NAME)
+    DATABASE_USER=$(warp_env_read_var DATABASE_USER)
+    DATABASE_PASSWORD=$(warp_env_read_var DATABASE_PASSWORD)
+    USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
+    REDIS_CACHE_VERSION=$(warp_env_read_var REDIS_CACHE_VERSION)
+    REDIS_FPC_VERSION=$(warp_env_read_var REDIS_FPC_VERSION)
+    REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
+
+    ADMIN_USER="admin"
+    ADMIN_PASS="Password123"
+
+    warp_message "Install Magento.."
+
+    warp magento setup:install \
+        --backend-frontname=admin \
+        --db-host=mysql \
+        --db-name=$DATABASE_NAME \
+        --db-user=$DATABASE_USER \
+        --db-password=$DATABASE_PASSWORD \
+        --base-url=https://$VIRTUAL_HOST/ \
+        --admin-firstname=Admin \
+        --admin-lastname=Admin \
+        --admin-email=admin@admin.com \
+        --admin-user=$ADMIN_USER \
+        --admin-password=$ADMIN_PASS \
+        --language=es_AR \
+        --currency=ARS \
+        --timezone=America/Argentina/Buenos_Aires \
+        --use-rewrites=1
 
     warp_message "Docker development environment setup complete."
     warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"

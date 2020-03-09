@@ -22,11 +22,13 @@ function ioncube_command()
 
     if [ "$1" == "--disable" ]; then
         sed -i -e 's/^zend_extension/\;zend_extension/g' $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini
-        warp restart
+        warp docker stop php php_xdebug
+        warp docker start php php_xdebug
         warp_message "ionCube has been disabled."    
     elif [ "$1" == "--enable" ]; then
         sed -i -e 's/^\;zend_extension/zend_extension/g' $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini
-        warp restart
+        warp docker stop php php_xdebug
+        warp docker start php php_xdebug
         warp_message "ionCube has been enabled."    
     elif [ "$1" == "--status" ]; then
             [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ] && cat $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini | grep --quiet -w "^;zend_extension"

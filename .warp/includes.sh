@@ -41,3 +41,5 @@
 . "$WARPFOLDER/bin/varnish.sh"
 . "$WARPFOLDER/bin/postgres.sh"
 . "$WARPFOLDER/bin/sandbox.sh"
+. "$WARPFOLDER/bin/volume.sh"
+. "$WARPFOLDER/bin/rsync.sh"

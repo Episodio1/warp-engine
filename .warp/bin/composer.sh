@@ -11,13 +11,14 @@ function copy_ssh_id() {
         exit 0;
       else
         PATH_KEY_PAIR=$2
+        sudo chown $(whoami) $PATH_KEY_PAIR
+        sudo chmod 400 $PATH_KEY_PAIR
       fi;
   else
       PATH_KEY_PAIR=$HOME/.ssh/id_rsa
   fi;
 
   if [ -f $PATH_KEY_PAIR ] ; then
-    chmod 400 $PATH_KEY_PAIR
     docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "mkdir -p /var/www/.ssh/"
     docker cp $PATH_KEY_PAIR "$(docker-compose -f $DOCKERCOMPOSEFILE ps -q php)":/var/www/.ssh/id_rsa
     docker-compose -f $DOCKERCOMPOSEFILE exec --user=root php bash -c "chown -R www-data:www-data /var/www/.ssh/id_rsa"

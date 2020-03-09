@@ -1,6 +1,8 @@
 
   appdata:
-    image: alpine:latest
+    image: summasolutions/appdata:latest
+    ports:
+      - 873
     volumes:
       - ~/.composer:/var/www/.composer:delegated
       - ./.warp/docker/config/appdata/startup.sh:/startup.sh

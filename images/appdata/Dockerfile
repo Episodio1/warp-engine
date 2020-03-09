@@ -1,0 +1,16 @@
+FROM debian:jessie
+
+LABEL maintainer="Matias Anoniz <matiasanoniz@gmail.com>"
+
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends rsync && \
+  apt-get clean autoclean && \
+  apt-get autoremove -y && \
+  rm -rf /var/lib/apt/lists/*
+
+EXPOSE 873
+
+ADD ./run /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run
+
+ENTRYPOINT ["/usr/local/bin/run"]

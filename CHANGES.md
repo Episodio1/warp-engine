@@ -1,6 +1,17 @@
 Warp Releases
 =============
 
+### [2020.03.09](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.09)
+
+* Create warp-engine.github.io
+* Improve command warp reset --hard
+* Create volume for mysql custom
+* Disable docker-sync by default
+* Message docker-sync after warp init
+* Fix docker-sync oro
+* Add rsync command for Linux and MacOS
+* New image summasolutions/appdata on registry docker
+
 ### [2020.02.29](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.02.29)
 
 * Allow alphanumeric characters on project and client name

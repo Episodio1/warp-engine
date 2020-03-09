@@ -447,6 +447,11 @@ case "$1" in
     xdebug_main $*
     ;;
 
+    volume)
+    shift 1
+    volume_main $*
+    ;;
+
     ioncube)
     shift 1
     ioncube_main $*
@@ -523,6 +528,11 @@ case "$1" in
     sync)
     shift 1
     sync_main $*
+    ;;
+
+    rsync)
+    shift 1
+    rsync_main $*
     ;;
 
     rabbit)
