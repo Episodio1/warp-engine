@@ -24,7 +24,7 @@ case "$(uname -s)" in
     Darwin)
     # autodetect docker in Mac
     # Check availability of docker-sync
-    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync\"  "; exit 1; }
+    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync -n /usr/local/bin\"  "; exit 1; }
     ;;
 esac    
 
@@ -447,6 +447,11 @@ case "$1" in
     xdebug_main $*
     ;;
 
+    volume)
+    shift 1
+    volume_main $*
+    ;;
+
     ioncube)
     shift 1
     ioncube_main $*
@@ -523,6 +528,11 @@ case "$1" in
     sync)
     shift 1
     sync_main $*
+    ;;
+
+    rsync)
+    shift 1
+    rsync_main $*
     ;;
 
     rabbit)

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+[ -f /etc/rsyncd.conf ] || cat <<EOF > /etc/rsyncd.conf
+uid = root
+gid = root
+use chroot = yes
+log file = /dev/stdout
+reverse lookup = no
+[warp]
+    hosts allow = *
+    read only = false
+    path = /var/www/html
+    comment = docker volume
+EOF
+
+exec /usr/bin/rsync --no-detach --daemon --config /etc/rsyncd.conf "$@"

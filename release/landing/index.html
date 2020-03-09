@@ -196,10 +196,12 @@ table.table thead tr th.download-icon {
     </style>
   </head>
   <body>
-    
+
     <div class="container">
         <div class="header clearfix">
-          <img src="https://s3.amazonaws.com/summa-core-team/images/summa_logo_horizontal_rgb.jpg" width="120">
+          <a href="https://www.summasolutions.net" title="Summa Solutions SRL" target="_blank">
+            <img src="https://s3.amazonaws.com/summa-core-team/images/summa_logo_horizontal_rgb.jpg" width="120">
+          </a>
         </div>
   
         <div class="jumbotron">
@@ -319,7 +321,7 @@ table.table thead tr th.download-icon {
                       </div>
                     </div>
                   </div>
-                <p>2) After that, the server name must be configured in Nginx.</p> 
+                <p>2) After that, the server name must be configured in Nginx.</p>
                 <p>To achieve this, please modify the nginx config file (file ended in .conf) setting the server_name attribute.</p>
                 <p>The file can be located running the command <code>warp info</code> in your root project folder with the "Nginx configuration file" flag</p>
                 <div class="container-fluid">
@@ -380,8 +382,8 @@ table.table thead tr th.download-icon {
                       </div>
                     </div>
                 </div>
-                
-                
+
+
                 <p>4) Once that the Web Server has been configured, the PHP Web Aplication must be created, so go to Menu: Run -> Edit Configurations</p>
                 <p>Create a new PHP Web Application clicking on the plus (+) button and select the PHP Web Application option, then set the following fields: </p>
                 <p>
@@ -526,7 +528,7 @@ warp npm install</pre>
           <tbody>
             <tr>
                 <th scope="row">2018.10.05</th>
-                <td><a class="download-icon" href="./versions/warp_2018.10.05.bin" ><i class="fas fa-cloud-download-alt"></i></a></td>
+                <td><a class="download-icon" href="./old/warp_2018.10.05" ><i class="fas fa-cloud-download-alt"></i></a></td>
             </tr>
           </tbody>
         </table>
@@ -550,6 +552,11 @@ warp npm install</pre>
         </div>
         <!-- //.modal-profile -->
 
+        <div>
+          <h2 id="anchorDocs">Documentation</h2>
+          <p>All the information, tutorials and best practises are provided in the <a href="https://warp-engine.github.io">Documentation</a></p>
+        </div>        
+
         <footer class="footer">
           <p>&copy; 2018 <a href="https://www.summasolutions.net" title="Summa Solutions SRL">Summa Solutions SRL.</a></p>
         </footer>
@@ -566,7 +573,7 @@ warp npm install</pre>
             var content = $('.modal-body');
             content.empty();
               var title = $(this).attr("title");
-              //$('.modal-title').html(title);      	
+              //$('.modal-title').html(title);
               content.html($(this).html());
               $(".modal-profile").modal({show:true});
           });

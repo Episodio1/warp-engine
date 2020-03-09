@@ -146,6 +146,15 @@ warp_check_php_is_running() {
     fi
 }
 
+function warp_rsync_is_not_installed() {
+    warp_message_warn "rsync is not installed";
+    warp_message "Run the following command to Install rsync"
+    warp_message "on MacOS \"brew install rsync\"";
+    warp_message "on Debian distribution \"apt-get install rsync\"";
+
+    exit 1
+}
+
 function warp_check_selenium_is_installed() {
 
   if [ ! -f $DOCKERCOMPOSEFILESELENIUM ]
