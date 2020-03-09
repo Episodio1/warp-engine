@@ -49,9 +49,6 @@ function php_connect_ssh()
     if [ "$1" = "--root" ]
     then
         docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
-    elif [ "$1" = "--xdebug" ] || [ "$1" = "-x" ]
-    then
-        docker-compose -f $DOCKERCOMPOSEFILE exec php_xdebug bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
     else
         docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
     fi;    

@@ -10,7 +10,6 @@ function php_help_usage()
     warp_message ""
     warp_message_info "Options:"
     warp_message_info   " -h, --help         $(warp_message 'display this help message')"
-    warp_message_info   " -x, --xdebug       $(warp_message 'execute command with xdebug activated')"
     warp_message ""
 
     warp_message_info "Available commands:"
@@ -27,7 +26,6 @@ function php_help_usage()
     warp_message_info "Example:"
     warp_message " warp php ssh"
     warp_message " warp php ssh --root"
-    warp_message " warp php ssh --xdebug"
     warp_message " warp php ssh --help"
 
     warp_message ""
