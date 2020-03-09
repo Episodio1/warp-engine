@@ -107,7 +107,7 @@ case "$(uname -s)" in
         USE_DOCKER_SYNC=$(warp_env_read_var USE_DOCKER_SYNC)
         if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ]
         then 
-            warp_message_warn "To copy all files from host to container: $(warp_message_bold './warp sync push --all')"
+            warp_message_warn "To copy all files from host to container: $(warp_message_bold './warp rsync push --all')"
         fi
     ;;
 esac

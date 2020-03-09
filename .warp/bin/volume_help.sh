@@ -10,7 +10,7 @@ function volume_help_usage()
     warp_message ""
     warp_message_info "Options:"
     warp_message_info   " -h, --help         $(warp_message 'display this help message')"
-    warp_message_info   " --rm               $(warp_message 'remove volume by name the container')"
+    warp_message_info   " --rm               $(warp_message 'remove volume by container name')"
     warp_message ""
 
     warp_message ""
