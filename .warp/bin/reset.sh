@@ -45,6 +45,7 @@ function reset_warninig_confirm_hard()
             warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $DOCKERSYNCMACSAMPLE) $(warp_message_ok [ok])"
             warp_message "* deleting $(basename $CHECK_UPDATE_FILE) $(warp_message_ok [ok])"
+            warp_message "* deleting $(basename $DOCKERIGNOREFILE) $(warp_message_ok [ok])"
             
             if [ -f $ENVIRONMENTVARIABLESFILE ] 
             then
@@ -76,10 +77,11 @@ function reset_warninig_confirm_hard()
             [ -f $DOCKERCOMPOSEFILEMACSAMPLE ] && rm $DOCKERCOMPOSEFILEMACSAMPLE 2> /dev/null
             [ -f $DOCKERSYNCMAC ] && rm $DOCKERSYNCMAC 2> /dev/null
             [ -f $DOCKERSYNCMACSAMPLE ] && rm $DOCKERSYNCMACSAMPLE 2> /dev/null
-            [ -f $CHECK_UPDATE_FILE ] && rm CHECK_UPDATE_FILE 2> /dev/null
+            [ -f $CHECK_UPDATE_FILE ] && rm $CHECK_UPDATE_FILE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILEDEV ] && rm $DOCKERCOMPOSEFILEDEV 2> /dev/null
             [ -f $DOCKERCOMPOSEFILEDEVSAMPLE ] && rm $DOCKERCOMPOSEFILEDEVSAMPLE 2> /dev/null
             [ -f $DOCKERCOMPOSEFILESELENIUM ] && rm $DOCKERCOMPOSEFILESELENIUM 2> /dev/null
+            [ -f $DOCKERIGNOREFILE ] && rm $DOCKERIGNOREFILE 2> /dev/null                
 
 	        rm -rf $PROJECTPATH/.warp/docker/config/* 2> /dev/null
 

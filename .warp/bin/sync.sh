@@ -116,6 +116,10 @@ function sync_main()
           warp_clean_volume $*
         ;;
 
+        -h | --help)
+            sync_help_usage
+        ;;
+
         *)
 		      sync_help_usage
         ;;
