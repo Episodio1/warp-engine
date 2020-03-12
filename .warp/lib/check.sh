@@ -215,6 +215,24 @@ warp_check_gitignore()
     fi
 }
 
+warp_check_rsync_version()
+{
+    RSYNC_VERSION=$(rsync --version | grep "version" | tr -s ' ' | cut -d ' ' -f 3)
+    echo $RSYNC_VERSION
+    echo $RSYNC_MINIMUM_VERSION
+
+    if (( $(awk 'BEGIN {print ("'$RSYNC_VERSION'" < "'$RSYNC_MINIMUM_VERSION'")}') )); then
+        warp_message_warn "Warp Framework require rsync minimum version $RSYNC_MINIMUM_VERSION"
+        warp_message_warn "actual version: $RSYNC_VERSION"
+        warp_message_warn "should be update rsync"
+        warp_message_warn "on MacOS \"brew install rsync\"";
+        warp_message_warn "on Debian distribution \"apt-get install rsync\"";
+        warp_message  ""
+
+        exit 1
+    fi    
+}
+
 warp_check_docker_version()
 {
 
