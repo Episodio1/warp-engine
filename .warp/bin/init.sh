@@ -51,6 +51,12 @@ function init_command() {
             fi
         fi
     else
+        # INIT WITHOUT WIZARD MODE GANDALF
+        if [ "$1" = "-mg" ] || [ "$1" = "--mode-gandalf" ] ; then            
+            . "$WARPFOLDER/setup/init/gandalf.sh"
+            exit 1
+        fi
+
         # INIT WIZARD MODE TL
         warp_message_info "* Starting initial installation\n"
         . "$WARPFOLDER/setup/init/service.sh"

@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2020.03.12](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.12)
+
+* Add Mode Galdalf to command init
+* Check spaces at folders
+* Check rsync version
+
 ### [2020.03.09](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.09)
 
 * Create warp-engine.github.io
