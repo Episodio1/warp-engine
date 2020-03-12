@@ -79,6 +79,9 @@ STRONG_PASSWORD_LENGTH=8
 # Set minimum version for docker-compose
 DOCKER_COMPOSE_MINIMUM_VERSION=1.21
 
+# Set minimum version for rsync
+RSYNC_MINIMUM_VERSION=3.1.1
+
 # Set docker-compose timeout, default 60
 DOCKER_COMPOSE_HTTP_TIMEOUT=300
 

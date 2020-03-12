@@ -19,7 +19,8 @@ function rsync_push_to_container() {
   fi
 
   # Check rsync is installed
-  hash rsync 2>/dev/null || warp_rsync_is_not_installed
+  hash rsync 2>/dev/null || warp_rsync_is_not_installed  
+  warp_check_rsync_version
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy to container (ex. vendor, --all)" && exit
   CONTAINER_APPDATA_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "873/tcp") 0).HostPort}}' $(warp docker ps -q appdata))
@@ -57,6 +58,7 @@ function rsync_pull_from_container() {
 
   # Check rsync is installed
   hash rsync 2>/dev/null || warp_rsync_is_not_installed
+  warp_check_rsync_version
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
   CONTAINER_APPDATA_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "873/tcp") 0).HostPort}}' $(warp docker ps -q appdata))
@@ -84,6 +86,10 @@ function rsync_main()
         pull)
 		      shift 1
           rsync_pull_from_container $*  
+        ;;
+
+        -h | --help)
+            rsync_help_usage
         ;;
 
         *)
