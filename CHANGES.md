@@ -6,6 +6,7 @@ Warp Releases
 * Add Mode Galdalf to command init
 * Check spaces at folders
 * Check rsync version
+* Add documentation https://summasolutions.github.io/warp-engine/
 
 ### [2020.03.09](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.09)
 

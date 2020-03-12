@@ -9,7 +9,7 @@
 site_name: Warp Framework
 site_description: Speeding up! your development infraestructure
 site_author: Summa Solutions
-site_url: https://warp-engine.github.io/
+site_url: https://summasolutions.github.io/warp-engine/
 
 repo_name: 'summasolutions/warp-engine'
 repo_url: 'https://github.com/SummaSolutions/warp-engine/'
@@ -22,13 +22,14 @@ nav:
   - Get Started:
     - Requirements: 'started/requirements.md'
     - Usage: 'started/usage.md'
+    - Gandalf: 'started/gandalf.md'
   - Installation:
     - MacOS: 'installation/mac.md'
     - Linux: 'installation/linux.md'
   - Features:
     - Services: 'features/services.md'
     - Magento: 'features/magento.md'
-    - Oro: 'features/oro.md'
+    - Oro: 'features/oro.md'    
   - FAQs: 'faq/index.md'
   - Troubleshooting: 'troubleshooting/index.md'
 
@@ -75,4 +76,5 @@ markdown_extensions:
   - codehilite:
         linenums: true
 
+## mkdocs build --site-dir docs
 

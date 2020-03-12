@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-     <loc>http://docs.summasolutions.com.ar/index.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/index.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/workshop/workshop.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/workshop/workshop.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/started/requirements.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/started/requirements.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/started/usage.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/started/usage.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/installation/mac.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/started/gandalf.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/installation/linux.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/installation/mac.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/features/services.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/installation/linux.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/features/magento.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/features/services.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/features/oro.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/features/magento.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/faq/index.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/features/oro.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>http://docs.summasolutions.com.ar/troubleshooting/index.html</loc>
-     <lastmod>2020-03-04</lastmod>
+     <loc>https://summasolutions.github.io/warp-engine/faq/index.html</loc>
+     <lastmod>2020-03-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://summasolutions.github.io/warp-engine/troubleshooting/index.html</loc>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

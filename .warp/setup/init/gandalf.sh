@@ -122,7 +122,6 @@ echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE
 ############### WEBSERVER
 if [[ ! -z $GF_NGINX_VHOST ]]
 then
-    warp_message ""
     warp_message_info "Configuring Web Server - Nginx"
 
     echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE
@@ -337,6 +336,8 @@ fi
 ############### REDIS
 if [[ ! -z $GF_REDIS_VERSION ]] || [[ ! -z $GF_REDIS_CACHE_VERSION ]] || [[ ! -z $GF_REDIS_FPC_VERSION ]] || [[ ! -z $GF_REDIS_SESSION_VERSION ]]
 then
+    warp_message_info "Configuring Redis Service"
+
     resp_version_cache=$GF_REDIS_VERSION
     cache_config_file_cache="./.warp/docker/config/redis/redis.conf"
 

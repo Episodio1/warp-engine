@@ -13,7 +13,7 @@
         <meta name="description" content="Speeding up! your development infraestructure">
       
       
-        <link rel="canonical" href="http://docs.summasolutions.com.ar/troubleshooting/index.html">
+        <link rel="canonical" href="https://summasolutions.github.io/warp-engine/troubleshooting/index.html">
       
       
         <meta name="author" content="Summa Solutions">
@@ -102,7 +102,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="http://docs.summasolutions.com.ar/" title="Warp Framework" aria-label="Warp Framework" class="md-header-nav__button md-logo">
+        <a href="https://summasolutions.github.io/warp-engine/" title="Warp Framework" aria-label="Warp Framework" class="md-header-nav__button md-logo">
           
             <img alt="logo" src="../img/summa_white.png" width="24" height="24">
           
@@ -194,7 +194,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="http://docs.summasolutions.com.ar/" title="Warp Framework" class="md-nav__button md-logo">
+    <a href="https://summasolutions.github.io/warp-engine/" title="Warp Framework" class="md-nav__button md-logo">
       
         <img alt="logo" src="../img/summa_white.png" width="48" height="48">
       
@@ -287,6 +287,18 @@
   <li class="md-nav__item">
     <a href="../started/usage.html" title="Usage" class="md-nav__link">
       Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../started/gandalf.html" title="Gandalf" class="md-nav__link">
+      Gandalf
     </a>
   </li>
 
@@ -430,9 +442,91 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Troubleshooting
+      </label>
+    
     <a href="index.html" title="Troubleshooting" class="md-nav__link md-nav__link--active">
       Troubleshooting
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-start" class="md-nav__link">
+    command start
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-db-registry" class="md-nav__link">
+    Private DB Registry
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions_1" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-rsync" class="md-nav__link">
+    command rsync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions_2" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -454,6 +548,75 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-start" class="md-nav__link">
+    command start
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-db-registry" class="md-nav__link">
+    Private DB Registry
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions_1" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-rsync" class="md-nav__link">
+    command rsync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions_2" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -468,6 +631,66 @@
                 
                 
                 <h1 id="troubleshooting">troubleshooting</h1>
+<h2 id="command-start">command <strong>start</strong></h2>
+<p><code>warp start</code></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>ERROR: <span class="k">for</span> test_php_1  Cannot start service php: OCI runtime create failed: container_linux.go:346: 
+starting container process caused <span class="s2">&quot;process_linux.go:449: container init caused \&quot;rootfs_linux.go:58: mounting \\\&quot;/Users/matias/Desktop/test/.warp/docker/config/php/ext-ioncube.ini\\\&quot; to rootfs \\\&quot;/var/lib/docker/overlay2/4f3d14d1f3d7755705914496fd518389d2510081d6d1f0e1e41155da236c638b/merged\\\&quot; at \\\&quot;/var/lib/docker/overlay2/4f3d14d1f3d7755705914496fd518389d2510081d6d1f0e1e41155da236c638b/merged/usr/local/etc/php/conf.d/10-php-ext-ioncube.ini\\\&quot; caused \\\&quot;not a directory\\\&quot;\&quot;&quot;</span>: 
+unknown: Are you trying to mount a directory onto a file <span class="o">(</span>or vice-versa<span class="o">)</span>? Check <span class="k">if</span> the specified host path exists and is the expected <span class="nb">type</span>
+
+ERROR: <span class="k">for</span> php  Cannot start service php: OCI runtime create failed: container_linux.go:346: starting container process caused <span class="s2">&quot;process_linux.go:449: container init caused \&quot;rootfs_linux.go:58: mounting \\\&quot;/Users/matias/Desktop/test/.warp/docker/config/php/ext-ioncube.ini\\\&quot; to rootfs \\\&quot;/var/lib/docker/overlay2/4f3d14d1f3d7755705914496fd518389d2510081d6d1f0e1e41155da236c638b/merged\\\&quot; at \\\&quot;/var/lib/docker/overlay2/4f3d14d1f3d7755705914496fd518389d2510081d6d1f0e1e41155da236c638b/merged/usr/local/etc/php/conf.d/10-php-ext-ioncube.ini\\\&quot; caused \\\&quot;not a directory\\\&quot;\&quot;&quot;</span>: 
+unknown: Are you trying to mount a directory onto a file <span class="o">(</span>or vice-versa<span class="o">)</span>? Check <span class="k">if</span> the specified host path exists and is the expected <span class="nb">type</span>
+ERROR: Encountered errors <span class="k">while</span> bringing up the project.
+ERROR: No container found <span class="k">for</span> php_1
+Error response from daemon: mount /Users/matias/Desktop/test/.warp/docker/config/php/ext-ioncube.ini:/var/lib/docker/overlay2/4f3d14d1f3d7755705914496fd518389d2510081d6d1f0e1e41155da236c638b/merged/usr/local/etc/php/conf.d/10-php-ext-ioncube.ini, flags: 0x5000: not a directory
+ERROR: No container found <span class="k">for</span> php_1
+</code></pre></div>
+</td></tr></table>
+
+<h3 id="possible-solutions">possible solutions</h3>
+<ul>
+<li>check mounted files <code>docker-compose-warp.yml</code></li>
+<li>Are you trying to mount a directory onto a file (or vice-versa)</li>
+</ul>
+<hr />
+<h2 id="private-db-registry">Private DB Registry</h2>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>ERROR: pull access denied <span class="k">for</span> <span class="m">123456789</span>.dkr.ecr.us-east-1.amazonaws.com/sample-site-dbs, 
+repository does not exist or may require‘docker login’: denied: Your Authorization Token has expired. 
+Please run ‘aws ecr get-login --no-include-email’ to fetch a new one.
+</code></pre></div>
+</td></tr></table>
+
+<h3 id="possible-solutions_1">possible solutions</h3>
+<ul>
+<li>login to aws by console</li>
+</ul>
+<hr />
+<h2 id="command-rsync">command <strong>rsync</strong></h2>
+<p><code>warp rsync push --all</code></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>rsync: --chown<span class="o">=</span><span class="m">501</span>:33: unknown option
+rsync error: syntax or usage error <span class="o">(</span>code <span class="m">1</span><span class="o">)</span> at /BuildRoot/Library/Caches/com.apple.xbs/Sources/rsync/rsync-52.200.1/rsync/main.c<span class="o">(</span><span class="m">1337</span><span class="o">)</span> <span class="o">[</span><span class="nv">client</span><span class="o">=</span><span class="m">2</span>.6.9<span class="o">]</span>
+Completed copying all files from host to container
+</code></pre></div>
+</td></tr></table>
+
+<h3 id="possible-solutions_2">possible solutions</h3>
+<ul>
+<li>update rsync </li>
+<li>minimum required version 3.1.1</li>
+</ul>
+<hr />
                 
                   
                 
@@ -525,7 +748,7 @@
   <div class="md-footer-social">
     <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
-      <a href="https://www.summasolutions.net" target="_blank" rel="noopener" title="globe" class="md-footer-social__link fa fa-globe"></a>
+      <a href="https://warp-engine.github.io/" target="_blank" rel="noopener" title="globe" class="md-footer-social__link fa fa-globe"></a>
     
   </div>
 
