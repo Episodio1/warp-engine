@@ -68,6 +68,12 @@ RUN \
 RUN pecl install mcrypt-1.0.2 \
     && docker-php-ext-enable mcrypt
 
+## Install imagick
+RUN apt-get install -y libmagickwand-dev \
+  libmagickcore-dev && \
+  pecl install imagick && \
+  docker-php-ext-enable imagick
+
 # https://devdocs.magento.com/guides/v2.3/install-gde/system-requirements-tech.html
 RUN \
     /usr/local/bin/docker-php-ext-install \

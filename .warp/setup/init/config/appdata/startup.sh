@@ -3,6 +3,11 @@
 # Set the correct file permissions for Magento 2
 
 PATH_ROOT_SITE="/var/www/html"
+PATH_COMPOSER="/var/www/.composer"
+
+# set correct permission on composer folder
+[ -d $PATH_COMPOSER ] && chmod ug+rwx $PATH_COMPOSER
+[ -d $PATH_COMPOSER ] && chgrp 33 $PATH_COMPOSER
 
 while true;
 do

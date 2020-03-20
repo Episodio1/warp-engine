@@ -1,6 +1,16 @@
 Warp Releases
 =============
 
+### [2020.03.20](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.20)
+
+* Add imagick to PHP 7.2-fpm, 7.3-fpm
+* Add command warp fix --fast
+* Add command warp magento --install-only
+* Add command warp magento --install-redis
+* Add alias=mage2smile to config smile on bash
+* Fix image appdata
+* Solve problem with .gitignore in Magento 2.3.x 
+
 ### [2020.03.12](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.12)
 
 * Add Mode Galdalf to command init

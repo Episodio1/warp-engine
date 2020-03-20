@@ -15,6 +15,7 @@ function magento_help_usage()
     warp_message_info   " --download         $(warp_message 'Download Magento Community')"
     warp_message_info   " --install          $(warp_message 'Install Magento with setup previously configured in wizard')"
     warp_message_info   " --install-only     $(warp_message 'Install Magento only with configured parameters')"
+    warp_message_info   " --install-redis    $(warp_message 'Configure Redis')"                            
     warp_message ""
 
     warp_message ""

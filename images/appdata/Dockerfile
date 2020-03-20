@@ -2,15 +2,17 @@ FROM debian:jessie
 
 LABEL maintainer="Matias Anoniz <matiasanoniz@gmail.com>"
 
-RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends rsync && \
-  apt-get clean autoclean && \
-  apt-get autoremove -y && \
-  rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    --no-install-recommends rsync \
+&& apt-get clean autoclean \
+&& apt-get autoremove -y \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 873
 
-ADD ./run /usr/local/bin/run
-RUN chmod +x /usr/local/bin/run
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/run"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
