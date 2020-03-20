@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 [ -f /etc/rsyncd.conf ] || cat <<EOF > /etc/rsyncd.conf
 uid = root
@@ -13,4 +14,9 @@ reverse lookup = no
     comment = docker volume
 EOF
 
-exec /usr/bin/rsync --no-detach --daemon --config /etc/rsyncd.conf "$@"
+# start rsync deamon
+# exec /usr/bin/rsync --no-detach --daemon --config /etc/rsyncd.conf
+/usr/bin/rsync --daemon --config /etc/rsyncd.conf
+
+# execute [cmd]
+exec "$@"
