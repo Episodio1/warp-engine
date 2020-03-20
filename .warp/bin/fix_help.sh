@@ -17,6 +17,7 @@ function fix_help_usage()
     warp_message_info   " --composer         $(warp_message 'fix permissions chmod() composer')"
     warp_message_info   " --addUser          $(warp_message 'add user docker and www-data to current user')"
     warp_message_info   " --owner            $(warp_message 'fix owner and read/write permissions inside the container')"
+    warp_message_info   " --fast             $(warp_message 'add group www-data && ug+rw permissions inside the container')"
     warp_message ""
 
     warp_message ""

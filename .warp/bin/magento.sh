@@ -33,6 +33,12 @@ function magento_command()
         exit 1
     fi;
 
+    if [ "$1" = "--install-redis" ]
+    then
+        magento_install_redis
+        exit 1
+    fi;
+
     if [ "$1" = "--install" ]
     then
         magento_install
@@ -202,6 +208,33 @@ function magento_install_only()
     warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"
     warp_message "Admin user: $ADMIN_USER"
     warp_message "Admin pass: $ADMIN_PASS"
+}
+
+function magento_install_redis()
+{
+    warp_message "Configure redis"
+
+    REDIS_CACHE_VERSION=$(warp_env_read_var REDIS_CACHE_VERSION)
+    REDIS_FPC_VERSION=$(warp_env_read_var REDIS_FPC_VERSION)
+    REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
+
+    if [ ! -z "$REDIS_CACHE_VERSION" ]
+    then
+        warp_message "Enabling redis for cache..."
+        warp magento setup:config:set --no-interaction --cache-backend=redis --cache-backend-redis-server=redis-cache --cache-backend-redis-db=0
+    fi
+
+    if [ ! -z "$REDIS_FPC_VERSION" ]
+    then
+        warp_message "Enabling redis for full page cache..."
+        warp magento setup:config:set --no-interaction --page-cache=redis --page-cache-redis-server=redis-fpc --page-cache-redis-db=1
+    fi
+
+    if [ ! -z "$REDIS_SESSION_VERSION" ]
+    then
+        warp_message "Enabling Redis for session..."
+        warp magento setup:config:set --no-interaction --session-save=redis --session-save-redis-host=redis-session --session-save-redis-log-level=4 --session-save-redis-db=1
+    fi
 }
 
 function magento_download()

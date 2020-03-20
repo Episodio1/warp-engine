@@ -53,6 +53,10 @@ function stop() {
           docker-compose -f $DOCKERCOMPOSEFILE $DOCKERACTION
         ;;
       esac
+    else
+      warp_message_warn "the containers are not running";
+      warp_message_warn "for start, please run: warp start";
+      exit 1;
     fi
   fi;
 
