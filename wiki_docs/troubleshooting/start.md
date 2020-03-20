@@ -1,5 +1,3 @@
-# troubleshooting
-
 ## command **start**
 
 `warp start`
@@ -23,31 +21,14 @@ ERROR: No container found for php_1
 
 -------------
 
-## Private DB Registry
+## command **start**
 
-```bash
-ERROR: pull access denied for 123456789.dkr.ecr.us-east-1.amazonaws.com/sample-site-dbs, 
-repository does not exist or may require‘docker login’: denied: Your Authorization Token has expired. 
-Please run ‘aws ecr get-login --no-include-email’ to fetch a new one.
+`warp start`
+
 ```
+ERROR: for web  Cannot start service web: b'driver failed programming external connectivity on endpoint somesite-m2_web_1 (a24e3b084b74c2bfed4452eae4d1d837be4644565041c76ba4941899336ecf85): Error starting userland proxy: Bind for 0.0.0.0:80: unexpected error (Failure EADDRINUSE)'
+ERROR: Encountered errors while bringing up the project.
+``` 
 
 ### possible solutions
-- login to aws by console
-
--------------
-
-## command **rsync**
-
-`warp rsync push --all`
-
-```bash
-rsync: --chown=501:33: unknown option
-rsync error: syntax or usage error (code 1) at /BuildRoot/Library/Caches/com.apple.xbs/Sources/rsync/rsync-52.200.1/rsync/main.c(1337) [client=2.6.9]
-Completed copying all files from host to container
-```
-
-### possible solutions
-- update rsync 
-- minimum required version 3.1.1
-
--------------
+- check apache or nginx is working on port 80/443
