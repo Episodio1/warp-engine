@@ -15,18 +15,24 @@ function volume_command()
 
     if [ $(warp_check_is_running) = true ]; then
         warp_message_error "The containers are running"
-        warp_message_error "please, first run warp stop"
+        warp_message_error "please, first run warp stop --hard"
 
         exit 1;
     fi
 
     case "$1" in
         php)
+            warp_message "stopping data from volume php"
+            warp docker stop php
+            warp docker kill php
             warp_message "removing data from volume php"
             docker volume rm ${PWD##*/}_${PWD##*/}-volume-sync 
         ;;
 
         mysql)
+            warp_message "stopping data from volume mysql"
+            warp docker stop mysql
+            warp docker kill mysql
             warp_message "removing data from volume mysql"
             docker volume rm ${PWD##*/}_${PWD##*/}-volume-db 
         ;;

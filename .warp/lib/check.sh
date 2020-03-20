@@ -194,6 +194,7 @@ warp_check_gitignore()
         echo "# WARP FRAMEWORK"  >> $GITIGNOREFILE
         echo "!/warp"            >> $GITIGNOREFILE
         echo "!/$(basename $WARPFOLDER)"                      >> $GITIGNOREFILE
+        echo "!/$(basename $WARPFOLDER)/**"                   >> $GITIGNOREFILE
         echo "/$(basename  $ENVIRONMENTVARIABLESFILE)"        >> $GITIGNOREFILE
         echo "/$(basename  $DOCKERCOMPOSEFILE)"               >> $GITIGNOREFILE
         echo "/$(basename  $DOCKERCOMPOSEFILEMAC)"            >> $GITIGNOREFILE
@@ -211,6 +212,8 @@ warp_check_gitignore()
         echo "/.warp/bin"                               >> $GITIGNOREFILE
         echo "/.warp/docker/config/php/ext-xdebug.ini"  >> $GITIGNOREFILE
         echo "/.warp/docker/config/php/ext-ioncube.ini" >> $GITIGNOREFILE
+        echo "# FRAMEWORK WARP"                         >> $GITIGNOREFILE
+        echo ""                                         >> $GITIGNOREFILE
         
     fi
 }
@@ -218,8 +221,6 @@ warp_check_gitignore()
 warp_check_rsync_version()
 {
     RSYNC_VERSION=$(rsync --version | grep "version" | tr -s ' ' | cut -d ' ' -f 3)
-    echo $RSYNC_VERSION
-    echo $RSYNC_MINIMUM_VERSION
 
     if (( $(awk 'BEGIN {print ("'$RSYNC_VERSION'" < "'$RSYNC_MINIMUM_VERSION'")}') )); then
         warp_message_warn "Warp Framework require rsync minimum version $RSYNC_MINIMUM_VERSION"

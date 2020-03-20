@@ -28,6 +28,7 @@ function rsync_push_to_container() {
   if [ "$1" == "--all" ]; then
     rsync -aogvEh * --chown=$(id -u):33 --chmod=ug+rw rsync://localhost:$CONTAINER_APPDATA_PORT/warp
     warp_message "Completed copying all files from host to container"
+    warp_message_warn "after this command is recommend to run \"warp fix --fast\" to solve problems with permissions"
   else
     
     for i in "$@"

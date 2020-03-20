@@ -82,8 +82,48 @@ function fix_composer()
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/vendor ] && chown -R www-data:www-data /var/www/html/vendor"
 
+    # add user & group www-data on /var/www/.composer
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chown $(id -u):33 /var/www/.composer"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chmod ug+rwx /var/www/.composer"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chown -R $(id -u):33 /var/www/.composer"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chmod -R ug+rw /var/www/.composer"
+
     warp_message "* Success $(warp_message_ok [ok])"
 
+    exit 1;
+}
+
+function fix_fast()
+{
+    # add user & group www-data on bin/magento binary
+    warp_message "* Correcting read/write filesystem permissions"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/ ] && chmod -R ug+rw /var/www/html/"
+
+    warp_message "* Correcting filesystem ownerships"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/ ] && chown -R $(id -u):33 /var/www/html/"
+
+    warp_message "* Add user and group www-data to vendor"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/vendor ] && chown -R www-data:www-data /var/www/html/vendor"
+
+    if [ -f $PROJECTPATH/bin/magento ]
+    then
+      warp_message "* Correcting permissions on bin/magento"
+      docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chown www-data:www-data /var/www/html/bin/magento"
+      docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/magento ] && chmod +x /var/www/html/bin/magento"
+    fi;
+
+    if [ -f $PROJECTPATH/bin/console ]
+    then
+        warp_message "* Correcting permissions on bin/console"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/console ] && chown www-data:www-data /var/www/html/bin/console"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/bin/console ] && chmod +x /var/www/html/bin/console"
+    elif [ -f $PROJECTPATH/app/console ] ; then
+        warp_message "* Correcting permissions on app/console"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/app/console ] && chown www-data:www-data /var/www/html/app/console"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/app/console ] && chmod +x /var/www/html/app/console"
+    fi
+
+    warp_message "* Success $(warp_message_ok [ok])"
     exit 1;
 }
 
@@ -139,6 +179,9 @@ function fix_default()
       ;;
     esac
 
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chown $(id -u):33 /var/www/html/"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod ug+rwx /var/www/html/"
+
     warp_message "* Make folders traversable and read/write $(warp_message_ok [ok])"
     case "$(uname -s)" in
       Darwin)
@@ -174,6 +217,11 @@ function fix_default()
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/.github ] && chown www-data:www-data /var/www/html/.github"
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/.github ] && chmod -R a+rw /var/www/html/.github"
 
+    # add user & group www-data on /var/www/.composer
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chown $(id -u):33 /var/www/.composer"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chmod ug+rwx /var/www/.composer"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chown -R $(id -u):33 /var/www/.composer"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chmod -R ug+rw /var/www/.composer"
     warp_message "* Success $(warp_message_ok [ok])"
     exit 1;
 }
@@ -221,6 +269,10 @@ function fix_permissions()
       ;;
       "--owner")
             fix_owner $@
+            exit 1
+      ;;
+      "--fast"|"-f")
+            fix_fast $@
             exit 1
       ;;
       "--sandbox")

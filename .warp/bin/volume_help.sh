@@ -15,7 +15,9 @@ function volume_help_usage()
 
     warp_message ""
     warp_message_info "Help:"
-    warp_message " remove volume data "
+    warp_message " to remove volume data it's necessary"
+    warp_message " than containers are not running,"
+    warp_message " before executing this command must be executed \"warp stop --hard\""
     warp_message ""
 
     warp_message_info "Example:"

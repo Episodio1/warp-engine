@@ -31,7 +31,13 @@ nav:
     - Magento: 'features/magento.md'
     - Oro: 'features/oro.md'    
   - FAQs: 'faq/index.md'
-  - Troubleshooting: 'troubleshooting/index.md'
+  - Troubleshooting: 
+    - warp start: 'troubleshooting/start.md'
+    - databases: 'troubleshooting/db.md'
+    - macOS: 'troubleshooting/mac.md'
+    - elasticsearch: 'troubleshooting/elasticsearch.md'
+    - warp composer: 'troubleshooting/composer.md'
+    - .gitignore: 'troubleshooting/gitignore.md'
 
 use_directory_urls: false
 
