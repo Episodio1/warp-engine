@@ -16,10 +16,19 @@ ERROR: No container found for php_1
 ```
 
 ### possible solutions
-- Check that `ext-ioncube.ini` file is not a directory. If that is the case, copy the `ext-ioncube.ini.sample` file removing the sample extension.
-- check mounted files `docker-compose-warp.yml`
 - Are you trying to mount a directory onto a file (or vice-versa)
+- Check the mapped files in `docker-compose-warp.yml`, if the files do not exist, they are created as directories.
 
+In this case, run the following commands:
+
+```bash
+warp stop --hard
+warp reset
+warp init
+warp start
+```
+
+> some configuration files are created from .samples files
 
 -------------
 
