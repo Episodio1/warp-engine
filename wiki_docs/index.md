@@ -27,6 +27,10 @@
 * Rabbit
 * MailHog
 * Elasticsearch
+* Varnish
+* Selenium
+* PostgreSQL
+* Sandbox Mode (for developer modules on Magento 2)
 
 ## Requirements
 
@@ -39,7 +43,15 @@
 Run the following command in your root project folder:
 
 ```
-  curl -L -o warp http://ct.summasolutions.net/warp-engine/warp && chmod 755 warp
+curl -L -o warp http://ct.summasolutions.net/warp-engine/warp && chmod 755 warp
+```
+
+## Command line update
+
+Run the following command in your root project folder:
+
+```
+curl -L -o warp http://ct.summasolutions.net/warp-engine/warp && chmod 755 warp && ./warp update
 ```
 
 ## Getting started
@@ -47,7 +59,7 @@ Run the following command in your root project folder:
 After download the warp binary file, you should initialize your dockerized infraestrucutre running the following command:
 
 ```
- ./warp init	
+./warp init	
 ```
 
 ## Useful warp commands
