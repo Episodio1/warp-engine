@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#each-command-has-a-help-option" tabindex="0" class="md-skip">
+      <a href="#how-to-use-flag-help" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -292,37 +292,12 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
+      
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Usage
-      </label>
     
     <a href="usage.html" title="Usage" class="md-nav__link md-nav__link--active">
       Usage
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#each-command-has-a-help-option" class="md-nav__link">
-    each command has a --help option.
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
     
   </li>
 
@@ -513,8 +488,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../troubleshooting/db.html" title="databases" class="md-nav__link">
-      databases
+    <a href="../troubleshooting/rsync.html" title="warp rsync" class="md-nav__link">
+      warp rsync
     </a>
   </li>
 
@@ -525,8 +500,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../troubleshooting/mac.html" title="macOS" class="md-nav__link">
-      macOS
+    <a href="../troubleshooting/db.html" title="databases" class="md-nav__link">
+      databases
     </a>
   </li>
 
@@ -586,22 +561,8 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#each-command-has-a-help-option" class="md-nav__link">
-    each command has a --help option.
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
   
 </nav>
                   </div>
@@ -616,11 +577,18 @@
                   <a href="https://github.com/SummaSolutions/warp-engine/tree/master/wiki_docs/started/usage.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Usage</h1>
-                
-                <h3 id="each-command-has-a-help-option">each command has a <code>--help</code> option.</h3>
-<p>example:</p>
-<p><code>warp mysql --help</code></p>
+                <h1 id="how-to-use-flag-help">How to use flag <strong>--help</strong>?</h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>each command has a <code>--help</code> option.</p>
+</div>
+<p><strong>example:</strong></p>
+<p>If you run the following command:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp mysql --help
+</code></pre></div>
+</td></tr></table>
+
+<p>You can see detailed help for each command</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -657,9 +625,12 @@ Help:
 </code></pre></div>
 </td></tr></table>
 
-<p>and each sub-command has a <code>--help</code> option.</p>
-<p>example:</p>
-<p><code>warp mysql dump --help</code></p>
+<p>And each sub-command has a <code>--help</code> option.</p>
+<p><strong>example:</strong></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp mysql dump --help
+</code></pre></div>
+</td></tr></table>
+
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -685,6 +656,23 @@ Example:
  warp mysql dump warp_db <span class="p">|</span> sed -e <span class="s1">&#39;s/DEFINER[ ]*=[ ]*[^*]*\*/\*/&#39;</span> <span class="p">|</span> gzip &gt; /path/to/save/backup/warp_db.sql.gz
  warp mysql dump warp_db <span class="p">|</span> gzip <span class="p">|</span> pv &gt; /path/to/save/backup/warp_db.sql.gz
  warp mysql dump warp_db &gt; /path/to/save/backup/warp_db.sql
+</code></pre></div>
+</td></tr></table>
+
+<p><strong>the same option for:</strong></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp mysql info --help
+</code></pre></div>
+</td></tr></table>
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp mysql connect --help
+</code></pre></div>
+</td></tr></table>
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp mysql import --help
+</code></pre></div>
+</td></tr></table>
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp mysql ssh --help
 </code></pre></div>
 </td></tr></table>
                 
