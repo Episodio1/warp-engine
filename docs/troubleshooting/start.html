@@ -411,6 +411,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../features/grunt.html" title="Grunt" class="md-nav__link">
+      Grunt
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -698,9 +710,23 @@ ERROR: No container found <span class="k">for</span> php_1
 
 <h3 id="possible-solutions">possible solutions</h3>
 <ul>
-<li>check mounted files <code>docker-compose-warp.yml</code></li>
 <li>Are you trying to mount a directory onto a file (or vice-versa)</li>
+<li>Check the mapped files in <code>docker-compose-warp.yml</code>, if the files do not exist, they are created as directories.</li>
 </ul>
+<p>In this case, run the following commands:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp stop --hard
+warp reset
+warp init
+warp start
+</code></pre></div>
+</td></tr></table>
+
+<blockquote>
+<p>some configuration files are created from .samples files</p>
+</blockquote>
 <hr />
 <h2 id="command-start_1">command <strong>start</strong></h2>
 <p><code>warp start</code></p>
