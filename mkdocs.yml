@@ -30,6 +30,7 @@ nav:
     - Services: 'features/services.md'
     - Magento: 'features/magento.md'
     - Oro: 'features/oro.md'    
+    - Grunt: 'features/grunt.md'
   - FAQs: 'faq/index.md'
   - Troubleshooting: 
     - warp start: 'troubleshooting/start.md'

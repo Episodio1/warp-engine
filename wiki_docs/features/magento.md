@@ -3,7 +3,7 @@
 ## Create new folder
 
 ```
- mkdir magento_demo
+mkdir magento_demo
 ```
 
 
@@ -53,11 +53,11 @@ echo "127.0.0.1   local.magento2.com" | sudo tee -a /etc/hosts > /dev/null
 ### Requeriments
 
 ```
- Docker
- docker-compose
+Docker
+docker-compose
 
- docker-sync (mac only)
- rsync ^3.1.1
+docker-sync (mac only)
+rsync ^3.1.1
 ```
 
 ### Access to website or admin/panel
