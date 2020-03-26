@@ -34,8 +34,8 @@ nav:
   - FAQs: 'faq/index.md'
   - Troubleshooting: 
     - warp start: 'troubleshooting/start.md'
+    - warp rsync: 'troubleshooting/rsync.md'
     - databases: 'troubleshooting/db.md'
-    - macOS: 'troubleshooting/mac.md'
     - elasticsearch: 'troubleshooting/elasticsearch.md'
     - warp composer: 'troubleshooting/composer.md'
     - .gitignore: 'troubleshooting/gitignore.md'
