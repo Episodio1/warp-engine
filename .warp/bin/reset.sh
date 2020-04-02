@@ -103,6 +103,12 @@ function reset_warninig_confirm_hard()
                 docker volume rm ${PWD##*/}_warp-mysql-db 2>/dev/null 
             fi
 
+            if [ -f $GITIGNOREFILE ]
+            then
+                warp_message "* clearing $(basename $GITIGNOREFILE) $(warp_message_ok [ok])"
+                perl -i -p0e 's/# WARP FRAMEWORK.*?# FRAMEWORK WARP//s' $GITIGNOREFILE
+            fi
+
             warp_message ""
 
             warp_message_warn "files have been deleted, to start again run: $(warp_message_bold './warp init')"
@@ -128,8 +134,8 @@ function reset_warninig_confirm()
         if [ -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ] || [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ]
         then
             warp_message "* reset php configurations files $(warp_message_ok [ok])"
-            rm $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini 2> /dev/null
-            rm $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini 2> /dev/null
+            rm -rf $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini 2> /dev/null
+            rm -rf $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini 2> /dev/null
         fi
         
         [ -f $ENVIRONMENTVARIABLESFILE ] && rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
