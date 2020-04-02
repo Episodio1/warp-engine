@@ -16,7 +16,7 @@ function varnish_help_usage()
     warp_message ""
     warp_message_info "Help:"
     warp_message " varnish service used inside the container: $(warp_message_bold '.port 80 .host web') "
-    warp_message " to use this service you must generate your own configuration file, please run $(warp_message_bold 'warp magento varnish:vcl:generate') "
+    warp_message " to use this service you must generate your own configuration file, please run $(warp_message_bold 'warp magento --config-varnish') "
     warp_message ""
 
 }

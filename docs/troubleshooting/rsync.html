@@ -13,7 +13,7 @@
         <meta name="description" content="Speeding up! your development infraestructure">
       
       
-        <link rel="canonical" href="https://summasolutions.github.io/warp-engine/troubleshooting/mac.html">
+        <link rel="canonical" href="https://summasolutions.github.io/warp-engine/troubleshooting/rsync.html">
       
       
         <meta name="author" content="Summa Solutions">
@@ -42,7 +42,7 @@
     
     
       
-        <title>macOS - Warp Framework</title>
+        <title>warp rsync - Warp Framework</title>
       
     
     
@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#macos" tabindex="0" class="md-skip">
+      <a href="#warp-rsync" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -119,7 +119,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                macOS
+                warp rsync
               
             </span>
           
@@ -411,6 +411,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../features/grunt.html" title="Grunt" class="md-nav__link">
+      Grunt
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -465,18 +477,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="db.html" title="databases" class="md-nav__link">
-      databases
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -488,11 +488,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        macOS
+        warp rsync
       </label>
     
-    <a href="mac.html" title="macOS" class="md-nav__link md-nav__link--active">
-      macOS
+    <a href="rsync.html" title="warp rsync" class="md-nav__link md-nav__link--active">
+      warp rsync
     </a>
     
       
@@ -525,6 +525,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#command-rsync_1" class="md-nav__link">
+    command rsync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions_1" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -533,6 +553,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="db.html" title="databases" class="md-nav__link">
+      databases
+    </a>
   </li>
 
         
@@ -617,6 +649,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#command-rsync_1" class="md-nav__link">
+    command rsync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-solutions_1" class="md-nav__link">
+    possible solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -633,10 +685,10 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/SummaSolutions/warp-engine/tree/master/wiki_docs/troubleshooting/mac.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/SummaSolutions/warp-engine/tree/master/wiki_docs/troubleshooting/rsync.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="macos">macOS</h1>
+                <h1 id="warp-rsync">warp rsync</h1>
 <h2 id="command-rsync">command <strong>rsync</strong></h2>
 <p><code>warp rsync push --all</code></p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -652,6 +704,45 @@ Completed copying all files from host to container
 <li>update rsync </li>
 <li>minimum required version 3.1.1</li>
 </ul>
+<hr />
+<h2 id="command-rsync_1">command <strong>rsync</strong></h2>
+<p><code>warp rsync push &lt;file&gt;</code></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Template parsing error: template: :1:3: executing <span class="s2">&quot;&quot;</span> at &lt;index <span class="o">(</span>index .NetworkSettings.Ports <span class="s2">&quot;873/tcp&quot;</span><span class="o">)</span> <span class="m">0</span>&gt;: error calling index: index of untyped nil
+rsync: failed to connect to localhost <span class="o">(</span>::1<span class="o">)</span>: Connection refused <span class="o">(</span><span class="m">61</span><span class="o">)</span>
+rsync: failed to connect to localhost <span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span>: Connection refused <span class="o">(</span><span class="m">61</span><span class="o">)</span>
+rsync error: error in socket IO <span class="o">(</span>code <span class="m">10</span><span class="o">)</span> at clientserver.c<span class="o">(</span><span class="m">127</span><span class="o">)</span> <span class="o">[</span><span class="nv">sender</span><span class="o">=</span><span class="m">3</span>.1.3<span class="o">]</span>
+</code></pre></div>
+</td></tr></table>
+
+<h3 id="possible-solutions_1">possible solutions</h3>
+<ul>
+<li>Check the file <code>docker-compose-warp.yml</code>, if you have the container <code>appdata</code> like this:</li>
+</ul>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>  <span class="nt">appdata</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">alpine:latest</span>
+</code></pre></div>
+</td></tr></table>
+
+<p>Run the following command to restart all configuration, after that you will have correctly configured  container <code>appdata</code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You are going to delete all project settings  <br />
+If you go ahead you must reconfigure the entire project</p>
+</div>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp stop --hard
+warp reset --hard
+war init
+warp start
+</code></pre></div>
+</td></tr></table>
+
 <hr />
                 
                   
@@ -674,7 +765,7 @@ Completed copying all files from host to container
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="db.html" title="databases" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="start.html" title="warp start" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -683,19 +774,19 @@ Completed copying all files from host to container
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                databases
+                warp start
               </span>
             </div>
           </a>
         
         
-          <a href="elasticsearch.html" title="elasticsearch" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="db.html" title="databases" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                elasticsearch
+                databases
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

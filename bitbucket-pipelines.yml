@@ -6,20 +6,22 @@
 image: python:3.7.2
 
 pipelines:
-  default:
-    - step:
-        caches:
-          - pip
-        script:
-          - pip install -Iv mkdocs==1.0.4
-          - pip install -Iv mkdocs-material==4.0.2
-          - mkdocs build
-          - pipe: atlassian/aws-s3-deploy:0.2.4
-            variables:
-              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-              AWS_DEFAULT_REGION: 'us-east-1'
-              S3_BUCKET: $AWS_S3_BUCKET
-              LOCAL_PATH: 'site'
+  branches:
+    master:
+      - step:
+          name: Build Documentation
+          caches:
+            - pip
+          script:
+            - pip install -Iv mkdocs==1.0.4
+            - pip install -Iv mkdocs-material==4.0.2
+            - mkdocs build
+            - pipe: atlassian/aws-s3-deploy:0.2.4
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: 'us-east-1'
+                S3_BUCKET: $AWS_S3_BUCKET
+                LOCAL_PATH: 'site'
               
 

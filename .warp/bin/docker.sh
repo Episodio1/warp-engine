@@ -10,7 +10,7 @@ function docker_command()
     if [ "$1" = "-h" ] || [ "$1" = "--help" ]
     then
         docker_help_usage 
-        exit 1
+        exit 0;
     fi;
 
     if [ ! -f $DOCKERCOMPOSEFILE ]
