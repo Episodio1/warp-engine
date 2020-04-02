@@ -88,6 +88,10 @@ function fix_composer()
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chown -R $(id -u):33 /var/www/.composer"
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chmod -R ug+rw /var/www/.composer"
 
+    # add read/write and group www-data on hidden files
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -maxdepth 1 -type f -exec chown $(id -u):33 {} \;"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -maxdepth 1 -type f -exec chmod ug+rw {} \;"
+
     warp_message "* Success $(warp_message_ok [ok])"
 
     exit 1;
@@ -179,8 +183,13 @@ function fix_default()
       ;;
     esac
 
+    # set permission on root folder /var/www/html
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chown $(id -u):33 /var/www/html/"
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "chmod ug+rwx /var/www/html/"
+
+    # add read/write and group www-data on hidden files
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -maxdepth 1 -type f -exec chown $(id -u):33 {} \;"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "cd /var/www/html/ ; find . -maxdepth 1 -type f -exec chmod ug+rw {} \;"
 
     warp_message "* Make folders traversable and read/write $(warp_message_ok [ok])"
     case "$(uname -s)" in
