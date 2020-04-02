@@ -137,6 +137,7 @@ function reset_warninig_confirm()
             rm  $CONFIGFOLDER/php/ext-xdebug.ini 2> /dev/null
             rm $CONFIGFOLDER/php/ext-ioncube.ini 2> /dev/null
         elif [ -d $CONFIGFOLDER/php/ext-xdebug.ini ] || [ -d $CONFIGFOLDER/php/ext-ioncube.ini ]
+        then
             warp_message "* reset php configurations files $(warp_message_ok [ok])"
             sudo rm -rf $CONFIGFOLDER/php/ext-xdebug.ini 2> /dev/null
             sudo rm -rf $CONFIGFOLDER/php/ext-ioncube.ini 2> /dev/null
