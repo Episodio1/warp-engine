@@ -10,39 +10,51 @@ function magento_command()
     if [ "$1" = "-h" ] || [ "$1" = "--help" ]
     then
         magento_help_usage 
-        exit 1
+        exit 0;
     fi;
 
     if [ "$1" = "--download" ]
     then
         shift 1
         magento_download $*
-        exit 1
+        exit 0;
     fi;
 
     if [ $(warp_check_is_running) = false ]; then
         warp_message_error "The containers are not running"
         warp_message_error "please, first run warp start"
 
-        exit 1;
+        exit 0;
     fi
 
     if [ "$1" = "--install-only" ]
     then
-        magento_install_only
-        exit 1
+        magento_install_only $*
+        exit 0;
     fi;
 
-    if [ "$1" = "--install-redis" ]
+    if [ "$1" = "--config-redis" ]
     then
-        magento_install_redis
-        exit 1
+        magento_config_redis
+        exit 0;
+    fi;
+
+    if [ "$1" = "--config-varnish" ]
+    then
+        magento_config_varnish
+        exit 0;
+    fi;
+
+    if [ "$1" = "--developer-mode" ]
+    then
+        magento_config_developer_mode
+        exit 0;
     fi;
 
     if [ "$1" = "--install" ]
     then
         magento_install
-        exit 1
+        exit 0;
     fi;
 
     FRAMEWORK=$(warp_env_read_var FRAMEWORK)
@@ -70,7 +82,7 @@ function magento_install()
 {
     if ! warp_check_env_file ; then
         warp_message_error "file not found $(basename $ENVIRONMENTVARIABLESFILE)"
-        exit
+        exit 0;
     fi; 
 
     VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
@@ -89,10 +101,8 @@ function magento_install()
       Darwin)
         if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
             warp_message "Copying all files from host to container..."
-            warp sync push --all
-
-            warp_message "Restarting containers with host bind mounts for dev..."
-            warp restart
+            warp rsync push --all
+            warp fix --fast
             sleep 2 #Ensure containers are started...
         fi        
       ;;
@@ -156,8 +166,8 @@ function magento_install()
       Darwin)
         if [ "$USE_DOCKER_SYNC" = "N" ] || [ "$USE_DOCKER_SYNC" = "n" ] ; then 
             warp_message "Copying files from container to host after install..."
-            warp sync pull app
-            warp sync pull vendor
+            warp rsync pull app
+            warp rsync pull vendor
         fi
       ;;
     esac
@@ -187,6 +197,14 @@ function magento_install_only()
 
     warp_message "Install Magento.."
 
+    # check extra-parameters
+    if [ $# -eq 1 ] ; then
+        EXTRA_PARAMS=""
+    else 
+        shift 1
+        EXTRA_PARAMS=$*        
+    fi;
+
     warp magento setup:install \
         --backend-frontname=admin \
         --db-host=mysql \
@@ -202,7 +220,29 @@ function magento_install_only()
         --language=es_AR \
         --currency=ARS \
         --timezone=America/Argentina/Buenos_Aires \
-        --use-rewrites=1
+        --use-rewrites=1 $EXTRA_PARAMS
+
+    # setting values
+    for i in "$@"
+    do
+        case $i in
+            --admin-user=*)
+            ADMIN_USER="${i#*=}"
+            shift # past argument=value
+            ;;
+            --admin-password=*)
+            ADMIN_PASS="${i#*=}"
+            shift # past argument=value
+            ;;
+            --base-url=*)
+            VIRTUAL_HOST="${i#*=}"
+            shift # past argument=value
+            ;;
+            *)
+            # unknown option
+            ;;
+        esac;
+    done;
 
     warp_message "Docker development environment setup complete."
     warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"
@@ -210,7 +250,7 @@ function magento_install_only()
     warp_message "Admin pass: $ADMIN_PASS"
 }
 
-function magento_install_redis()
+function magento_config_redis()
 {
     warp_message "Configure redis"
 
@@ -246,6 +286,56 @@ function magento_download()
 
     # Add include/exclude files to gitignore
     warp_check_gitignore
+}
+
+function magento_config_varnish()
+{
+    USE_VARNISH=$(warp_env_read_var USE_VARNISH)
+    VARNISH_VERSION=$(warp_env_read_var VARNISH_VERSION)
+
+    if [[ "$USE_VARNISH" = "Y" || "$USE_VARNISH" = "y" ]]
+    then
+        warp_message "Configure varnish"
+
+        if [ $VARNISH_VERSION = "5.2.1" ] ; then
+            EXPORT_VARNISH_VERSION="5"
+        else
+            EXPORT_VARNISH_VERSION="4"
+        fi;
+
+        warp magento config:set --scope=default --scope-code=0 system/full_page_cache/caching_application 2
+        warp magento setup:config:set --http-cache-hosts=web
+        warp magento varnish:vcl:generate --backend-host=web --backend-port=80 --access-list=web --export-version=${EXPORT_VARNISH_VERSION} > ${CONFIGFOLDER}/varnish/default.vcl
+
+        # search and clear .probe { .. }
+        perl -i -p0e 's/.probe.*?}//s' ${CONFIGFOLDER}/varnish/default.vcl
+
+        warp_message "Done!"
+    else
+        warp_message "Varnish is not configured or disabled"
+    fi;
+}
+
+function magento_config_developer_mode()
+{    
+    VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
+    
+    warp_message "Turning on developer mode.."
+    warp magento deploy:mode:set developer
+
+    warp_message "Setting on https"
+    warp magento setup:store-config:set --use-secure-admin=1
+    warp magento setup:store-config:set --base-url="https://${VIRTUAL_HOST}/"
+    warp magento setup:store-config:set --base-url-secure="https://${VIRTUAL_HOST}/"
+
+    warp_message "Disable Admin session Lifetime"
+    warp magento config:set -l admin/security/session_lifetime 31536000
+    
+    warp_message "Disable Captcha Admin"
+    warp magento config:set -l admin/captcha/enable 0
+
+    warp_message "Flush Magento cache"
+    warp magento cache:flush
 }
 
 function magento_main()

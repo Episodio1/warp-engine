@@ -15,12 +15,16 @@ function magento_help_usage()
     warp_message_info   " --download         $(warp_message 'Download Magento Community')"
     warp_message_info   " --install          $(warp_message 'Install Magento with setup previously configured in wizard')"
     warp_message_info   " --install-only     $(warp_message 'Install Magento only with configured parameters')"
-    warp_message_info   " --install-redis    $(warp_message 'Configure Redis')"                            
+    warp_message_info   " --developer-mode   $(warp_message 'Configure Magento optimized in developer mode')"
+    warp_message_info   " --config-varnish   $(warp_message 'Configure Varnish')"
+    warp_message_info   " --config-redis     $(warp_message 'Configure Redis')"
     warp_message ""
 
     warp_message ""
     warp_message_info "Help:"
     warp_message " Allow run bin/magento inside the container "
+    warp_message " It also brings --options to configure services in Magento,"
+    warp_message " like redis, varnish or optimize development in developer mode"
     warp_message ""
 
     warp_message_info "Example:"
