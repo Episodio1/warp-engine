@@ -3,6 +3,7 @@ Warp Releases
 
 ### [2020.04.02](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.04.02)
 
+* Add command warp magento --config-smile
 * Add command warp magento --config-varnish
 * Add command warp magento --developer-mode
 * Add custom options to command warp magento --install-only <options>

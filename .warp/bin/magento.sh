@@ -45,6 +45,12 @@ function magento_command()
         exit 0;
     fi;
 
+    if [ "$1" = "--config-smile" ]
+    then
+        magento_config_smile
+        exit 0;
+    fi;
+
     if [ "$1" = "--developer-mode" ]
     then
         magento_config_developer_mode
@@ -316,6 +322,18 @@ function magento_config_varnish()
     fi;
 }
 
+function magento_config_smile()
+{
+    warp_message "Setting up Smile"
+
+    warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/servers elasticsearch:9200
+    warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/enable_https_mode 0
+    warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/enable_http_auth 0
+    warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/http_auth_user ""
+    warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/http_auth_pwd ""
+    warp magento app:config:import
+}
+
 function magento_config_developer_mode()
 {    
     VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
@@ -323,7 +341,7 @@ function magento_config_developer_mode()
     warp_message "Turning on developer mode.."
     warp magento deploy:mode:set developer
 
-    warp_message "Setting on https"
+    warp_message "Setting up https"
     warp magento setup:store-config:set --use-secure-admin=1
     warp magento setup:store-config:set --base-url="https://${VIRTUAL_HOST}/"
     warp magento setup:store-config:set --base-url-secure="https://${VIRTUAL_HOST}/"
