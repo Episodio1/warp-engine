@@ -131,11 +131,15 @@ function reset_warninig_confirm()
         warp_message "* deleting $(basename $DOCKERSYNCMAC) $(warp_message_ok [ok])"
         warp_message "* deleting $(basename $DOCKERCOMPOSEFILEDEV) $(warp_message_ok [ok])"
 
-        if [ -f $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini ] || [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ]
+        if [ -f $CONFIGFOLDER/php/ext-xdebug.ini ] || [ -f $CONFIGFOLDER/php/ext-ioncube.ini ]
         then
             warp_message "* reset php configurations files $(warp_message_ok [ok])"
-            rm -rf $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini 2> /dev/null
-            rm -rf $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini 2> /dev/null
+            rm  $CONFIGFOLDER/php/ext-xdebug.ini 2> /dev/null
+            rm $CONFIGFOLDER/php/ext-ioncube.ini 2> /dev/null
+        elif [ -d $CONFIGFOLDER/php/ext-xdebug.ini ] || [ -d $CONFIGFOLDER/php/ext-ioncube.ini ]
+            warp_message "* reset php configurations files $(warp_message_ok [ok])"
+            sudo rm -rf $CONFIGFOLDER/php/ext-xdebug.ini 2> /dev/null
+            sudo rm -rf $CONFIGFOLDER/php/ext-ioncube.ini 2> /dev/null
         fi
         
         [ -f $ENVIRONMENTVARIABLESFILE ] && rm $ENVIRONMENTVARIABLESFILE 2> /dev/null
