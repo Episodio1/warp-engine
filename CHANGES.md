@@ -1,6 +1,17 @@
 Warp Releases
 =============
 
+### [2020.04.02](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.04.02)
+
+* Add command warp magento --config-varnish
+* Add command warp magento --developer-mode
+* Add custom options to command warp magento --install-only <options>
+* Improve warp fix --composer
+* Improve startup script
+* Validate frameword on mode Gandalf
+* Clearing .gitignore after warp reset --hard
+* Add users 500, 1000, 1001, 1002 to images PHP FPM 7.0, 7.1, 7.2, 7.3
+
 ### [2020.03.20](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.03.20)
 
 * Add imagick to PHP 7.2-fpm, 7.3-fpm
