@@ -21,6 +21,19 @@ then
     esac
 fi
 
+if [[ ! -z $GF_FRAMEWORK ]]
+then
+    case $GF_FRAMEWORK in
+        'm1'|'m2'|'oro'|'php')
+            let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS
+        ;;
+        *)
+            warp_message_info2 "Selected: $GF_FRAMEWORK, the available options are m1, m2, oro, php"
+            let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS+1
+        ;;
+    esac
+fi
+
 if [[ ! -z $GF_MYSQL_VERSION ]]
 then
     case $GF_MYSQL_VERSION in

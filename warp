@@ -22,14 +22,6 @@ hash tr 2>/dev/null || { echo >&2 "warp framework requires \"tr command\". On de
 
 [[ $(pwd) =~ [[:space:]]+ ]] && { echo "this folder contains spaces, warp framework requires a folder without spaces"; exit 1; }
 
-case "$(uname -s)" in
-    Darwin)
-    # autodetect docker in Mac
-    # Check availability of docker-sync
-    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync -n /usr/local/bin\"  "; exit 1; }
-    ;;
-esac    
-
 include_warp_framework() {
     
     # INCLUDE VARIABLES
@@ -51,7 +43,7 @@ setup_main() {
 
     if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
         setup_help_usage
-        exit 1
+        exit 0;
     elif [ "$1" = "-n" ] || [ "$1" = "--no-interaction" ] ; then
         if [ ! -d $PROJECTPATH/.warp/setup ]; then
             warp_setup --no-interaction
@@ -67,7 +59,7 @@ setup_main() {
         fi;
 
         init_main init --mode-gandalf $*
-        exit 1
+        exit 0;
     else
         if [ ! -d $PROJECTPATH/.warp/setup ]; then
             warp_setup install
@@ -82,7 +74,7 @@ setup_sandbox_main() {
 
     if [ "$1" = "-h" ] || [ "$1" = "--help" ] && [ ! -d $PROJECTPATH/.warp/setup ] ; then
         setup_help_usage
-        exit 1
+        exit 0;
     else
         if [ ! -d $PROJECTPATH/.warp/setup ]; then
             warp_setup sandbox
@@ -97,7 +89,7 @@ setup_help_usage()
 {
     if [ -d $PROJECTPATH/.warp/lib ]; then
         init_help_usage
-        exit 1
+        exit 0;
     else
 
         echo "  if you run for the first time, the installation of the framework begins"
@@ -119,7 +111,7 @@ setup_help_usage()
         echo "  "
         echo "  Please run ./warp init"
 
-        exit 1
+        exit 0;
     fi
 }
 
@@ -140,7 +132,7 @@ help() {
         help_usage
     else
         warp_message_not_install_yet
-        exit;
+        exit 0;
     fi;
 }
 
@@ -198,13 +190,13 @@ warp_update()
     if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
         . "$PROJECTPATH/.warp/bin/update_help.sh"
         update_help_usage
-        exit 1;
+        exit 0;
     fi
 
     if [ "$1" = "--images" ] ; then
         echo "checking if there are images available to update"
         docker-compose -f $DOCKERCOMPOSEFILE pull
-        exit 1;
+        exit 0;
     fi
 
     warp_setup update
@@ -236,12 +228,12 @@ function warp_info()
 
     if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then  
         info_help_usage
-        exit 1;
+        exit 0;
     fi;    
 
     if ! warp_check_env_file ; then
         warp_message_error "file not found $(basename $ENVIRONMENTVARIABLESFILE)"
-        exit
+        exit 1;
     fi; 
 
     if [ "$1" = "--ip" ] ; then

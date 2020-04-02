@@ -121,16 +121,21 @@ RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
 # Make sure the volume mount point is empty
-RUN rm -rf /var/www/html/*
+RUN rm -rf /var/www/html/* && \
+  rm -rf /var/lib/apt/lists/*
+
+# Add users
+RUN groupadd -g 500  kirk &&  useradd -g 500  -u 500  -d /var/www/html -s /bin/bash kirk
+RUN groupadd -g 1000 warp &&  useradd -g 1000 -u 1000 -d /var/www/html -s /bin/bash warp
+RUN groupadd -g 1001 spock && useradd -g 1001 -u 1001 -d /var/www/html -s /bin/bash spock
+RUN groupadd -g 1002 scott && useradd -g 1002 -u 1002 -d /var/www/html -s /bin/bash scott
+
+# Add users to group www-data
+RUN usermod -aG 500  www-data
+RUN usermod -aG 1000 www-data
+RUN usermod -aG 1001 www-data
+RUN usermod -aG 1002 www-data
 
 RUN pecl install -o -f xdebug-2.6.1
 
-
-# ENV PHP_MEMORY_LIMIT 2G
-# ENV PHP_PORT 9000
-# ENV PHP_PM dynamic
-# ENV PHP_PM_MAX_CHILDREN 10
-# ENV PHP_PM_START_SERVERS 4
-# ENV PHP_PM_MIN_SPARE_SERVERS 2
-# ENV PHP_PM_MAX_SPARE_SERVERS 6
-# ENV APP_MAGE_MODE default
+RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so 
