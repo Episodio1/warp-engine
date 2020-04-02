@@ -18,6 +18,7 @@ function magento_help_usage()
     warp_message_info   " --developer-mode   $(warp_message 'Configure Magento optimized in developer mode')"
     warp_message_info   " --config-varnish   $(warp_message 'Configure Varnish')"
     warp_message_info   " --config-redis     $(warp_message 'Configure Redis')"
+    warp_message_info   " --config-smile     $(warp_message 'Configure Smile if installed')"
     warp_message ""
 
     warp_message ""
