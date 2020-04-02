@@ -23,6 +23,11 @@ function push_to_container() {
       warp_message_error "these commands are available only on mac"
       exit 1;
     ;;
+    Darwin)
+    # autodetect docker in Mac
+    # Check availability of docker-sync
+    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync -n /usr/local/bin\"  "; exit 1; }
+    ;;
   esac
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy to container (ex. vendor, --all)" && exit
@@ -72,6 +77,11 @@ function pull_from_container() {
       warp_message_error "these commands are available only on mac"
       exit 1;
     ;;
+    Darwin)
+    # autodetect docker in Mac
+    # Check availability of docker-sync
+    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync -n /usr/local/bin\"  "; exit 1; }
+    ;;
   esac
 
   [ -z "$1" ] && warp_message_error "Please specify a directory or file to copy from container (ex. vendor, --all)" && exit
@@ -95,6 +105,18 @@ function warp_clean_volume()
       clean_help_usage
       exit 0;
   fi
+
+  case "$(uname -s)" in
+    Linux)
+      warp_message_error "these commands are available only on mac"
+      exit 1;
+    ;;
+    Darwin)
+    # autodetect docker in Mac
+    # Check availability of docker-sync
+    hash docker-sync 2>/dev/null || { echo >&2 "warp framework requires \"docker-sync\". Please run \"sudo gem install docker-sync -n /usr/local/bin\"  "; exit 1; }
+    ;;
+  esac
 
   docker-sync clean
 }
