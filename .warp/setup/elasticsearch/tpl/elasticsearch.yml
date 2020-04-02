@@ -12,8 +12,8 @@
         soft: -1
         hard: -1
       nofile:
-        soft: 65535
-        hard: 65535
+        soft: 65536
+        hard: 65536
     volumes:
       - "./.warp/docker/volumes/elasticsearch:/usr/share/elasticsearch/data"
     networks:
