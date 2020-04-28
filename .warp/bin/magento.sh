@@ -51,9 +51,15 @@ function magento_command()
         exit 0;
     fi;
 
-    if [ "$1" = "--developer-mode" ]
+    if [ "$1" = "--config-dev" ]
     then
         magento_config_developer_mode
+        exit 0;
+    fi;
+
+    if [ "$1" = "--generate-data" ]
+    then
+        magento_generate_fixtures
         exit 0;
     fi;
 
@@ -332,6 +338,11 @@ function magento_config_smile()
     warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/http_auth_user ""
     warp magento config:set -l smile_elasticsuite_core_base_settings/es_client/http_auth_pwd ""
     warp magento app:config:import
+}
+
+function magento_generate_fixtures()
+{   
+    warp magento setup:perf:generate-fixtures /var/www/html/setup/performance-toolkit/profiles/ce/small.xml
 }
 
 function magento_config_developer_mode()
