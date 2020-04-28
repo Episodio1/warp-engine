@@ -22,11 +22,6 @@ pipeline {
                                 credentialsId: 'AWS_SUMMA_CREDENTIALS',
                                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                            ],
-                            [
-                                $class: 'VaultTokenCredentialBinding', 
-                                credentialsId: 'VAULT_JENKINS',
-                                vaultAddr: 'https://vault.summasolutions.com.ar:8200'
                             ]
                         ]) 
                         {
@@ -37,10 +32,10 @@ pipeline {
                             sh("pwd")
                             sh("ls -la")
                             if(params.deploy == 'release'){
-                                sh("echo 'into release'")
+                                //sh("sh deploy release")
                             }
                             if(params.deploy == 'documentation'){
-                                sh("echo 'into documentation'")
+                                //sh("sh deploy docs")
                             }                           
                         }
                     }
@@ -51,15 +46,15 @@ pipeline {
     post {
         success {
             echo "Success!"   
-            //slackSend channel: env.CHANEL_SLACK,
-            //color: 'good',
-            //message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+            slackSend channel: env.CHANEL_SLACK,
+            color: 'good',
+            message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
         }   
         failure {   
             echo "Failure!"   
-            //slackSend channel: env.CHANEL_SLACK,
-            //color: '#FF0000',
-            //message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+            slackSend channel: env.CHANEL_SLACK,
+            color: '#FF0000',
+            message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
         }
         always {   
             dir("${WORKSPACE}") {
