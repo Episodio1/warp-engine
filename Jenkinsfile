@@ -1,7 +1,7 @@
 pipeline {    
     agent {
         node{            
-                label 'master'
+                label 'ansible-ci'
         }       
     }
     parameters {        
@@ -14,12 +14,58 @@ pipeline {
     stages{ 
         stage('Deploy'){
             steps{
-                echo "#####################################"  
-                echo "###          DEPLOY               ###"
-                echo "#####################################"
-                // comments 
-                sh("echo 'Deploy test'")
-            }       
+                script {
+                    sshagent (credentials: ['BITBUCKET']){
+                        withCredentials([
+                            [
+                                $class: 'AmazonWebServicesCredentialsBinding',
+                                credentialsId: 'AWS_SUMMA_CREDENTIALS',
+                                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                            ],
+                            [
+                                $class: 'VaultTokenCredentialBinding', 
+                                credentialsId: 'VAULT_JENKINS',
+                                vaultAddr: 'https://vault.summasolutions.com.ar:8200'
+                            ]
+                        ]) 
+                        {
+                            sh 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}'
+                            echo "#####################################"  
+                            echo "###  DEPLOY - WARP TEST           ###"
+                            echo "#####################################"
+                            sh("pwd")
+                            sh("ls -la")
+                            if(params.deploy == 'release'){
+                                sh("echo 'into release'")
+                            }
+                            if(params.deploy == 'documentation'){
+                                sh("echo 'into documentation'")
+                            }                           
+                        }
+                    }
+                }   
+            }     
         }       
+    }
+    post {
+        success {
+            echo "Success!"   
+            //slackSend channel: env.CHANEL_SLACK,
+            //color: 'good',
+            //message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+        }   
+        failure {   
+            echo "Failure!"   
+            //slackSend channel: env.CHANEL_SLACK,
+            //color: '#FF0000',
+            //message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+        }
+        always {   
+            dir("${WORKSPACE}") {
+                deleteDir()
+            }
+            echo "Eliminando..."
+        }
     }        
 }
