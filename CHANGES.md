@@ -1,6 +1,11 @@
 Warp Releases
 =============
 
+### [2020.04.28](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.04.28)
+
+* Add new image elasticsearch 6.5.4
+* Add deploy with Jenkins
+
 ### [2020.04.02](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.04.02)
 
 * Add command warp magento --config-smile
