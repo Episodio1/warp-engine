@@ -129,6 +129,9 @@ RUN rm -f /usr/local/etc/php/conf.d/*sodium.ini \
   && pecl install -o -f libsodium \
   && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
 
+# Install APCU
+RUN no | pecl install apcu && docker-php-ext-enable apcu
+
 # ssh2 module
 RUN apt-get install -y libssh2-1-dev \
   && pecl install ssh2-1.1.2 \
@@ -137,7 +140,7 @@ RUN apt-get install -y libssh2-1-dev \
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
 
-# Create .ssh file
+# Create .ssh folder
 RUN mkdir -p /var/www/.ssh
 
 # Set www-data as owner for /var/www
