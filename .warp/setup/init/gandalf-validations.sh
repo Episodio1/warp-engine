@@ -11,11 +11,11 @@ fi
 if [[ ! -z $GF_PHP_VERSION ]]
 then
     case $GF_PHP_VERSION in
-        '5.6-fpm'|'7.0-fpm'|'7.1-fpm'|'7.2-fpm'|'7.3-fpm'|'7.1.17-fpm'|'7.1.26-fpm')
+        '5.6-fpm'|'7.0-fpm'|'7.1-fpm'|'7.2-fpm'|'7.3-fpm'|'7.4-fpm'|'7.1.17-fpm'|'7.1.26-fpm')
             let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS
         ;;
         *)
-            warp_message_info2 "Selected: $GF_PHP_VERSION, the available versions are 5.6-fpm, 7.0-fpm, 7.1-fpm, 7.2-fpm, 7.3-fpm, 7.1.17-fpm, 7.1.26-fpm"
+            warp_message_info2 "Selected: $GF_PHP_VERSION, the available versions are 5.6-fpm, 7.0-fpm, 7.1-fpm, 7.2-fpm, 7.3-fpm, 7.4-fpm, 7.1.17-fpm, 7.1.26-fpm"
             let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS+1
         ;;
     esac
