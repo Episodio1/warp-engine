@@ -44,15 +44,13 @@ pipeline {
             steps {
                 script {
                     sshagent (credentials: ['BITBUCKET']) {
-                        {
-                            sh """
+                        sh """
                                 ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts
                                 git config user.email "${env.EMAIL_DEVOPS}"
                                 git config user.name "Jenkins"
                                 git tag ${BUILD_VERSION}
                                 git push origin ${BUILD_VERSION}
-                            """                            
-                        }
+                            """
                     }
                 }
             }
