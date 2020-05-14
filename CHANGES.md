@@ -1,6 +1,14 @@
 Warp Releases
 =============
 
+### [2020.05.14](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.14)
+
+* Add new image PHP 7.4-fpm
+* Add image elasticsearch 7.6.2
+* Add module APCU to PHP FPM 7.2, 7.3, 7.4
+* Update node v12
+* Change redis 5.0 by default
+
 ### [2020.04.28](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.04.28)
 
 * Add new image elasticsearch 6.5.4

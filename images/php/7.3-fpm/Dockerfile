@@ -107,7 +107,7 @@ RUN \
     docker-php-ext-install ldap
 
 # Install Node, NVM, NPM and Grunt, Gulp
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh \
     && npm i -g grunt-cli yarn \
@@ -124,10 +124,13 @@ RUN apt-get install -y libssh2-1-dev \
   && pecl install ssh2-1.2 \
   && docker-php-ext-enable ssh2
 
+# Install APCU
+RUN no | pecl install apcu && docker-php-ext-enable apcu
+
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
 
-# Create .ssh file
+# Create .ssh folder
 RUN mkdir -p /var/www/.ssh
 
 # Set www-data as owner for /var/www

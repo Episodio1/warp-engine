@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.4-fpm
 
 LABEL maintainer="Matias Anoniz <matiasanoniz@gmail.com>"
 
@@ -54,6 +54,7 @@ RUN \
   libtidy-dev \
   libmagic-dev \
   libexif-dev \
+  libonig-dev \
   file \
   libssh2-1-dev \
   libjpeg-dev \
@@ -63,9 +64,10 @@ RUN \
   vim \
   wget \
   librabbitmq-dev \
+  libsodium-dev \
   libzip-dev
 
-RUN pecl install mcrypt-1.0.2 \
+RUN pecl install -o -f  mcrypt-1.0.3 \
     && docker-php-ext-enable mcrypt
 
 ## Install imagick
@@ -83,8 +85,7 @@ RUN \
     pdo_pgsql \
     mysqli \
     mbstring \
-#   mcrypt \
-    hash \
+#   hash \
     simplexml \
     xsl \
     soap \
@@ -92,6 +93,7 @@ RUN \
     bcmath \
     json \
     opcache \
+    sodium \
     zip
 
 #####################################
@@ -115,27 +117,15 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
 # https://github.com/magento/magento2/issues/23405 
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
 
-RUN rm -f /usr/local/etc/php/conf.d/*sodium.ini \
-  && rm -f /usr/local/lib/php/extensions/*/*sodium.so \
-  && apt-get remove libsodium* -y  \
-  && mkdir -p /tmp/libsodium  \
-  && curl -sL https://github.com/jedisct1/libsodium/archive/1.0.18-RELEASE.tar.gz | tar xzf - -C  /tmp/libsodium \
-  && cd /tmp/libsodium/libsodium-1.0.18-RELEASE/ \
-  && ./configure \
-  && make && make check \
-  && make install  \
-  && cd / \
-  && rm -rf /tmp/libsodium  \
-  && pecl install -o -f libsodium \
-  && echo "extension=sodium.so" > /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
-
-# Install APCU
-RUN no | pecl install apcu && docker-php-ext-enable apcu
+RUN apt-get update && apt-get -t stretch-backports install -y
 
 # ssh2 module
 RUN apt-get install -y libssh2-1-dev \
-  && pecl install ssh2-1.1.2 \
+  && pecl install ssh2-1.2 \
   && docker-php-ext-enable ssh2
+
+# Install APCU
+RUN echo no | pecl install -o -f apcu && docker-php-ext-enable apcu
 
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
@@ -155,22 +145,17 @@ RUN mkdir -p /var/log/php-fpm && \
     touch /var/log/php-fpm/fpm-php.www.log && \
     chown -R www-data:www-data /var/log/php-fpm
 
-RUN wget https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
-  tar -zxf ioncube_loaders_lin_x86-64.tar.gz && \
-  mv ioncube/ioncube_loader_lin_7.2.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/iocube.so && \
-  echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20170718/iocube.so" > /usr/local/etc/php/conf.d/10-php-ext-ioncube.ini
-
 RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 && \
     chmod +x mhsendmail_linux_amd64 && \
     mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr \
-    && docker-php-ext-install gd
-
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN no | pecl install -o -f redis && docker-php-ext-enable redis
+RUN echo no | pecl install -o -f redis && docker-php-ext-enable redis
+
+RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+    && docker-php-ext-install gd
 
 # Add users
 RUN groupadd -g 501  kirk &&  useradd -g 501  -u 501  -d /var/www/html -s /bin/bash kirk
@@ -188,6 +173,6 @@ RUN usermod -aG 1002 www-data
 RUN rm -rf /var/www/html/* && \
   rm -rf /var/lib/apt/lists/*
 
-RUN pecl install -o -f xdebug-2.6.1
+RUN pecl install -o -f xdebug-2.9.0
 
-RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so 
+RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so 
