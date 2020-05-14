@@ -18,6 +18,7 @@ pipelines:
             - mkdocs build --site-dir docs
             - git config --global user.name "Bitbucket"
             - git config --global user.email "info@summasolutions.net"
+            - git add docs wiki_docs
             - git commit -m "build documentation $(date +%Y.%m.%d)_${BITBUCKET_BUILD_NUMBER}"
             - git push origin master
             - mkdocs build
