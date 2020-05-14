@@ -63,11 +63,11 @@ fi
 if [[ ! -z $GF_ELASTICSEARCH_VERSION ]]
 then
     case $GF_ELASTICSEARCH_VERSION in
-        '6.5.4'|'6.4.2'|'5.6.8'|'2.4.6'|'2.4.4'|'1.7.6')
+        '7.6.2'|'6.5.4'|'6.4.2'|'5.6.8'|'2.4.6'|'2.4.4'|'1.7.6')
             let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS
         ;;
         *)
-            warp_message_info2 "Selected: $GF_ELASTICSEARCH_VERSION, the available versions are: 6.5.4, 6.4.2, 5.6.8, 2.4.6, 2.4.4, 1.7.6"
+            warp_message_info2 "Selected: $GF_ELASTICSEARCH_VERSION, the available versions are: 7.6.2, 6.5.4, 6.4.2, 5.6.8, 2.4.6, 2.4.4, 1.7.6"
             let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS+1
         ;;
     esac
