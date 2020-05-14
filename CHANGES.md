@@ -1,7 +1,7 @@
 Warp Releases
 =============
 
-### [2020.05.XX](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.XX)
+### [2020.05.14](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.14)
 
 * Add new image PHP 7.4-fpm
 * Add image elasticsearch 7.6.2
