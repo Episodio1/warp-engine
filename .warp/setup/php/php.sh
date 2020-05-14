@@ -20,29 +20,11 @@ then
         php_version=$( warp_question_ask_default "Set the PHP version of your project: $(warp_message_info [7.2-fpm]) " "7.2-fpm" )
     
         case $php_version in
-        '5.6-fpm')
-            break
-        ;;
-        '7.0-fpm')
-            break
-        ;;
-        '7.1-fpm')
-            break
-        ;;
-        '7.2-fpm')
-            break
-        ;;
-        '7.3-fpm')
-            break
-        ;;
-        '7.1.17-fpm')
-            break
-        ;;
-        '7.1.26-fpm')
+        '5.6-fpm'|'7.0-fpm'|'7.1-fpm'|'7.2-fpm'|'7.3-fpm'|'7.4-fpm'|'7.1.17-fpm'|'7.1.26-fpm')
             break
         ;;
         *)
-            warp_message_info2 "Selected: $php_version, the available versions are 5.6-fpm, 7.0-fpm, 7.1-fpm, 7.2-fpm, 7.3-fpm, 7.1.17-fpm, 7.1.26-fpm"
+            warp_message_info2 "Selected: $php_version, the available versions are 5.6-fpm, 7.0-fpm, 7.1-fpm, 7.2-fpm, 7.3-fpm, 7.4-fpm, 7.1.17-fpm, 7.1.26-fpm"
         ;;
         esac        
     done
@@ -99,6 +81,10 @@ then
         '7.3-fpm')
             echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20180731/xdebug.so" >> $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.sample 
             echo ";zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20180731/iocube.so" >> $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini.sample 
+        ;;
+        '7.4-fpm')
+            echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so" >> $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.sample 
+            echo ";zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20190902/iocube.so" >> $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini.sample 
         ;;
         *)
             echo "zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so" >> $PROJECTPATH/.warp/docker/config/php/ext-xdebug.ini.sample 
