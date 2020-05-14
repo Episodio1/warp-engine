@@ -50,7 +50,7 @@ pipeline {
                                 git config user.name "Jenkins"
                                 git tag ${BUILD_VERSION}
                                 git push origin ${BUILD_VERSION}
-                            """
+                        """
                     }
                 }
             }
@@ -116,17 +116,15 @@ pipeline {
                 sh "python -m pip install -r requirements.txt"
                 sh "mkdocs build --site-dir docs"
                 script {                 
-                    sshagent (credentials: ['BITBUCKET']) {
-                        {
-                            sh """
+                    sshagent (credentials: ['BITBUCKET']) {                        
+                        sh """
                                 ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts
                                 git config user.email "${env.EMAIL_DEVOPS}"
                                 git config user.name "Jenkins"
                                 git add docs wiki_docs
                                 git commit -m "build documentation ${BUILD_VERSION}_${COMMIT_VERSION}"
                                 git push origin master
-                            """                            
-                        }
+                        """
                     }
                 }   
             }
