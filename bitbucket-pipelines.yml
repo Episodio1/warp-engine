@@ -15,12 +15,6 @@ pipelines:
           script:
             - pip install -Iv mkdocs==1.0.4
             - pip install -Iv mkdocs-material==4.0.2
-            - mkdocs build --site-dir docs
-            - git config --global user.name "Bitbucket"
-            - git config --global user.email "info@summasolutions.net"
-            - git add docs wiki_docs
-            - git commit -m "build documentation $(date +%Y.%m.%d)_${BITBUCKET_BUILD_NUMBER}"
-            - git push origin master
             - mkdocs build
             - pipe: atlassian/aws-s3-deploy:0.2.4
               variables:
