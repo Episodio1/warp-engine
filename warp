@@ -388,6 +388,9 @@ function warp_check_binary_was_updated()
                 # different version binary and current, force update
                 warp_message_warn "binary and current version different, force update"
                 warp_setup --force
+
+                # save new version to ENVIRONMENTVARIABLESFILESAMPLE
+                # warp_env_change_version_sample_file
             fi
         fi
     fi
@@ -398,7 +401,7 @@ warp_check_binary_was_updated
 
 ## Generate file to check self-update
 # check if the variables are not empty
-if [ ! -z "$CHECK_UPDATE_FILE" ] && [ ! -z "$CHECK_FREQUENCY_DAYS" ]
+if [[ ! -z "$CHECK_UPDATE_FILE" ]] && [[ ! -z "$CHECK_FREQUENCY_DAYS" ]]
 then
     case "$(uname -s)" in
         Darwin)
@@ -410,12 +413,12 @@ then
         ;;
     esac
 
-    if [ -f "$CHECK_UPDATE_FILE" ]
+    if [[ -f "$CHECK_UPDATE_FILE" ]]
     then
         _NEXT_CHECK=$(cat "$CHECK_UPDATE_FILE")
         _TODAY=$(date +%Y%m%d)
 
-        if [[ $_TODAY -ge $_NEXT_CHECK ]]
+        if [[ $_TODAY -ge $_NEXT_CHECK ]] && [[ $# -eq 0 ]]
         then
             warp_check_latest_version
             # update next check
