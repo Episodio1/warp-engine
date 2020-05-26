@@ -1,6 +1,11 @@
 Warp Releases
 =============
 
+### [2020.05.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.26)
+
+* Disable short_open_tag
+* Fix self-update
+
 ### [2020.05.14](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.14)
 
 * Add new image PHP 7.4-fpm
