@@ -1,6 +1,11 @@
 Warp Releases
 =============
 
+### [2020.06.23](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.06.23)
+
+* Fix chmod() composer on Magento 2.3x
+* Add command ece-tools and ece-patches
+
 ### [2020.05.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.26)
 
 * Disable short_open_tag
