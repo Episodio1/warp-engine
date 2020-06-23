@@ -37,7 +37,33 @@ function magento_help_usage()
     warp_message ""    
 }
 
+function magento_command_tools_help_usage()
+{
+    warp_message ""
+    warp_message_info "Usage:"
+    warp_message      " warp ece-tools|ece-patches [options] [arguments]"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Options:"
+    warp_message_info   " -h, --help         $(warp_message 'display this help message')"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Help:"
+    warp_message " Allow run ece-tools or ece-patches inside the container "
+    warp_message " It also brings --options to configure services in Magento,"
+    warp_message ""
+
+    warp_message_info "Example:"
+    warp_message " warp ece-tools db-dump"
+    warp_message " warp ece-patches apply"
+    warp_message ""
+}
+
 function magento_help()
 {
     warp_message_info   " magento            $(warp_message 'execute bin/magento inside the container')"
+    warp_message_info   " ece-tools          $(warp_message 'execute ece-tools inside the container')"
+    warp_message_info   " ece-patches        $(warp_message 'execute ece-patches inside the container')"
 }
