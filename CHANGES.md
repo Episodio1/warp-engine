@@ -5,6 +5,7 @@ Warp Releases
 
 * Fix chmod() composer on Magento 2.3x
 * Add command ece-tools and ece-patches
+* Add python3 to Selenium image
 
 ### [2020.05.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.05.26)
 
