@@ -500,6 +500,10 @@ case "$1" in
     magento_main $*
     ;;
 
+    ece-tools|ece-patches)
+    magento_main $*
+    ;;
+
     oro)
     oro_main $*
     ;;
