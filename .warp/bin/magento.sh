@@ -90,6 +90,37 @@ function magento_command()
     fi
 }
 
+function magento_command_tools() 
+{
+
+    if [ "$2" = "-h" ] || [ "$2" = "--help" ]
+    then
+        magento_command_tools_help_usage 
+        exit 0;
+    fi;
+
+    if [ $(warp_check_is_running) = false ]; then
+        warp_message_error "The containers are not running"
+        warp_message_error "please, first run warp start"
+
+        exit 0;
+    fi
+
+    if [ "$1" = "ece-patches" ]
+    then
+        TOOLS_COMMAND='vendor/bin/ece-patches'
+    fi;
+    
+    if [ "$1" = "ece-tools" ]
+    then
+        TOOLS_COMMAND='vendor/bin/ece-tools'
+    fi;
+
+    shift 1;
+    
+    docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "[ -f $TOOLS_COMMAND ] && $TOOLS_COMMAND $* || echo \"not found binary $TOOLS_COMMAND\""
+}
+
 function magento_install()
 {
     if ! warp_check_env_file ; then
@@ -373,6 +404,10 @@ function magento_main()
         magento)
             shift 1
             magento_command $*
+        ;;
+
+        ece-tools|ece-patches)
+            magento_command_tools $*
         ;;
 
         -h | --help)
