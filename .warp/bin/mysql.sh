@@ -69,6 +69,41 @@ function mysql_connect()
     docker-compose -f $DOCKERCOMPOSEFILE exec mysql bash -c "mysql -uroot -p$DATABASE_ROOT_PASSWORD"
 }
 
+function mysql_update_db() 
+{
+
+    DOCKER_PRIVATE_REGISTRY=$(warp_env_read_var DOCKER_PRIVATE_REGISTRY)
+
+    if [ -z "$DOCKER_PRIVATE_REGISTRY" ] ; then
+        warp_message_error "this command only work with private db registry"
+
+        exit 1;
+    fi
+
+    warp_message "This command will be:"
+    warp_message "* stop containers"
+    warp_message "* pull new images"
+    warp_message "* remove volume db"
+    warp_message "* start containers"
+    
+    respuesta_update_db=$( warp_question_ask_default "Do you want to continue? $(warp_message_info [Y/n]) " "Y" )
+
+    if [ "$respuesta_update_db" = "Y" ] || [ "$respuesta_update_db" = "y" ]
+    then
+
+        if [ $(warp_check_is_running) = true ]; then
+            warp stop --hard 
+        fi
+
+        warp docker pull
+        warp volume --rm mysql
+        warp start
+
+    else 
+        warp_message_warn "* aborting update db"    
+    fi
+}
+
 function mysql_connect_ssh() 
 {
 
@@ -164,6 +199,10 @@ function mysql_main()
         ssh)
             shift 1
             mysql_connect_ssh $*
+        ;;
+
+        --update)
+            mysql_update_db
         ;;
 
         -h | --help)

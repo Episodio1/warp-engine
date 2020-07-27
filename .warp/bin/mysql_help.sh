@@ -11,6 +11,7 @@ function mysql_help_usage()
     warp_message ""
     warp_message_info "Options:"
     warp_message_info   " -h, --help         $(warp_message 'display this help message')"
+    warp_message_info   " --update           $(warp_message 'update db from private registry')"
     warp_message ""
 
     warp_message_info "Available commands:"
