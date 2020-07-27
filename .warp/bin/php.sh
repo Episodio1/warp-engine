@@ -137,6 +137,12 @@ function php_switch()
             esac
         fi
 
+        # creating ext-ioncube.ini
+        if  [ ! -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini ] && [ -f $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini.sample ]
+        then
+            cp $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini.sample $PROJECTPATH/.warp/docker/config/php/ext-ioncube.ini
+        fi
+
         if [ -f $ENVIRONMENTVARIABLESFILE ]
         then
             case "$(uname -s)" in
