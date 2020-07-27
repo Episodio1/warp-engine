@@ -318,6 +318,8 @@ function warp_setup()
         sleep 1
         # Init Instalation
         include_warp_framework
+        # save new version to ENVIRONMENTVARIABLESFILESAMPLE
+        warp_env_change_version_sample_file
     fi
 
     if [ "$OPTION" = "--self-update" ]
@@ -365,6 +367,8 @@ function warp_setup()
             sleep 1
             # Init Instalation
             include_warp_framework
+            # save new version to ENVIRONMENTVARIABLESFILESAMPLE
+            warp_env_change_version_sample_file
             warp_banner
         fi
     fi
