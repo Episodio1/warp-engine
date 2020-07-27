@@ -95,10 +95,23 @@ function mysql_update_db()
             warp stop --hard 
         fi
 
-        warp docker pull
-        warp volume --rm mysql
-        warp start
+        #  CHECK IF GITIGNOREFILE CONTAINS FILES WARP TO IGNORE
+        [ -f "$HOME/.aws/credentials" ] && cat "$HOME/.aws/credentials" | grep --quiet -w "^[summa-docker]"
 
+        # Exit status 0 means string was found
+        # Exit status 1 means string was not found
+        if [ $? = 0 ] || [ -f "$HOME/.aws/credentials" ]
+        then
+            $(aws ecr get-login --region us-east-1 --no-include-email --profile summa-docker)
+
+            # check if login Succeeded 
+            if [ $? = 0 ]
+            then
+                warp docker pull
+                warp volume --rm mysql
+                warp start
+            fi
+        fi
     else 
         warp_message_warn "* aborting update db"    
     fi
