@@ -108,7 +108,7 @@ function mysql_update_db()
             if [ $? = 0 ]
             then
                 warp docker pull
-                warp volume --rm mysql
+                warp volume --rm mysql 2> /dev/null
                 warp start
             fi
         fi
@@ -160,7 +160,7 @@ function mysql_switch()
         warp_message_info2 "the selected version is the same as the previous one, no changes will be made"
         warp_message_warn "for help run: $(warp_message_bold './warp mysql switch --help')"
     else
-        warp_message_warp "This command will destroy MySQL database"
+        warp_message_warn "This command will destroy MySQL database"
         warp_message "you can create a backup running: $(warp_message_bold './warp mysql dump --help')"
         respuesta_switch_version_db=$( warp_question_ask_default "Do you want to continue? $(warp_message_info [Y/n]) " "Y" )
 
@@ -186,13 +186,33 @@ function mysql_switch()
             fi
             
             # delete volume database
-            warp volume --rm mysql
+            warp volume --rm mysql 2> /dev/null
+
+            DOCKER_PRIVATE_REGISTRY=$(warp_env_read_var DOCKER_PRIVATE_REGISTRY)
+
+            if [ ! -z "$DOCKER_PRIVATE_REGISTRY" ] ; then
+                NAMESPACE=$(warp_env_read_var NAMESPACE)
+                PROJECT=$(warp_env_read_var PROJECT)                
+                mysql_docker_image="${NAMESPACE}-${PROJECT}-dbs"
+
+                CREATE_MYSQL_IMAGE_FROM="mysql:${mysql_version} ${DOCKER_PRIVATE_REGISTRY}/${mysql_docker_image}:latest"
+
+                # clear custom image
+                docker pull "mysql:$mysql_version"
+                docker rmi "${DOCKER_PRIVATE_REGISTRY}/${mysql_docker_image}"
+                sleep 2
+                docker tag $CREATE_MYSQL_IMAGE_FROM 2> /dev/null
+            fi
+
+            # check files for mysql version
+            #warp_mysql_check_files_yaml
 
             # copy base files
             cp -R $PROJECTPATH/.warp/setup/mysql/config/ $PROJECTPATH/.warp/docker/config/mysql/    
 
             warp_message_warn "* commit new changes"
             warp_message_warn "* at each environment run: $(warp_message_bold './warp reset')"
+            warp_message_warn "* after that run: $(warp_message_bold './warp mysql --update')"
         else 
             warp_message_warn "* aborting switch database"
         fi
