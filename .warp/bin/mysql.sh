@@ -200,7 +200,6 @@ function mysql_switch()
                 # clear custom image
                 docker pull "mysql:$mysql_version"
                 docker rmi "${DOCKER_PRIVATE_REGISTRY}/${mysql_docker_image}"
-                sleep 2
                 docker tag $CREATE_MYSQL_IMAGE_FROM 2> /dev/null
             fi
 
