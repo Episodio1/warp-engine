@@ -1,6 +1,15 @@
 Warp Releases
 =============
 
+### [2020.07.27](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.07.27)
+
+* Fix elasticsearch service 7.x
+* Add image 7.2.24-fpm for Oro 3.x
+* Add Postgres image to private registry
+* Add command for change PHP version 
+* Add command for change MySQL version 
+* Add command warp mysql --update
+
 ### [2020.06.23](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.06.23)
 
 * Fix chmod() composer on Magento 2.3x
