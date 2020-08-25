@@ -132,6 +132,9 @@ RUN rm -f /usr/local/etc/php/conf.d/*sodium.ini \
 # Install APCU
 RUN no | pecl install apcu && docker-php-ext-enable apcu
 
+# Install MongoDB
+RUN pecl install mongodb && docker-php-ext-enable mongodb.so
+
 # ssh2 module
 RUN apt-get install -y libssh2-1-dev \
   && pecl install ssh2-1.1.2 \

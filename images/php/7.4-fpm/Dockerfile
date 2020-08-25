@@ -127,6 +127,9 @@ RUN apt-get install -y libssh2-1-dev \
 # Install APCU
 RUN echo no | pecl install -o -f apcu && docker-php-ext-enable apcu
 
+# Install MongoDB
+RUN pecl install mongodb && docker-php-ext-enable mongodb.so
+
 # Install fontforge https://github.com/sapegin/grunt-webfont#installation
 RUN apt-get install -y fontforge ttfautohint
 
