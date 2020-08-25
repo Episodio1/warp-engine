@@ -37,11 +37,11 @@ fi
 if [[ ! -z $GF_MYSQL_VERSION ]]
 then
     case $GF_MYSQL_VERSION in
-        '5.6'|'5.7')
+        '5.6'|'5.7'|'8.0')
             let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS
         ;;
         *)
-            warp_message_info2 "Selected: $GF_MYSQL_VERSION, the available versions are 5.6, 5.7"
+            warp_message_info2 "Selected: $GF_MYSQL_VERSION, the available versions are 5.6, 5.7, 8.0"
             let CHECK_GANDALF_ERRORS=$CHECK_GANDALF_ERRORS+1
         ;;
     esac
