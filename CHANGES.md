@@ -1,6 +1,14 @@
 Warp Releases
 =============
 
+### [2020.08.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.08.26)
+
+* Add module mongodb to PHP FPM 7.2, 7.3, 7.4
+* Update nginx conf for Magento 2.3
+* Add command warp fix --rabbitmq
+* Improve command warp fix --mysql for MySQL 8.0
+* Fix mode gandalf, validation version MySQL 8.0
+
 ### [2020.07.27](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.07.27)
 
 * Fix elasticsearch service 7.x
