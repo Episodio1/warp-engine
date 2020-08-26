@@ -70,8 +70,22 @@ function fix_mysql()
 
     # add permission MySQL 999 (mysql inside the container)
     [ -d $PROJECTPATH/.warp/docker/volumes/mysql/ ] && sudo chown -R 999:999 $PROJECTPATH/.warp/docker/volumes/mysql/
+    [ -f $PROJECTPATH/.warp/docker/config/mysql/my.cnf ]  && sudo chmod 644 $PROJECTPATH/.warp/docker/config/mysql/my.cnf
+    [ -d $PROJECTPATH/.warp/docker/config/mysql/conf.d/ ] && sudo chmod 644 $PROJECTPATH/.warp/docker/config/mysql/conf.d/*
+    [ -d $PROJECTPATH/.warp/docker/config/mysql/conf.d/ ] && sudo chmod 755 $PROJECTPATH/.warp/docker/config/mysql/conf.d
 
     exit 1;
+}
+
+function fix_rabbitmq()
+{
+    warp_message "* Applying user (rabbitmq) and group (rabbitmq) to rabbitmq container $(warp_message_ok [ok])"
+
+    # add permission rabbitmq 999 (rabbitmq inside the container)
+    [ -d $PROJECTPATH/.warp/docker/volumes/rabbitmq/ ] && sudo chown -R 999:999 $PROJECTPATH/.warp/docker/volumes/rabbitmq/
+
+    exit 1;
+
 }
 
 function fix_composer()
@@ -282,6 +296,10 @@ function fix_permissions()
             fix_mysql
             exit 1
       ;;
+      "--rabbitmq"|"rabbit")
+            fix_rabbitmq
+            exit 1
+      ;;
       "--owner")
             fix_owner $@
             exit 1
@@ -297,6 +315,7 @@ function fix_permissions()
       "--all")
             fix_php
             fix_mysql
+            fix_rabbitmq
             fix_elasticsearch
             fix_grunt
             fix_add_user
