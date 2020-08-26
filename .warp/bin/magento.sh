@@ -80,13 +80,13 @@ function magento_command()
     if [ "$1" = "--root" ]
     then
         shift 1
-        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "$MAGENTOBIN $*"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "php -dmemory_limit=-1 $MAGENTOBIN $*"
     elif [ "$1" = "-T" ] ; then
         shift 1
-        docker-compose -f $DOCKERCOMPOSEFILE exec -T php bash -c "$MAGENTOBIN $*"
+        docker-compose -f $DOCKERCOMPOSEFILE exec -T php bash -c "php -dmemory_limit=-1 $MAGENTOBIN $*"
     else
 
-        docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "$MAGENTOBIN $*"
+        docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "php -dmemory_limit=-1 $MAGENTOBIN $*"
     fi
 }
 
