@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2020.09.25](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.09.25)
+
+* warp fix oro message
+* add description PHP 7.4 to xdebug.ini.sample
+* Add Uppercase to regex validation
+
 ### [2020.08.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.08.26)
 
 * Add module mongodb to PHP FPM 7.2, 7.3, 7.4
