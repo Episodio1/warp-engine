@@ -244,7 +244,7 @@ function fix_default()
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/html/.github ] && chmod -R a+rw /var/www/html/.github"
 
     # fix chmod() magento cloud 
-    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/vendor/composer/installed.json ] && awk '/chmod/,/]/' /var/www/html/vendor/composer/installed.json | grep path | cut -d ':' -f2 | uniq | sed 's/\"//g' | xargs chown www-data:www-data"
+    docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -f /var/www/html/vendor/composer/installed.json ] && awk '/chmod/,/]/' /var/www/html/vendor/composer/installed.json | grep path | cut -d ':' -f2 | uniq | sed 's/\"//g' | xargs chown www-data:www-data 2> /dev/null"
 
     # add user & group www-data on /var/www/.composer
     docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "[ -d /var/www/.composer ] && chown $(id -u):33 /var/www/.composer"
