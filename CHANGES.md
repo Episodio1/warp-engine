@@ -1,7 +1,7 @@
 Warp Releases
 =============
 
-### [2020.10.30](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.10.30)
+### [2020.11.02](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.11.02)
 
 * increased character validation to 12 in namespaces and projects
 
