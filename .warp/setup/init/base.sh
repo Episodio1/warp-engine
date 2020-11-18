@@ -41,8 +41,13 @@ if [ "$private_registry_mode" = "Y" ] || [ "$private_registry_mode" = "y" ] ; th
             break
         fi;
     done
-fi;
 
+    # Docker Compose Project Name:
+    COMPOSE_PROJECT_NAME=$namespace_name\-$project_name
+else
+    # If we don't set up docker registry we will add a random project name in order to isolate warp environment projects:
+    COMPOSE_PROJECT_NAME=$(hashf -a md5 -so 9 -i r:10000) || warp_message_warn "Could not calculate COMPOSE_PROJECT_NAME hash"
+fi
 
 while : ; do
     framework=$( warp_question_ask_default "Select the main framework for this project. Possible values are $(warp_message_info [m1/m2/oro/php]): " "m2" )
@@ -74,6 +79,9 @@ echo "PROJECT=${project_name}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "DOCKER_PRIVATE_REGISTRY=${docker_private_registry}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "FRAMEWORK=${framework}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE
+
+printf "# Docker Compose Project Name:\n" >> $ENVIRONMENTVARIABLESFILESAMPLE
+printf "COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME\n\n" >> $ENVIRONMENTVARIABLESFILESAMPLE
 
 echo "# Docker configurations" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "COMPOSE_HTTP_TIMEOUT=$DOCKER_COMPOSE_HTTP_TIMEOUT" >> $ENVIRONMENTVARIABLESFILESAMPLE

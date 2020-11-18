@@ -43,3 +43,4 @@
 . "$WARPFOLDER/bin/sandbox.sh"
 . "$WARPFOLDER/bin/volume.sh"
 . "$WARPFOLDER/bin/rsync.sh"
+. "$WARPFOLDER/bin/hashf.sh"
