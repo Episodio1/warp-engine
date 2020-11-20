@@ -13,7 +13,7 @@
         <meta name="description" content="Speeding up! your development infraestructure">
       
       
-        <link rel="canonical" href="https://summasolutions.github.io/warp-engine/troubleshooting/elasticsearch.html">
+        <link rel="canonical" href="https://summasolutions.github.io/warp-engine/features/redis.html">
       
       
         <meta name="author" content="Summa Solutions">
@@ -42,7 +42,7 @@
     
     
       
-        <title>elasticsearch - Warp Framework</title>
+        <title>Redis - Warp Framework</title>
       
     
     
@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#elasticsearch" tabindex="0" class="md-skip">
+      <a href="#how-to-config-redis-on-magento-2" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -119,7 +119,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                elasticsearch
+                Redis
               
             </span>
           
@@ -360,10 +360,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Features
@@ -381,7 +383,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../features/services.html" title="Services" class="md-nav__link">
+    <a href="services.html" title="Services" class="md-nav__link">
       Services
     </a>
   </li>
@@ -393,7 +395,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../features/magento.html" title="Magento" class="md-nav__link">
+    <a href="magento.html" title="Magento" class="md-nav__link">
       Magento
     </a>
   </li>
@@ -405,7 +407,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../features/oro.html" title="Oro" class="md-nav__link">
+    <a href="oro.html" title="Oro" class="md-nav__link">
       Oro
     </a>
   </li>
@@ -417,7 +419,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../features/grunt.html" title="Grunt" class="md-nav__link">
+    <a href="grunt.html" title="Grunt" class="md-nav__link">
       Grunt
     </a>
   </li>
@@ -427,11 +429,56 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../features/redis.html" title="Redis" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Redis
+      </label>
+    
+    <a href="redis.html" title="Redis" class="md-nav__link md-nav__link--active">
       Redis
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#warp-command-for-config-redis-on-magento" class="md-nav__link">
+    WARP Command for config Redis on Magento
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-configuration" class="md-nav__link">
+    Manual configuration
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -441,7 +488,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../features/varnish.html" title="Varnish" class="md-nav__link">
+    <a href="varnish.html" title="Varnish" class="md-nav__link">
       Varnish
     </a>
   </li>
@@ -468,12 +515,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
     
     <label class="md-nav__link" for="nav-7">
       Troubleshooting
@@ -491,7 +536,7 @@
 
 
   <li class="md-nav__item">
-    <a href="start.html" title="warp start" class="md-nav__link">
+    <a href="../troubleshooting/start.html" title="warp start" class="md-nav__link">
       warp start
     </a>
   </li>
@@ -503,7 +548,7 @@
 
 
   <li class="md-nav__item">
-    <a href="rsync.html" title="warp rsync" class="md-nav__link">
+    <a href="../troubleshooting/rsync.html" title="warp rsync" class="md-nav__link">
       warp rsync
     </a>
   </li>
@@ -515,7 +560,7 @@
 
 
   <li class="md-nav__item">
-    <a href="db.html" title="databases" class="md-nav__link">
+    <a href="../troubleshooting/db.html" title="databases" class="md-nav__link">
       databases
     </a>
   </li>
@@ -525,123 +570,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        elasticsearch
-      </label>
-    
-    <a href="elasticsearch.html" title="elasticsearch" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../troubleshooting/elasticsearch.html" title="elasticsearch" class="md-nav__link">
       elasticsearch
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#elasticsearch-6x" class="md-nav__link">
-    Elasticsearch 6.x
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#possible-solutions" class="md-nav__link">
-    possible solutions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    Linux
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macos-with-docker-for-mac" class="md-nav__link">
-    macOS with Docker for Mac
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ref-elasticseearch-docs" class="md-nav__link">
-    Ref. elasticseearch docs.
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#elasticsearch-7x" class="md-nav__link">
-    Elasticsearch 7.x
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#command-warp-ps" class="md-nav__link">
-    command warp ps
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#command-warp-logs-elasticsearch" class="md-nav__link">
-    command warp logs elasticsearch
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#possible-solutions_1" class="md-nav__link">
-    possible solutions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -651,7 +584,7 @@
 
 
   <li class="md-nav__item">
-    <a href="composer.html" title="warp composer" class="md-nav__link">
+    <a href="../troubleshooting/composer.html" title="warp composer" class="md-nav__link">
       warp composer
     </a>
   </li>
@@ -663,7 +596,7 @@
 
 
   <li class="md-nav__item">
-    <a href="gitignore.html" title=".gitignore" class="md-nav__link">
+    <a href="../troubleshooting/gitignore.html" title=".gitignore" class="md-nav__link">
       .gitignore
     </a>
   </li>
@@ -695,83 +628,16 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#elasticsearch-6x" class="md-nav__link">
-    Elasticsearch 6.x
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#possible-solutions" class="md-nav__link">
-    possible solutions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    Linux
+  <a href="#warp-command-for-config-redis-on-magento" class="md-nav__link">
+    WARP Command for config Redis on Magento
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#macos-with-docker-for-mac" class="md-nav__link">
-    macOS with Docker for Mac
+  <a href="#manual-configuration" class="md-nav__link">
+    Manual configuration
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ref-elasticseearch-docs" class="md-nav__link">
-    Ref. elasticseearch docs.
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#elasticsearch-7x" class="md-nav__link">
-    Elasticsearch 7.x
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#command-warp-ps" class="md-nav__link">
-    command warp ps
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#command-warp-logs-elasticsearch" class="md-nav__link">
-    command warp logs elasticsearch
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#possible-solutions_1" class="md-nav__link">
-    possible solutions
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -791,84 +657,33 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/SummaSolutions/warp-engine/tree/master/wiki_docs/troubleshooting/elasticsearch.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/SummaSolutions/warp-engine/tree/master/wiki_docs/features/redis.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="elasticsearch">Elasticsearch</h1>
-<h2 id="elasticsearch-6x">Elasticsearch 6.x</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>ERROR: <span class="o">[</span><span class="m">1</span><span class="o">]</span> bootstrap checks failed
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>: max file descriptors <span class="o">[</span><span class="m">4096</span><span class="o">]</span> <span class="k">for</span> elasticsearch process is too low, increase to at least <span class="o">[</span><span class="m">65536</span><span class="o">]</span>
+                <h1 id="how-to-config-redis-on-magento-2">How to config Redis on Magento 2</h1>
+<p>You can configure Redis on Magento automatically by WARP Command, or manual by Magento CLI</p>
+<h2 id="warp-command-for-config-redis-on-magento">WARP Command for config Redis on Magento</h2>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento --config-redis
 </code></pre></div>
 </td></tr></table>
 
-<h3 id="possible-solutions">possible solutions</h3>
-<p>Set <code>vm.max_map_count</code> to at least <code>262144</code></p>
-<p>The <code>vm.max_map_count</code> kernel setting must be set to at least <code>262144</code> for production use.</p>
-<p>How you set <code>vm.max_map_count</code> depends on your platform:</p>
-<h2 id="linux">Linux</h2>
-<p>The <code>vm.max_map_count</code> setting should be set permanently in <code>/etc/sysctl.conf</code>:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>grep vm.max_map_count /etc/sysctl.conf
-vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+<h2 id="manual-configuration">Manual configuration</h2>
+<p>1) Enable redis for cache.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --cache-backend<span class="o">=</span>redis --cache-backend-redis-server<span class="o">=</span>redis-cache --cache-backend-redis-db<span class="o">=</span><span class="m">0</span>
 </code></pre></div>
 </td></tr></table>
 
-<p>To apply the setting on a live system, run:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sysctl -w vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+<p>2) Enable redis for full page cache.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --page-cache<span class="o">=</span>redis --page-cache-redis-server<span class="o">=</span>redis-fpc --page-cache-redis-db<span class="o">=</span><span class="m">1</span>
 </code></pre></div>
 </td></tr></table>
 
-<hr />
-<h2 id="macos-with-docker-for-mac">macOS with <a href="https://docs.docker.com/docker-for-mac">Docker for Mac</a></h2>
-<p>The <code>vm.max_map_count</code> setting must be set within the xhyve virtual machine:</p>
-<ul>
-<li>From the command line, run:</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+<p>2) Enable Redis for session.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --session-save<span class="o">=</span>redis --session-save-redis-host<span class="o">=</span>redis-session --session-save-redis-log-level<span class="o">=</span><span class="m">4</span> --session-save-redis-db<span class="o">=</span><span class="m">1</span>
 </code></pre></div>
 </td></tr></table>
 
-<ul>
-<li>Press enter and use<code>sysctl</code> to configure <code>vm.max_map_count</code>:</li>
-</ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sysctl -w vm.max_map_count<span class="o">=</span><span class="m">262144</span>
-</code></pre></div>
-</td></tr></table>
-
-<h3 id="ref-elasticseearch-docs">Ref. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-prod-prerequisites">elasticseearch docs.</a></h3>
-<hr />
-<h2 id="elasticsearch-7x">Elasticsearch 7.x</h2>
-<h3 id="command-warp-ps">command <strong>warp ps</strong></h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>&lt;project-name&gt;_elasticsearch_1   /usr/local/bin/docker-entr ...   Exit <span class="m">78</span>
-</code></pre></div>
-</td></tr></table>
-
-<h3 id="command-warp-logs-elasticsearch">command <strong>warp logs elasticsearch</strong></h3>
-<p><em>Native controller process has stopped</em></p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>elasticsearch_1  <span class="p">|</span> <span class="o">{</span><span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;server&quot;</span>, <span class="s2">&quot;timestamp&quot;</span>: <span class="s2">&quot;2020-07-08T21:14:26,575Z&quot;</span>, <span class="s2">&quot;level&quot;</span>: <span class="s2">&quot;INFO&quot;</span>, <span class="s2">&quot;component&quot;</span>: <span class="s2">&quot;o.e.x.m.p.NativeController&quot;</span>, <span class="s2">&quot;cluster.name&quot;</span>: <span class="s2">&quot;docker-cluster&quot;</span>, <span class="s2">&quot;node.name&quot;</span>: <span class="s2">&quot;7ba16b86247e&quot;</span>, <span class="s2">&quot;message&quot;</span>: <span class="s2">&quot;Native controller process has stopped - no new native processes can be started&quot;</span> <span class="o">}</span>
-</code></pre></div>
-</td></tr></table>
-
-<h3 id="possible-solutions_1">possible solutions</h3>
-<p>Check if you have environment variable <code>discovery.type</code> inside the file <code>docker-compose-warp.yml.sample</code> in <strong>elasticsearch</strong> service, like this:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>    <span class="nt">environment</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">discovery.type=single-node</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;ES_JAVA_OPTS=-Xms${ES_MEMORY}</span><span class="nv"> </span><span class="s">-Xmx${ES_MEMORY}&quot;</span>
-</code></pre></div>
-</td></tr></table>
-
-<p>If you don't have that setting you need to add it and follow these steps:</p>
-<ul>
-<li>warp stop --hard</li>
-<li>add <code>- discovery.type=single-node</code> at the file <code>docker-compose-warp.yml.sample</code></li>
-<li>warp reset</li>
-<li>warp init</li>
-<li>warp start</li>
-</ul>
-<hr />
+<p><a href="https://devdocs.magento.com/guides/v2.4/config-guide/redis/redis-pg-cache.html">Ref. Magento Docs:</a></p>
                 
                   
                 
@@ -890,7 +705,7 @@ vm.max_map_count<span class="o">=</span><span class="m">262144</span>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="db.html" title="databases" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="grunt.html" title="Grunt" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -899,19 +714,19 @@ vm.max_map_count<span class="o">=</span><span class="m">262144</span>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                databases
+                Grunt
               </span>
             </div>
           </a>
         
         
-          <a href="composer.html" title="warp composer" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="varnish.html" title="Varnish" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                warp composer
+                Varnish
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
