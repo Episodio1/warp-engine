@@ -31,7 +31,7 @@ function elasticsearch_info()
         warp_message_info "* Elasticsearch"
         warp_message "Version:                    $(warp_message_info $ES_VERSION)"
         warp_message "Host:                       $(warp_message_info $ES_HOST)"
-        [[ -n $ES_HOST2CONTAINER_PORT ]] && warp_message "Ports (container):          $(warp_message_info "$ES_HOST2CONTAINER_PORT <-- 9200")"
+        [[ -n $ES_HOST2CONTAINER_PORT ]] && warp_message "Ports (container):          $(warp_message_info "$ES_HOST2CONTAINER_PORT --> 9200")"
         warp_message "Data:                       $(warp_message_info $PROJECTPATH/.warp/docker/volumes/elasticsearch)"
         warp_message "Memory:                     $(warp_message_info $ES_MEMORY)"
 
@@ -79,12 +79,10 @@ elasticsearch_clear_all() {
 function elasticsearch_main()
 {
     case "$1" in
-        # NO LE VEO MUCHO SENTIDO AL SIGUIENTE CASE:
         elasticsearch)
 		    shift 1
             elasticsearch_command $*  
         ;;
-        # ES INGRESAR warp elasticsearch elasticsearch
 
         --clear-all)
             shift
