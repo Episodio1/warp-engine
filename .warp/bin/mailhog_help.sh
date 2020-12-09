@@ -39,3 +39,30 @@ function mailhog_help()
 {
     warp_message_info   " mailhog            $(warp_message 'Mailhog SMTP server')"
 }
+
+mailhog-ssh_help() {
+
+    warp_message ""
+    warp_message_info "Usage:"
+    warp_message      " warp mailhog ssh [options]"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Options:"
+    warp_message_info   " -h, --help         $(warp_message 'display this help message')"
+    warp_message_info   " --mailhog          $(warp_message 'inside container mailhog as mailhog user')"
+    warp_message_info   " --root             $(warp_message 'inside container mailhog as root user')"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Help:"
+    warp_message " Connect to mailhog by ssh "
+    warp_message ""
+
+    warp_message_info "Example:"
+    warp_message " warp mailhog ssh"
+    warp_message " warp mailhog ssh --root"
+    warp_message " warp mailhog ssh -h"
+    warp_message " warp mailhog ssh --help"
+    warp_message ""
+}
