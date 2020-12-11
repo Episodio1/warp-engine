@@ -16,6 +16,7 @@ function mailhog_help_usage()
     warp_message_info "Available commands:"
 
     warp_message_info   " info               $(warp_message 'display info available')"
+    warp_message_info   " ssh                $(warp_message 'connect to mailhog by ssh')"
 
 
     warp_message ""
