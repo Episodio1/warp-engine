@@ -17,9 +17,8 @@ webserver-help_usage() {
     warp_message_info   " ssh                $(warp_message 'connect to webserver by ssh')"
 }
 
-webserver-help()
-{
-    warp_message_info   " webserver      $(warp_message 'NGinx web service')"
+webserver_help() {
+    warp_message_info   " webserver          $(warp_message 'NGinx web service')"
 }
 
 webserver-ssh_help() {
