@@ -17,6 +17,7 @@ function redis_help_usage()
 
     warp_message_info   " cli                $(warp_message 'run the redis-cli command inside the redis container')"
     warp_message_info   " monitor            $(warp_message 'run the monitor command inside the redis container')"
+    warp_message_info   " ssh                $(warp_message 'connect to redis services by ssh')"
 
     warp_message ""
     warp_message_info "Help:"
@@ -28,6 +29,8 @@ function redis_help_usage()
     warp_message_info "Example:"
     warp_message " warp redis cli --help"
     warp_message " warp redis monitor --help"
+    warp_message " warp redis ssh --help"
+    warp_message " warp redis ssh cache"
     warp_message " warp redis cli session"
     warp_message " warp redis monitor cache"
     warp_message ""    
@@ -95,4 +98,40 @@ function redis_cli_help_usage()
 function redis_help()
 {
     warp_message_info   " redis              $(warp_message 'service of redis')"
+}
+
+redis-ssh_help() {
+    warp_message ""
+    warp_message_info "Usage:"
+    warp_message      " warp redis ssh [service] [options]"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Service:"
+    warp_message_info   " cache              $(warp_message 'inside container redis-cache')"
+    warp_message_info   " session            $(warp_message 'inside container redis-session')"
+    warp_message_info   " fpc                $(warp_message 'inside container redis-fpc')"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Options:"
+    warp_message_info   " --redis            $(warp_message 'inside container redis as redis user')"
+    warp_message_info   " --root             $(warp_message 'inside container redis as root user')"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Help:"
+    warp_message " Connect to redis service by ssh "
+    warp_message ""
+
+    warp_message_info "Example:"
+    warp_message " warp redis ssh cache"
+    warp_message " warp redis ssh cache --root"
+    warp_message " warp redis ssh cache --redis"
+    warp_message " warp redis ssh session"
+    warp_message " warp redis ssh session --root"
+    warp_message " warp redis ssh fpc"
+    warp_message " warp redis ssh fpc --root"
+    warp_message " warp redis ssh -h"
+    warp_message ""
 }
