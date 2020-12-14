@@ -157,6 +157,11 @@ function redis_main()
             redis-simil_ssh $*
         ;;
 
+        flush)
+            shift
+            redis-flush $*
+        ;;
+
         -h | --help)
             redis_help_usage
         ;;
@@ -170,6 +175,12 @@ function redis_main()
 redis-ssh_wrong_input() {
     warp_message_error "Wrong input."
     redis-ssh_help
+    exit 1
+}
+
+redis-flush_wrong_input() {
+    warp_message_error "Wrong input."
+    redis-flush_help
     exit 1
 }
 
@@ -270,4 +281,46 @@ redis-service_check() {
         exit 1
     ;;
     esac
+}
+
+redis-flush() {
+    : '
+    This function runs flush call on selected (or all) redis service.
+    '
+
+    # Check for wrong input:
+    if [[ $# -gt 1 ]]; then
+        redis-flush_wrong_input
+        exit 1
+    fi
+
+    case "$1" in
+    cache)
+        docker-compose -f $DOCKERCOMPOSEFILE exec redis-cache redis-cli FLUSHALL
+        exit 0
+    ;;
+    session)
+        docker-compose -f $DOCKERCOMPOSEFILE exec redis-session redis-cli FLUSHALL
+        exit 0
+    ;;
+    fpc)
+        docker-compose -f $DOCKERCOMPOSEFILE exec redis-fpc redis-cli FLUSHALL
+        exit 0
+    ;;
+    --all)
+        warp_message "redis-cache FLUSHALL:     $(docker-compose -f $DOCKERCOMPOSEFILE exec redis-cache redis-cli FLUSHALL)"
+        warp_message "redis-session FLUSHALL:   $(docker-compose -f $DOCKERCOMPOSEFILE exec redis-session redis-cli FLUSHALL)"
+        warp_message "redis-fpc FLUSHALL:       $(docker-compose -f $DOCKERCOMPOSEFILE exec redis-fpc redis-cli FLUSHALL)"
+        exit 0
+    ;;
+    -h | --help)
+        redis-flush_help
+        exit 0
+    ;;
+    *)
+        redis-flush_wrong_input
+        exit 1
+    ;;
+    esac
+
 }
