@@ -41,6 +41,11 @@ function rabbit_main()
             rabbit_info
         ;;
 
+        ssh)
+            shift
+            rabbitmq-simil_ssh $*
+        ;;
+
         -h | --help)
             rabbit_help_usage
         ;;
@@ -49,4 +54,49 @@ function rabbit_main()
             rabbit_help_usage
         ;;
     esac
+}
+
+rabbitmq-simil_ssh() {
+    : '
+    This function provides a bash pipe as root or rabbitmq user.
+    It is called as SSH in order to make it better for developers ack
+    but it does not use Secure Shell anywhere.
+    '
+
+    # Check for wrong input:
+    if [[ $# -gt 1 ]]; then
+        rabbitmq-ssh_wrong_input
+        exit 1
+    else
+        if [[ $1 == "--root" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u root rabbitmq bash
+        elif [[ -z $1 || $1 == "--rabbitmq" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            # It is better if defines rabbitmq user as default ######################
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u rabbitmq rabbitmq bash
+        elif [[ $1 == "-h" || $1 == "--help" ]]; then
+            rabbitmq-ssh_help
+            exit 0
+        else
+            rabbitmq-ssh_wrong_input
+            exit 1
+        fi
+    fi
+}
+
+rabbitmq-ssh_wrong_input() {
+    warp_message_error "Wrong input."
+    rabbitmq-ssh_help
+    exit 1
 }

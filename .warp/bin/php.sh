@@ -30,28 +30,42 @@ function php_info()
     fi
 }
 
-function php_connect_ssh() 
-{
+php-simil_ssh() {
+    : '
+    This function provides a bash pipe as root or www-data user.
+    It is called as SSH in order to make it better for developers ack
+    but it does not use Secure Shell anywhere.
+    '
 
-    if [ "$1" = "-h" ] || [ "$1" = "--help" ]
-    then
-        php_ssh_help 
+    # Check for wrong input:
+    if [[ $# -gt 1 ]]; then
+        php-ssh_wrong_input
         exit 1
-    fi;
-
-    if [ $(warp_check_is_running) = false ]; then
-        warp_message_error "The containers are not running"
-        warp_message_error "please, first run warp start"
-
-        exit 1;
-    fi
-
-    if [ "$1" = "--root" ]
-    then
-        docker-compose -f $DOCKERCOMPOSEFILE exec -uroot php bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
     else
-        docker-compose -f $DOCKERCOMPOSEFILE exec php bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
-    fi;    
+        if [[ $1 == "--root" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u root php bash
+        elif [[ -z $1 || $1 == "--www-data" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u www-data php bash
+        elif [[ $1 == "-h" || $1 == "--help" ]]; then
+            php-ssh_help
+            exit 0
+        else
+            php-ssh_wrong_input
+            exit 1
+        fi
+    fi
 }
 
 function php_switch() 
@@ -172,7 +186,7 @@ function php_main()
     case "$1" in
         ssh)
             shift 1
-            php_connect_ssh $*
+            php-simil_ssh $*
         ;;
 
         info)
@@ -192,4 +206,10 @@ function php_main()
             php_help_usage
         ;;
     esac
+}
+
+php-ssh_wrong_input() {
+    warp_message_error "Wrong input."
+    php-ssh_help
+    exit 1
 }

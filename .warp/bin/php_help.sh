@@ -34,7 +34,7 @@ function php_help_usage()
 
 }
 
-function php_ssh_help()
+function php-ssh_help()
 {
     warp_message ""
     warp_message_info "Usage:"
@@ -45,6 +45,7 @@ function php_ssh_help()
     warp_message_info "Options:"
     warp_message_info   " -h, --help         $(warp_message 'display this help message')"
     warp_message_info   " --root             $(warp_message 'inside container php as root')"
+    warp_message_info   " --www-data         $(warp_message 'inside container php as www-data')"
     warp_message ""
 
     warp_message ""
@@ -56,6 +57,7 @@ function php_ssh_help()
     warp_message_info "Example:"
     warp_message " warp php ssh"
     warp_message " warp php ssh --root"
+    warp_message " warp php ssh --www-data"
     warp_message ""    
 }
 

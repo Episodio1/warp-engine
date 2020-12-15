@@ -51,7 +51,46 @@ function elasticsearch_command()
 
 }
 
-elasticsearch_clear_all() {
+elasticsearch-simil_ssh() {
+    : '
+    This function provides a bash pipe as root or elasticsearch user.
+    It is called as SSH in order to make it better for developers ack
+    but it does not use Secure Shell anywhere.
+    '
+
+    # Check for wrong input:
+    if [[ $# -gt 1 ]]; then
+        elasticsearch-ssh_wrong_input
+        exit 1
+    else
+        if [[ $1 == "--root" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u root elasticsearch bash
+        elif [[ -z $1 || $1 == "--elasticsearch" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            # It is better if defines elasticsearch user as default ######################
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u elasticsearch elasticsearch bash
+        elif [[ $1 == "-h" || $1 == "--help" ]]; then
+            elasticsearch-ssh_help
+            exit 0
+        else
+            elasticsearch-ssh_wrong_input
+            exit 1
+        fi
+    fi
+}
+
+elasticsearch-clear_all() {
     : '
     This function unlocks and delete all indexes.
     '
@@ -102,7 +141,13 @@ function elasticsearch_main()
         ;;
 
         info)
+            shift
             elasticsearch_info
+        ;;
+
+        ssh)
+            shift
+            elasticsearch-simil_ssh $*
         ;;
 
         -h | --help)
@@ -113,4 +158,10 @@ function elasticsearch_main()
 		    elasticsearch_help_usage
         ;;
     esac
+}
+
+elasticsearch-ssh_wrong_input() {
+    warp_message_error "Wrong input."
+    elasticsearch-ssh_help
+    exit 1
 }
