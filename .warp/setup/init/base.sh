@@ -46,7 +46,7 @@ if [ "$private_registry_mode" = "Y" ] || [ "$private_registry_mode" = "y" ] ; th
     COMPOSE_PROJECT_NAME=$namespace_name\-$project_name
 else
     # If we don't set up docker registry we will add a random project name in order to isolate warp environment projects:
-    COMPOSE_PROJECT_NAME=$(hashf -a md5 -so 9 -i r:10000) || warp_message_warn "Could not calculate COMPOSE_PROJECT_NAME hash"
+    COMPOSE_PROJECT_NAME=$(warp_env_random_password 9)
 fi
 
 while : ; do

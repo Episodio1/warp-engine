@@ -9,7 +9,6 @@
 . "$WARPFOLDER/lib/question.sh"
 . "$WARPFOLDER/lib/check.sh"
 . "$WARPFOLDER/lib/banner.sh"
-. "$WARPFOLDER/lib/hashf.sh"
 
 # INCLUDE COMMANDS
 . "$WARPFOLDER/bin/mysql.sh"
