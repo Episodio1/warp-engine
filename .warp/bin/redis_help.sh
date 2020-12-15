@@ -34,6 +34,7 @@ function redis_help_usage()
     warp_message " warp redis ssh cache"
     warp_message " warp redis cli session"
     warp_message " warp redis monitor cache"
+    warp_message " warp redis flush cache"
     warp_message ""    
 
 }
@@ -164,7 +165,7 @@ redis-flush_help() {
     warp_message " warp redis flush fpc"
     warp_message " warp redis flush session"
     warp_message " warp redis flush cache"
-    warp_message " warp redis flush -all"
+    warp_message " warp redis flush --all"
     warp_message " warp redis flush --help"
     warp_message ""    
 }
