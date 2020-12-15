@@ -86,6 +86,18 @@ function elasticsearch_main()
 
         --clear-all)
             shift
+            # Check for wrong input:
+            if [[ -n $1 ]]; then
+                warp_message_error "Wrong input."
+                warp_message "Just use $(warp_message_warn "warp elasticsearch --clear-all")"
+                exit 1
+            fi
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
             elasticsearch_clear_all
         ;;
 
