@@ -222,6 +222,11 @@ main () {
         warp_update $*
         ;;
 
+        webserver)
+        shift
+        webserver_main $*
+        ;;
+
         *)
         help
         warp_check_latest_version
