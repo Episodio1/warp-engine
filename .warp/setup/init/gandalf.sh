@@ -86,12 +86,22 @@ project_name=$GF_PROJECT
 docker_private_registry=$GF_PRIVATE_REGISTRY
 framework=$GF_FRAMEWORK
 
+# Hash Compose name if namespace and project name are empty:
+if [[ -z $namespace_name ]] && [[ -z $project_name ]]; then   
+    COMPOSE_PROJECT_NAME=$(warp_env_random_password 9)
+else
+    COMPOSE_PROJECT_NAME=$namespace_name\-$project_name
+fi
+
 echo "# Project configurations" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "NAMESPACE=${namespace_name}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "PROJECT=${project_name}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "DOCKER_PRIVATE_REGISTRY=${docker_private_registry}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "FRAMEWORK=${framework}" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE
+
+printf "# Docker Compose Project Name:\n" >> $ENVIRONMENTVARIABLESFILESAMPLE
+printf "COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME\n\n" >> $ENVIRONMENTVARIABLESFILESAMPLE
 
 echo "# Docker configurations" >> $ENVIRONMENTVARIABLESFILESAMPLE
 echo "COMPOSE_HTTP_TIMEOUT=$DOCKER_COMPOSE_HTTP_TIMEOUT" >> $ENVIRONMENTVARIABLESFILESAMPLE
