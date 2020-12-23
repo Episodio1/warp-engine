@@ -3,7 +3,7 @@
 webserver-help_usage() {
     warp_message ""
     warp_message_info "Usage:"
-    warp_message      " warp webserver [options]"
+    warp_message      " warp nginx [options]"
     warp_message ""
 
     warp_message ""
@@ -14,18 +14,18 @@ webserver-help_usage() {
     warp_message_info "Available commands:"
 
     warp_message_info   " info               $(warp_message 'display info available')"
-    warp_message_info   " ssh                $(warp_message 'connect to webserver by ssh')"
+    warp_message_info   " ssh                $(warp_message 'connect to nginx by ssh')"
 }
 
 webserver_help() {
-    warp_message_info   " webserver          $(warp_message 'NGinx web service')"
+    warp_message_info   " nginx              $(warp_message 'NGinx web service')"
 }
 
 webserver-ssh_help() {
 
     warp_message ""
     warp_message_info "Usage:"
-    warp_message      " warp webserver ssh [options]"
+    warp_message      " warp nginx ssh [options]"
     warp_message ""
 
     warp_message ""
@@ -41,9 +41,9 @@ webserver-ssh_help() {
     warp_message ""
 
     warp_message_info "Example:"
-    warp_message " warp webserver ssh"
-    warp_message " warp webserver ssh --root"
-    warp_message " warp webserver ssh -h"
-    warp_message " warp webserver ssh --help"
+    warp_message " warp nginx ssh"
+    warp_message " warp nginx ssh --root"
+    warp_message " warp nginx ssh -h"
+    warp_message " warp nginx ssh --help"
     warp_message ""
 }

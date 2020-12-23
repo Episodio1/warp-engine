@@ -16,7 +16,7 @@ function webserver_info()
     if [ ! -z "$NGINX_CONFIG_FILE" ]
     then
         warp_message ""
-        warp_message_info "* Webserver"
+        warp_message_info "* Nginx"
         warp_message "Virtual host:               $(warp_message_info $VIRTUAL_HOST)"
     
 

@@ -222,7 +222,7 @@ main () {
         warp_update $*
         ;;
 
-        webserver)
+        nginx)
         shift
         webserver_main $*
         ;;
