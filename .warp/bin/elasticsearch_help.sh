@@ -8,7 +8,6 @@ function elasticsearch_help_usage() {
 
     warp_message ""
     warp_message_info "Options:"
-    warp_message_info   " --clear-all        $(warp_message 'Unlock and delete all indexes')"
     warp_message_info   " -h, --help         $(warp_message 'display this help message')"
     warp_message ""
 
@@ -16,6 +15,7 @@ function elasticsearch_help_usage() {
 
     warp_message_info   " info               $(warp_message 'display info available')"
     warp_message_info   " ssh                $(warp_message 'connect to elasticsearch by ssh')"
+    warp_message_info   " flush              $(warp_message 'Unlock and delete all indexes')"
 
     warp_message ""
     warp_message_info "Help:"
@@ -30,7 +30,6 @@ function elasticsearch_help()
 }
 
 elasticsearch-ssh_help() {
-
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp elasticsearch ssh [options]"
@@ -53,5 +52,23 @@ elasticsearch-ssh_help() {
     warp_message " warp elasticsearch ssh --root"
     warp_message " warp elasticsearch ssh -h"
     warp_message " warp elasticsearch ssh --help"
+    warp_message ""
+}
+
+elasticsearch-flush_help() {
+    warp_message ""
+    warp_message_info "Usage:"
+    warp_message      " warp elasticsearch flush"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Help:"
+    warp_message " For delete ES data purposes. Use it to fix a cluster_block_exception "
+    warp_message " also called as FORBIDDEN/12/index read-only / allow delete (api)]"
+    warp_message ""
+
+    warp_message_info "Example:"
+    warp_message " warp elasticsearch flush"
+    warp_message " warp elasticsearch flush -h"
     warp_message ""
 }
