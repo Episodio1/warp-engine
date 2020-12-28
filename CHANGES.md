@@ -1,6 +1,23 @@
 Warp Releases
 =============
 
+### [2020.12.29](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.12.29)
+
+* Add warp fix --elasticsearch to unlock ElasticSearch indexes.
+* Add warp ElasticSearch flush to unlock and delete all ElasticSearch indexes.
+* Add ElasticSearch port binded info.
+* Add hash-based tag for non defined projects.
+* Add warp redis flush feature on FPC, Session and Cache.
+* Add ssh connection to ElasticSearch container.
+* Add ssh connection to Nginx container.
+* Add ssh connection to Mailhog container.
+* Add ssh connection to PHP container.
+* Add ssh connection to Redis FPC container.
+* Add ssh connection to Redis Cache container.
+* Add ssh connection to Redis Session container.
+* Add ssh connection to RabbitMQ container.
+
+
 ### [2020.11.02](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.11.02)
 
 * increased character validation to 12 in namespaces and projects
