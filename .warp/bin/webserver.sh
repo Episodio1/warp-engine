@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# IMPORT HELP
+. "$PROJECTPATH/.warp/bin/webserver_help.sh"
+
 function webserver_info()
 {
 
@@ -13,7 +16,7 @@ function webserver_info()
     if [ ! -z "$NGINX_CONFIG_FILE" ]
     then
         warp_message ""
-        warp_message_info "* Webserver"
+        warp_message_info "* Nginx"
         warp_message "Virtual host:               $(warp_message_info $VIRTUAL_HOST)"
     
 
@@ -34,20 +37,69 @@ function webserver_info()
     fi
 }
 
-function webserver_main()
-{
+function webserver_main() {
     case "$1" in
  
         info)
             webserver_info
         ;;
 
+        ssh)
+            shift
+            webserver-simil_ssh $*
+        ;;
+
         -h | --help)
-            webserver_info
+            webserver-help_usage
         ;;
 
         *)            
-            webserver_info
+            webserver-help_usage
         ;;
     esac    
+}
+
+webserver-simil_ssh() {
+    : '
+    This function provides a bash pipe as root or nginx user.
+    It is called as SSH in order to make it better for developers ack
+    but it does not use Secure Shell anywhere.
+    '
+
+    # Check for wrong input:
+    if [[ $# -gt 1 ]]; then
+        webserver-ssh_wrong_input
+        exit 1
+    else
+        if [[ $1 == "--root" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u root web bash
+        elif [[ -z $1 || $1 == "--nginx" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            # It is better if defines nginx user as default ######################
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u nginx web bash
+        elif [[ $1 == "-h" || $1 == "--help" ]]; then
+            webserver-ssh_help
+            exit 0
+        else
+            webserver-ssh_wrong_input
+            exit 1
+        fi
+    fi
+}
+
+webserver-ssh_wrong_input() {
+    warp_message_error "Wrong input."
+    webserver-ssh_help
+    exit 1
 }

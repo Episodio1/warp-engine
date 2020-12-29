@@ -33,6 +33,11 @@ function mailhog_main()
             mailhog_info
         ;;
 
+        ssh)
+            shift
+            mailhog-simil_ssh $*
+        ;;
+
         -h | --help)
             mailhog_help_usage
         ;;
@@ -41,4 +46,53 @@ function mailhog_main()
             mailhog_help_usage
         ;;
     esac
+}
+
+mailhog-simil_ssh() {
+    : '
+    This function provides a bash pipe as root or mailhog user.
+    It is called as SSH in order to make it better for developers ack
+    but it does not use Secure Shell anywhere.
+    '
+
+    # Check for wrong input:
+    if [[ $# -gt 1 ]]; then
+        mailhog-ssh_wrong_input
+        exit 1
+    else
+        if [[ $1 == "--root" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            # Mailhog latest image does not include bash shell. We could add it but it will
+            #   include a new (not very usefull) layer.
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u root mailhog sh
+        elif [[ -z $1 || $1 == "--mailhog" ]]; then
+            # Check if warp is running:    
+            if [ $(warp_check_is_running) = false ]; then
+                warp_message_error "The containers are not running"
+                warp_message_error "please, first run warp start"
+                exit 1
+            fi
+            # It is better if defines mailhog user as default ######################
+            # Mailhog latest image does not include bash shell. We could add it but it will
+            #   include a new (not very usefull) layer.
+            docker-compose -f $DOCKERCOMPOSEFILE exec -u mailhog mailhog sh
+        elif [[ $1 == "-h" || $1 == "--help" ]]; then
+            mailhog-ssh_help
+            exit 0
+        else
+            mailhog-ssh_wrong_input
+            exit 1
+        fi
+    fi
+}
+
+mailhog-ssh_wrong_input() {
+    warp_message_error "Wrong input."
+    mailhog-ssh_help
+    exit 1
 }

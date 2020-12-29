@@ -46,7 +46,21 @@ function fix_elasticsearch()
     sudo chmod -R a+rwx $PROJECTPATH/.warp/docker/volumes/elasticsearch*
     sudo chown -R 102:102 $PROJECTPATH/.warp/docker/volumes/elasticsearch*
 
-    exit 1;
+    # Parsing ES dynamic binded port:
+    ES_HOST2CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "9200/tcp") 0).HostPort}}' $(warp docker ps -q elasticsearch))
+    if [[ -n $(curl --silent -X GET http://localhost:$ES_HOST2CONTAINER_PORT/_cat/indices) ]]; then
+      # Unlocking indexes:
+      ACK=$(curl --silent -X PUT -H "Content-Type: application/json" http://localhost:$ES_HOST2CONTAINER_PORT/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}')
+      if [[ $(echo "$ACK" | grep '{"acknowledged":true}') ]]; then
+        warp_message "* Unlocking indexes... $(warp_message_ok [ok])"
+      else
+        warp_message_error "Unlock process fail"
+      fi
+    else
+      warp_message_warn "ES database is empty. Nothing to do."
+    fi
+
+    exit 0
 }
 
 function fix_grunt()

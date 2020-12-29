@@ -17,7 +17,7 @@ then
     warp_message_info2 "You can check the available versions of elasticsearch here $(warp_message_info '[ https://hub.docker.com/r/summasolutions/elasticsearch/tags/ ]')"
     
     while : ; do
-        elasticsearch_version=$( warp_question_ask_default "Choose a version of elasticsearch: $(warp_message_info [5.6.8]) " "5.6.8" )
+        elasticsearch_version=$( warp_question_ask_default "Choose a version of elasticsearch: $(warp_message_info [7.6.2]) " "7.6.2" )
     
         case $elasticsearch_version in
         '7.6.2'|'6.5.4'|'6.4.2'|'5.6.8'|'2.4.6'|'2.4.4'|'1.7.6')
