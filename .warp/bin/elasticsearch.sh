@@ -108,21 +108,25 @@ elasticsearch-flush() {
         fi
         # Parsing ES dynamic binded port:
         ES_HOST2CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "9200/tcp") 0).HostPort}}' $(warp docker ps -q elasticsearch))
-        # Unlocking indexes:
-        ACK=$(curl --silent -X PUT -H "Content-Type: application/json" http://localhost:$ES_HOST2CONTAINER_PORT/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}')
-        if [[ $(echo "$ACK" | grep '{"acknowledged":true}') ]]; then
-            warp_message "* Unlocking indexes... $(warp_message_ok [ok])"
-            # Deleting indexes:
-            ACK=$(curl --silent -X DELETE "localhost:$ES_HOST2CONTAINER_PORT/_all")
+        if [[ -n $(curl --silent -X GET http://localhost:$ES_HOST2CONTAINER_PORT/_cat/indices) ]]; then
+            # Unlocking indexes:
+            ACK=$(curl --silent -X PUT -H "Content-Type: application/json" http://localhost:$ES_HOST2CONTAINER_PORT/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}')
             if [[ $(echo "$ACK" | grep '{"acknowledged":true}') ]]; then
-                warp_message "* Deleting indexes...  $(warp_message_ok [ok])"
+                warp_message "* Unlocking indexes... $(warp_message_ok [ok])"
+                # Deleting indexes:
+                ACK=$(curl --silent -X DELETE "localhost:$ES_HOST2CONTAINER_PORT/_all")
+                if [[ $(echo "$ACK" | grep '{"acknowledged":true}') ]]; then
+                    warp_message "* Deleting indexes...  $(warp_message_ok [ok])"
+                else
+                    warp_message_error "Delete process fail"
+                    exit 1
+                fi
             else
-                warp_message_error "Delete process fail"
+                warp_message_error "Unlock process fail"
                 exit 1
             fi
         else
-            warp_message_error "Unlock process fail"
-            exit 1
+            warp_message_warn "ES database is empty. Nothing to do."
         fi
     else
         elasticsearch-flush_wrong_input
