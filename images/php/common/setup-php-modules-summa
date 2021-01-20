@@ -1,0 +1,42 @@
+#!/bin/bash
+: '
+This script must be executed by the ENTRYPOINT script as:
+    /bin/bash /usr/local/bin/setup-php-modules-summa.sh
+It was build to provide tools to setup new PHP Modules for Summa Sollutions PHP Images: It is
+    binded with PHP_EXTRA_LIBS environment variable.
+It use mlocatti framework to pull and install modules:
+    https://github.com/mlocati/docker-php-extension-installer#special-requirements-for-enchant
+'
+
+PHP_EXTRA_LIBS=${PHP_EXTRA_LIBS//(} ; PHP_EXTRA_LIBS=${PHP_EXTRA_LIBS//)}
+
+if [[ -n $PHP_EXTRA_LIBS ]]; then
+    PHP_INSTALLED_LIBS=($(php -m))
+    PHP_EXTRA_LIBS=($PHP_EXTRA_LIBS)
+
+    for extral_p in "${PHP_EXTRA_LIBS[@]}"; do
+        for instl_p in "${PHP_INSTALLED_LIBS[@]}"; do
+            if [[ $extral_p == $instl_p ]]; then
+                exit_f=1
+                break
+            fi
+        done
+        if [[ $exit_f -ne 1 ]]; then
+            # Check if mlocati package was set up:
+            if [[ ! -e /usr/local/bin/install-php-extensions ]]; then
+                apt-get update -y 2>&1 >> /dev/null
+                wget -q -P /usr/local/bin/ https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+                chmod 755 /usr/local/bin/install-php-extensions
+                if [[ ! -e /usr/local/bin/install-php-extensions ]]; then
+                    echo "FAILURE: WE CAN NOT INSTALL MLOCATI PACKAGE"
+                fi
+            fi
+            if [[ -e /usr/local/bin/install-php-extensions ]]; then
+                install-php-extensions $extral_p
+            else
+                echo "Installer is not present. Please install \"install-php-extensions\" package."
+            fi
+        fi
+        exit_f=0
+    done
+fi
