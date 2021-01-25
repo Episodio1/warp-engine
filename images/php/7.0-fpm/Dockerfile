@@ -1,6 +1,6 @@
 FROM php:7.0-fpm
 
-LABEL maintainer="Matias Anoniz <matiasanoniz@gmail.com>"
+LABEL maintainer="Barchiesi Mauricio <barchiesi.mauricio@gmail.com>"
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --enable-intl --enable-opcache --enable-zip
 
@@ -138,4 +138,16 @@ RUN usermod -aG 1002 www-data
 
 RUN pecl install -o -f xdebug-2.6.1
 
-RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so 
+RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so
+
+# Custom Entrypoint Stuffs:
+COPY --chown=root:root setup-php-modules-summa /usr/local/bin/
+RUN chmod 755 /usr/local/bin/setup-php-modules-summa
+COPY --chown=root:root php-custom-entrypoint /usr/local/bin/
+RUN chmod 755 /usr/local/bin/php-custom-entrypoint
+
+RUN apt-get update && apt-get install -y sudo
+RUN echo "www-data  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+ENTRYPOINT ["php-custom-entrypoint"]
+CMD ["php-fpm"]

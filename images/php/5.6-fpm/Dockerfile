@@ -1,6 +1,6 @@
 FROM php:5.6-fpm
 
-LABEL maintainer="Matias Ramirez <mramirez@summasolutions.net>"
+LABEL maintainer="Barchiesi Mauricio <barchiesi.mauricio@gmail.com>"
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --enable-intl --enable-opcache --enable-zip
 
@@ -116,3 +116,15 @@ RUN chmod a+x /usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so
 # ENV PHP_PM_MIN_SPARE_SERVERS 2
 # ENV PHP_PM_MAX_SPARE_SERVERS 6
 # ENV APP_MAGE_MODE default
+
+# Custom Entrypoint Stuffs:
+COPY --chown=root:root setup-php-modules-summa /usr/local/bin/
+RUN chmod 755 /usr/local/bin/setup-php-modules-summa
+COPY --chown=root:root php-custom-entrypoint /usr/local/bin/
+RUN chmod 755 /usr/local/bin/php-custom-entrypoint
+
+RUN apt-get update && apt-get install -y sudo
+RUN echo "www-data  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+ENTRYPOINT ["php-custom-entrypoint"]
+CMD ["php-fpm"]
