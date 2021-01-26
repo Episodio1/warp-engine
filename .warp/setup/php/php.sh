@@ -33,9 +33,6 @@ then
     PHP_EXTRA_LIBS_FLAG=$( warp_question_ask_default "Do you want to add extra libs? $(warp_message_info [y/N]) " "N" )
 
     if [[ $PHP_EXTRA_LIBS_FLAG == 'Y' || $PHP_EXTRA_LIBS_FLAG == 'y' ]]; then
-        PHP_EXTRA_LIBS=$(warp_question_ask "Which ones? (separate each one with commas and no spaces): ")
-        PHP_EXTRA_LIBS=($(echo $PHP_EXTRA_LIBS | tr "," "\n"))
-
         case "$php_version" in
             5.6-fpm)
                 PHP_BASE_LIBS=("${PHP_5_6_fpm_BASE_LIBS[@]}")
@@ -49,14 +46,16 @@ then
                 PHP_BASE_LIBS=("${PHP_7_1_fpm_BASE_LIBS[@]}")
                 PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
             ;;
-            7.1.17-fpm)
-                PHP_BASE_LIBS=("${PHP_7_1_17_fpm_BASE_LIBS[@]}")
-                PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
-            ;;
-            7.1.26-fpm)
-                PHP_BASE_LIBS=("${PHP_7_1_26_fpm_BASE_LIBS[@]}")
-                PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
-            ;;
+                    # We have to fix Dockerfiles with developers before upgrade
+                    # images. So we do not give support to 7.1.17 and 7.1.26 fpm images.
+            # 7.1.17-fpm)
+            #     PHP_BASE_LIBS=("${PHP_7_1_17_fpm_BASE_LIBS[@]}")
+            #     PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+            # ;;
+            # 7.1.26-fpm)
+            #     PHP_BASE_LIBS=("${PHP_7_1_26_fpm_BASE_LIBS[@]}")
+            #     PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+            # ;;
             7.2-fpm)
                 PHP_BASE_LIBS=("${PHP_7_2_fpm_BASE_LIBS[@]}")
                 PHP_AVAILABLE_LIBS=("${PHP_7_2_AVAILABLE_LIBS[@]}")
@@ -82,6 +81,8 @@ then
 
         # Cleaning PHP_EXTRA_LIBS array:
         if [[ ! $GETOUT_F ]]; then
+            PHP_EXTRA_LIBS=$(warp_question_ask "Which ones? (separate each one with commas and no spaces): ")
+            PHP_EXTRA_LIBS=($(echo $PHP_EXTRA_LIBS | tr "," "\n"))
             # Check if already exists and if could be installed:
             for (( extra_libs_p = 0 ; extra_libs_p < ${#PHP_EXTRA_LIBS[@]} ; extra_libs_p++ )); do
                 HOP_AVAIL_LIBS_F=0
