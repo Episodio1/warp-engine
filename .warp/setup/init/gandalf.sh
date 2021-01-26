@@ -245,14 +245,16 @@ if [[ -n $GF_PHP_EXTRA_LIBS && -n $GF_PHP_VERSION ]]; then
             PHP_BASE_LIBS=("${PHP_7_1_fpm_BASE_LIBS[@]}")
             PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
         ;;
-        7.1.17-fpm)
-            PHP_BASE_LIBS=("${PHP_7_1_17_fpm_BASE_LIBS[@]}")
-            PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
-        ;;
-        7.1.26-fpm)
-            PHP_BASE_LIBS=("${PHP_7_1_26_fpm_BASE_LIBS[@]}")
-            PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
-        ;;
+                    # We have to fix Dockerfiles with developers before upgrade
+                    # images. So we do not give support to 7.1.17 and 7.1.26 fpm images.
+        # 7.1.17-fpm)
+        #     PHP_BASE_LIBS=("${PHP_7_1_17_fpm_BASE_LIBS[@]}")
+        #     PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+        # ;;
+        # 7.1.26-fpm)
+        #     PHP_BASE_LIBS=("${PHP_7_1_26_fpm_BASE_LIBS[@]}")
+        #     PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+        # ;;
         7.2-fpm)
             PHP_BASE_LIBS=("${PHP_7_2_fpm_BASE_LIBS[@]}")
             PHP_AVAILABLE_LIBS=("${PHP_7_2_AVAILABLE_LIBS[@]}")
