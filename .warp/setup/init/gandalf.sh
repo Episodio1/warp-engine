@@ -374,7 +374,7 @@ fi
 if [[ ! -z $GF_POSTGRES_VERSION ]]
 then
     warp_message_info "Configuring PostgreSQL Service"
-    cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres.yml >> $DOCKERCOMPOSEFILESAMPLE
+    # cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres.yml >> $DOCKERCOMPOSEFILESAMPLE
 
     psql_version=$GF_POSTGRES_VERSION
     psql_binded_port="5432"
@@ -382,13 +382,30 @@ then
     psql_user_database="warp"
     psql_password_database="Warp2020"
 
+    if [ ! -z "$docker_private_registry" ]
+    then
+        # Overwrite default postgres image.
+        psql_docker_image="${namespace_name}-${project_name}-dbs"    
+        psql_use_project_specific=Y
+
+        psql_data_file="/data/pgdata"
+    fi
+
+    if [ "$psql_use_project_specific" = "Y" ] || [ "$psql_use_project_specific" = "y" ]; then
+        cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres_custom.yml >> $DOCKERCOMPOSEFILESAMPLE
+    else
+        cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres.yml >> $DOCKERCOMPOSEFILESAMPLE
+    fi
+
     echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "# PostgreSQL Configuration" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_VERSION=$psql_version" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_BINDED_PORT=$psql_binded_port" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_DB=$psql_name_database" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_USER=$psql_user_database" >> $ENVIRONMENTVARIABLESFILESAMPLE
-    echo "POSTGRES_PASSWORD=$psql_password_database" >> $ENVIRONMENTVARIABLESFILESAMPLE    
+    echo "POSTGRES_PASSWORD=$psql_password_database" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "POSTGRES_DATA=$psql_data_file" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "POSTGRES_DOCKER_IMAGE=$psql_docker_image" >> $ENVIRONMENTVARIABLESFILESAMPLE 
 fi
 
 ############### ELASTICSEARCH
