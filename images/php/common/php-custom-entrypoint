@@ -1,5 +1,6 @@
 #!/bin/bash
 
 sudo -E /usr/local/bin/setup-php-modules-summa
+sudo /bin/bash -c "service supervisor start" 
 
 docker-php-entrypoint $@
