@@ -6,71 +6,75 @@ for i in "$@"
 do
     case $i in
         --namespace=*)
-        GF_NAMESPACE="${i#*=}"
-        shift # past argument=value
+            GF_NAMESPACE="${i#*=}"
+            shift # past argument=value
         ;;
         --project=*)
-        GF_PROJECT="${i#*=}"
-        shift # past argument=value
+            GF_PROJECT="${i#*=}"
+            shift # past argument=value
         ;;
         --private-registry=*)
-        GF_PRIVATE_REGISTRY="${i#*=}"
-        shift # past argument=value
+            GF_PRIVATE_REGISTRY="${i#*=}"
+            shift # past argument=value
         ;;
         --framework=*)
-        GF_FRAMEWORK="${i#*=}"
-        shift # past argument=value
+            GF_FRAMEWORK="${i#*=}"
+            shift # past argument=value
         ;;
         --vhost=*)
-        GF_NGINX_VHOST="${i#*=}"
-        shift # past argument=value
+            GF_NGINX_VHOST="${i#*=}"
+            shift # past argument=value
         ;;
         --php=*)
-        GF_PHP_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_PHP_VERSION="${i#*=}"
+            shift # past argument=value
+        ;;
+        --php-extra-libs=*)
+            GF_PHP_EXTRA_LIBS="${i#*=}"
+            shift
         ;;
         --mysql=*)
-        GF_MYSQL_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_MYSQL_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --postgres=*)
-        GF_POSTGRES_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_POSTGRES_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --es=*|--elasticsearch=*)
-        GF_ELASTICSEARCH_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_ELASTICSEARCH_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --redis=*)
-        GF_REDIS_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_REDIS_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --redis-fpc=*)
-        GF_REDIS_FPC_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_REDIS_FPC_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --redis-session=*)
-        GF_REDIS_SESSION_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_REDIS_SESSION_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --redis-cache=*)
-        GF_REDIS_CACHE_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_REDIS_CACHE_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --rabbit=*)
-        GF_RABBIT_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_RABBIT_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         --mailhog=*|--mailhog)
-        GF_MAILHOG="Y"
-        shift # past argument=value
+            GF_MAILHOG="Y"
+            shift # past argument=value
         ;;
         --varnish=*|--varnish)
-        GF_VARNISH_VERSION="${i#*=}"
-        shift # past argument=value
+            GF_VARNISH_VERSION="${i#*=}"
+            shift # past argument=value
         ;;
         *)
-        # unknown option
+            # unknown option
         ;;
     esac;
 done;
@@ -225,6 +229,88 @@ then
     . "$WARPFOLDER/setup/php/php-helper.sh"
 fi
 
+############### PHP EXTRA LIBS
+if [[ -n $GF_PHP_EXTRA_LIBS && -n $GF_PHP_VERSION ]]; then
+    GF_PHP_EXTRA_LIBS=($(echo $GF_PHP_EXTRA_LIBS | tr "," "\n"))
+    case "$GF_PHP_VERSION" in
+        5.6-fpm)
+            PHP_BASE_LIBS=("${PHP_5_6_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_5_6_AVAILABLE_LIBS[@]}")
+        ;;
+        7.0-fpm)
+            PHP_BASE_LIBS=("${PHP_7_0_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_0_AVAILABLE_LIBS[@]}")
+        ;;
+        7.1-fpm)
+            PHP_BASE_LIBS=("${PHP_7_1_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+        ;;
+        7.1.17-fpm)
+            PHP_BASE_LIBS=("${PHP_7_1_17_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+        ;;
+        7.1.26-fpm)
+            PHP_BASE_LIBS=("${PHP_7_1_26_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_1_AVAILABLE_LIBS[@]}")
+        ;;
+        7.2-fpm)
+            PHP_BASE_LIBS=("${PHP_7_2_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_2_AVAILABLE_LIBS[@]}")
+        ;;
+        7.2.24-fpm)
+            PHP_BASE_LIBS=("${PHP_7_2_24_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_2_AVAILABLE_LIBS[@]}")
+        ;;
+        7.3-fpm)
+            PHP_BASE_LIBS=("${PHP_7_3_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_3_AVAILABLE_LIBS[@]}")
+        ;;
+        7.4-fpm)
+            PHP_BASE_LIBS=("${PHP_7_4_fpm_BASE_LIBS[@]}")
+            PHP_AVAILABLE_LIBS=("${PHP_7_4_AVAILABLE_LIBS[@]}")
+        ;;
+        *)
+            warp_message_warn "Can not install modules in your PHP Image version."
+            warp_message_warn "Please report it to maintainers."
+            GETOUT_F=true
+        ;;
+    esac
+    # Cleaning GF_PHP_EXTRA_LIBS array:
+    if [[ ! $GETOUT_F ]]; then
+        # Check if already exists and if could be installed:
+        for (( extra_libs_p = 0 ; extra_libs_p < ${#GF_PHP_EXTRA_LIBS[@]} ; extra_libs_p++ )); do
+            HOP_AVAIL_LIBS_F=0
+            for (( inst_libs_p = 0 ; inst_libs_p < ${#PHP_BASE_LIBS[@]} ; inst_libs_p++ )); do
+                if [[ ${GF_PHP_EXTRA_LIBS[$extra_libs_p]} == ${PHP_BASE_LIBS[inst_libs_p]} ]]; then
+                    warp_message_warn "${GF_PHP_EXTRA_LIBS[$extra_libs_p]} is already installed"
+                    HOP_AVAIL_LIBS_F=1
+                    break
+                fi
+            done
+            if [[ $HOP_AVAIL_LIBS_F -eq 0 ]]; then
+                for (( avail_libs_p = 0 ; avail_libs_p < ${#PHP_AVAILABLE_LIBS[@]} ; avail_libs_p++ )); do
+                    if [[ ${GF_PHP_EXTRA_LIBS[$extra_libs_p]} == ${PHP_AVAILABLE_LIBS[avail_libs_p]} ]]; then
+                        PHP_EXTRA_LIBS_OK+=(${GF_PHP_EXTRA_LIBS[$extra_libs_p]})
+                        break
+                    fi
+                    if [[ $avail_libs_p -eq $((${#PHP_AVAILABLE_LIBS[@]} - 1 )) ]]; then
+                        warp_message_warn "${GF_PHP_EXTRA_LIBS[$extra_libs_p]} is not available"
+                        break
+                    fi
+                done
+            fi
+        done
+    fi
+    # Clean aux vars:
+    unset HOP_AVAIL_LIBS_F
+    unset GETOUT_F
+    unset GF_PHP_EXTRA_LIBS
+
+    echo "# PHP Extra Modules" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "PHP_EXTRA_LIBS=(${PHP_EXTRA_LIBS_OK[@]})" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "" >> $ENVIRONMENTVARIABLESFILESAMPLE
+fi
+
 ############### VOLUMES
 . "$WARPFOLDER/setup/init/volumes.sh"
 
@@ -286,7 +372,7 @@ fi
 if [[ ! -z $GF_POSTGRES_VERSION ]]
 then
     warp_message_info "Configuring PostgreSQL Service"
-    cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres.yml >> $DOCKERCOMPOSEFILESAMPLE
+    # cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres.yml >> $DOCKERCOMPOSEFILESAMPLE
 
     psql_version=$GF_POSTGRES_VERSION
     psql_binded_port="5432"
@@ -294,13 +380,30 @@ then
     psql_user_database="warp"
     psql_password_database="Warp2020"
 
+    if [ ! -z "$docker_private_registry" ]
+    then
+        # Overwrite default postgres image.
+        psql_docker_image="${namespace_name}-${project_name}-dbs"    
+        psql_use_project_specific=Y
+
+        psql_data_file="/data/pgdata"
+    fi
+
+    if [ "$psql_use_project_specific" = "Y" ] || [ "$psql_use_project_specific" = "y" ]; then
+        cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres_custom.yml >> $DOCKERCOMPOSEFILESAMPLE
+    else
+        cat $PROJECTPATH/.warp/setup/postgres/tpl/postgres.yml >> $DOCKERCOMPOSEFILESAMPLE
+    fi
+
     echo ""  >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "# PostgreSQL Configuration" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_VERSION=$psql_version" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_BINDED_PORT=$psql_binded_port" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_DB=$psql_name_database" >> $ENVIRONMENTVARIABLESFILESAMPLE
     echo "POSTGRES_USER=$psql_user_database" >> $ENVIRONMENTVARIABLESFILESAMPLE
-    echo "POSTGRES_PASSWORD=$psql_password_database" >> $ENVIRONMENTVARIABLESFILESAMPLE    
+    echo "POSTGRES_PASSWORD=$psql_password_database" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "POSTGRES_DATA=$psql_data_file" >> $ENVIRONMENTVARIABLESFILESAMPLE
+    echo "POSTGRES_DOCKER_IMAGE=$psql_docker_image" >> $ENVIRONMENTVARIABLESFILESAMPLE 
 fi
 
 ############### ELASTICSEARCH

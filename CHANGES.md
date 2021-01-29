@@ -1,6 +1,12 @@
 Warp Releases
 =============
 
+### [2021.01.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2021.01.26)
+
+* PHP Module Installation Functionality to PHP Docker Service.
+* PostgreSQL Private Registry missing image on Warp init gandalf mode fixed. 
+
+
 ### [2020.12.29](https://github.com/SummaSolutions/warp-engine/releases/tag/2020.12.29)
 
 * Add warp fix --elasticsearch to unlock ElasticSearch indexes.
