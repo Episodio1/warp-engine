@@ -64,23 +64,23 @@ function start() {
 
         if [ ! -z $CUSTOM_YML_FILE ] ; then
           # start docker with custom yml file
-          check_PHP_Image
           docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC -f $CUSTOM_YML_FILE up --remove-orphans -d
+          check_PHP_Image
         else
           # start docker containers in macOS
-          check_PHP_Image
           docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC up --remove-orphans -d
+          check_PHP_Image
         fi
       ;;
       Linux)
         if [ ! -z $CUSTOM_YML_FILE ] ; then
           # start docker with custom yml file
-          check_PHP_Image
           docker-compose -f $DOCKERCOMPOSEFILE -f $CUSTOM_YML_FILE up --remove-orphans -d
+          check_PHP_Image
         else
           # start docker containers in linux
-          check_PHP_Image
           docker-compose -f $DOCKERCOMPOSEFILE up --remove-orphans -d
+          check_PHP_Image
         fi
       ;;
     esac
@@ -120,6 +120,7 @@ check_PHP_Image() {
   PHP_IMAGE_CREATION_TAG=$(echo $PHP_IMAGE_CREATION_TAG | sed 's/\-/ /g')
   PHP_IMAGE_CREATION_TAG=($PHP_IMAGE_CREATION_TAG)
   if [[ ${PHP_IMAGE_CREATION_TAG[0]} -lt 2021 ]]; then
-    warp_message_warn "Please update your PHP Image."
+    warp_message_warn ""
+    warp_message_warn "    Please update your PHP Image."
   fi
 }
