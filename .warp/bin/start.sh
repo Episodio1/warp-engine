@@ -1,8 +1,12 @@
 #!/bin/bash
 
     # IMPORT HELP
-
     . "$PROJECTPATH/.warp/bin/start_help.sh"
+
+    # IMPORT .env
+    if [[ -e "$PROJECTPATH/.env" ]]; then
+      . "$PROJECTPATH/.env"
+    fi
 
 #######################################
 # Start the server and all of its
@@ -61,18 +65,22 @@ function start() {
         if [ ! -z $CUSTOM_YML_FILE ] ; then
           # start docker with custom yml file
           docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC -f $CUSTOM_YML_FILE up --remove-orphans -d
+          check_PHP_Image
         else
           # start docker containers in macOS
           docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC up --remove-orphans -d
+          check_PHP_Image
         fi
       ;;
       Linux)
         if [ ! -z $CUSTOM_YML_FILE ] ; then
           # start docker with custom yml file
           docker-compose -f $DOCKERCOMPOSEFILE -f $CUSTOM_YML_FILE up --remove-orphans -d
+          check_PHP_Image
         else
           # start docker containers in linux
           docker-compose -f $DOCKERCOMPOSEFILE up --remove-orphans -d
+          check_PHP_Image
         fi
       ;;
     esac
@@ -85,7 +93,7 @@ function start() {
       crontab_run
 
       # Starting Supervisor service
-      docker-compose -f $DOCKERCOMPOSEFILE exec -d --user=root php bash -c "service supervisor start 2> /dev/null"
+      # docker-compose -f $DOCKERCOMPOSEFILE exec -d --user=root php bash -c "service supervisor start 2> /dev/null"
 
     else
       warp_message_warn "Please Run ./warp composer --credential to copy the credentials"
@@ -105,4 +113,14 @@ function start_main()
           start_help_usage
         ;;
     esac
+}
+
+check_PHP_Image() {
+  PHP_IMAGE_CREATION_TAG=$(docker image inspect summasolutions/php:${PHP_VERSION} --format '{{.Created}}')
+  PHP_IMAGE_CREATION_TAG=$(echo $PHP_IMAGE_CREATION_TAG | sed 's/\-/ /g')
+  PHP_IMAGE_CREATION_TAG=($PHP_IMAGE_CREATION_TAG)
+  if [[ ${PHP_IMAGE_CREATION_TAG[0]} -lt 2021 ]]; then
+    warp_message_warn ""
+    warp_message_warn "    Please update your PHP Image."
+  fi
 }
