@@ -30,11 +30,12 @@
 * Varnish
 * Selenium
 * PostgreSQL
+* Redis
 * Sandbox Mode (for developer modules on Magento 2)
 
 ## Requirements
 
-* Docker community edition
+* Docker Community Edition
 * docker-compose
 
 
