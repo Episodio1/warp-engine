@@ -15,7 +15,7 @@ function elasticsearch_info()
     ES_HOST="elasticsearch"
     ES_VERSION=$(warp_env_read_var ES_VERSION)
     ES_MEMORY=$(warp_env_read_var ES_MEMORY)
-    if [ $(warp_check_is_running) = true ]; then
+    if [ $(warp_check_is_running) = true ] && [[ -n $ES_VERSION ]]; then
         ES_HOST2CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "9200/tcp") 0).HostPort}}' $(warp docker ps -q elasticsearch))
     fi
 
