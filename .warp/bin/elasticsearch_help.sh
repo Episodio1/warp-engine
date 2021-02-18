@@ -30,7 +30,7 @@ function elasticsearch_help()
     warp_message_info   " elasticsearch      $(warp_message 'service of elasticsearch')"
 }
 
-elasticsearch-ssh_help() {
+elasticsearch_ssh_help() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp elasticsearch ssh [options]"
@@ -56,7 +56,7 @@ elasticsearch-ssh_help() {
     warp_message ""
 }
 
-elasticsearch-flush_help() {
+elasticsearch_flush_help() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp elasticsearch flush"

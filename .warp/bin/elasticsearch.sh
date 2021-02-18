@@ -53,7 +53,7 @@ function elasticsearch_command()
 
 }
 
-elasticsearch-simil_ssh() {
+elasticsearch_simil_ssh() {
     : '
     This function provides a bash pipe as root or elasticsearch user.
     It is called as SSH in order to make it better for developers ack
@@ -62,7 +62,7 @@ elasticsearch-simil_ssh() {
 
     # Check for wrong input:
     if [[ $# -gt 1 ]]; then
-        elasticsearch-ssh_wrong_input
+        elasticsearch_ssh_wrong_input
         exit 1
     else
         if [[ $1 == "--root" ]]; then
@@ -86,18 +86,18 @@ elasticsearch-simil_ssh() {
             elasticsearch-ssh_help
             exit 0
         else
-            elasticsearch-ssh_wrong_input
+            elasticsearch_ssh_wrong_input
         fi
     fi
 }
 
-elasticsearch-flush() {
+elasticsearch_flush() {
     : '
     This function unlocks and delete all indexes.
     '
 
     if [[ $* == "-h" || $* == "--help" ]]; then
-        elasticsearch-flush_help
+        elasticsearch_flush_help
         exit 0
     elif [[ -z $* ]]; then
         # Check if warp is running:    
@@ -129,7 +129,7 @@ elasticsearch-flush() {
             warp_message_warn "ES database is empty. Nothing to do."
         fi
     else
-        elasticsearch-flush_wrong_input
+        elasticsearch_flush_wrong_input
     fi
 }
 
@@ -203,7 +203,7 @@ function elasticsearch_main()
 
         flush)
             shift
-            elasticsearch-flush $*
+            elasticsearch_flush $*
         ;;
 
         info)
@@ -213,7 +213,7 @@ function elasticsearch_main()
 
         ssh)
             shift
-            elasticsearch-simil_ssh $*
+            elasticsearch_simil_ssh $*
         ;;
 
         switch)
@@ -235,15 +235,15 @@ function elasticsearch_main()
     esac
 }
 
-elasticsearch-ssh_wrong_input() {
+elasticsearch_ssh_wrong_input() {
     warp_message_error "Wrong input."
     elasticsearch-ssh_help
     exit 1
 }
 
-elasticsearch-flush_wrong_input() {
+elasticsearch_flush_wrong_input() {
     warp_message_error "Wrong input."
-    elasticsearch-flush_help
+    elasticsearch_flush_help
     exit 1
 }
 
