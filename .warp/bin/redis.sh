@@ -154,12 +154,12 @@ function redis_main()
 
         ssh)
             shift
-            redis-simil_ssh $*
+            redis_simil_ssh $*
         ;;
 
         flush)
             shift
-            redis-flush $*
+            redis_flush $*
         ;;
 
         -h | --help)
@@ -172,19 +172,19 @@ function redis_main()
     esac
 }
 
-redis-ssh_wrong_input() {
+redis_ssh_wrong_input() {
     warp_message_error "Wrong input."
     redis-ssh_help
     exit 1
 }
 
-redis-flush_wrong_input() {
+redis_flush_wrong_input() {
     warp_message_error "Wrong input."
-    redis-flush_help
+    redis_flush_help
     exit 1
 }
 
-redis-check_warp_running() {
+redis_check_warp_running() {
     if [ $(warp_check_is_running) = false ]; then
         warp_message_error "The containers are not running"
         warp_message_error "please, first run warp start"
@@ -192,7 +192,7 @@ redis-check_warp_running() {
     fi
 }
 
-redis-simil_ssh() {
+redis_simil_ssh() {
     : '
     This function provides a bash pipe as root or redis user.
     It is called as SSH in order to make it better for developers ack
@@ -201,38 +201,38 @@ redis-simil_ssh() {
 
     # Check for wrong input:
     if [[ $# -gt 2 ]]; then
-        redis-ssh_wrong_input
+        redis_ssh_wrong_input
         exit 1
     else
         case "$1" in
         cache)
-            redis-service_check $1
+            redis_service_check $1
             if [[ $2 == "-h" || $2 == "--help" ]]; then
                 redis-ssh_help
                 exit 0
             fi
-            redis-check_warp_running
-            shift ; redis-simil_ssh-link redis-cache $*
+            redis_check_warp_running
+            shift ; redis_simil_ssh_link redis-cache $*
             exit 0
         ;;
         session)
-            redis-service_check $1
+            redis_service_check $1
             if [[ $2 == "-h" || $2 == "--help" ]]; then
                 redis-ssh_help
                 exit 0
             fi
-            redis-check_warp_running
-            shift ; redis-simil_ssh-link redis-session $*
+            redis_check_warp_running
+            shift ; redis_simil_ssh_link redis-session $*
             exit 0
         ;;
         fpc)
-            redis-service_check $1
+            redis_service_check $1
             if [[ $2 == "-h" || $2 == "--help" ]]; then
                 redis-ssh_help
                 exit 0
             fi
-            redis-check_warp_running
-            shift ; redis-simil_ssh-link redis-fpc $*
+            redis_check_warp_running
+            shift ; redis_simil_ssh_link redis-fpc $*
             exit 0
         ;;
         *)
@@ -243,7 +243,7 @@ redis-simil_ssh() {
     fi
 }
 
-redis-simil_ssh-link() {
+redis_simil_ssh_link() {
     : '
     This function does the simil ssh pipe.
     '
@@ -256,12 +256,12 @@ redis-simil_ssh-link() {
         redis-ssh_help
         exit 0
     else
-        redis-ssh_wrong_input
+        redis_ssh_wrong_input
         exit 1
     fi
 }
 
-redis-service_check() {
+redis_service_check() {
     : '
     This function checks if redis service was init.
     '
@@ -277,20 +277,20 @@ redis-service_check() {
         grep -q "REDIS_FPC_VERSION" $ENVIRONMENTVARIABLESFILE || { warp_message_error "Redis $1 service not found." ; exit 1; }
     ;;
     *)
-        printf "\tWRONG INPUT ON redis-service_check FUNCTION.\n\tPLEASE REPORT THIS TO WARP DEV TEAM."
+        printf "\tWRONG INPUT ON redis_service_check FUNCTION.\n\tPLEASE REPORT THIS TO WARP DEV TEAM."
         exit 1
     ;;
     esac
 }
 
-redis-flush() {
+redis_flush() {
     : '
     This function runs flush call on selected (or all) redis service.
     '
 
     # Check for wrong input:
     if [[ $# -gt 1 ]]; then
-        redis-flush_wrong_input
+        redis_flush_wrong_input
         exit 1
     fi
 
@@ -314,11 +314,11 @@ redis-flush() {
         exit 0
     ;;
     -h | --help)
-        redis-flush_help
+        redis_flush_help
         exit 0
     ;;
     *)
-        redis-flush_wrong_input
+        redis_flush_wrong_input
         exit 1
     ;;
     esac

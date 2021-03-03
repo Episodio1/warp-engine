@@ -8,6 +8,9 @@
       . "$PROJECTPATH/.env"
     fi
 
+    # INCLUDE VARIABLES
+    . "$PROJECTPATH/.warp/variables.sh"
+
 #######################################
 # Start the server and all of its
 # components
@@ -63,10 +66,12 @@ function start() {
         fi
 
         if [ ! -z $CUSTOM_YML_FILE ] ; then
+          check_ES_version
           # start docker with custom yml file
           docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC -f $CUSTOM_YML_FILE up --remove-orphans -d
           check_PHP_Image
         else
+          check_ES_version
           # start docker containers in macOS
           docker-compose -f $DOCKERCOMPOSEFILE -f $DOCKERCOMPOSEFILEMAC up --remove-orphans -d
           check_PHP_Image
@@ -74,10 +79,12 @@ function start() {
       ;;
       Linux)
         if [ ! -z $CUSTOM_YML_FILE ] ; then
+          check_ES_version
           # start docker with custom yml file
           docker-compose -f $DOCKERCOMPOSEFILE -f $CUSTOM_YML_FILE up --remove-orphans -d
           check_PHP_Image
         else
+          check_ES_version
           # start docker containers in linux
           docker-compose -f $DOCKERCOMPOSEFILE up --remove-orphans -d
           check_PHP_Image
@@ -123,4 +130,16 @@ check_PHP_Image() {
     warp_message_warn ""
     warp_message_warn "    Please update your PHP Image."
   fi
+}
+
+check_ES_version() {
+  ES_VER=($(grep "ES_VERSION" $PROJECTPATH/.env | sed 's/=/ /g'))
+  ES_VER=${ES_VER[1]}
+  
+  if [[ ${ES_VER:0:1} -eq '6' ]]; then
+    warp_message_warn "If Elasticsearch doesn't work, maybe you have to use the following cmd:"
+    warp_message_warn "    sudo sysctl -w vm.max_map_count = 262144"
+  fi
+
+  unset ES_VER
 }

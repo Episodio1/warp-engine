@@ -41,7 +41,7 @@ function mailhog_help()
     warp_message_info   " mailhog            $(warp_message 'Mailhog SMTP server')"
 }
 
-mailhog-ssh_help() {
+mailhog_ssh_help() {
 
     warp_message ""
     warp_message_info "Usage:"

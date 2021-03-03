@@ -35,7 +35,7 @@ function mailhog_main()
 
         ssh)
             shift
-            mailhog-simil_ssh $*
+            mailhog_simil_ssh $*
         ;;
 
         -h | --help)
@@ -48,7 +48,7 @@ function mailhog_main()
     esac
 }
 
-mailhog-simil_ssh() {
+mailhog_simil_ssh() {
     : '
     This function provides a bash pipe as root or mailhog user.
     It is called as SSH in order to make it better for developers ack
@@ -57,7 +57,7 @@ mailhog-simil_ssh() {
 
     # Check for wrong input:
     if [[ $# -gt 1 ]]; then
-        mailhog-ssh_wrong_input
+        mailhog_ssh_wrong_input
         exit 1
     else
         if [[ $1 == "--root" ]]; then
@@ -85,13 +85,13 @@ mailhog-simil_ssh() {
             mailhog-ssh_help
             exit 0
         else
-            mailhog-ssh_wrong_input
+            mailhog_ssh_wrong_input
             exit 1
         fi
     fi
 }
 
-mailhog-ssh_wrong_input() {
+mailhog_ssh_wrong_input() {
     warp_message_error "Wrong input."
     mailhog-ssh_help
     exit 1

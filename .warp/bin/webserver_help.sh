@@ -1,6 +1,6 @@
 #!/bin/bash
 
-webserver-help_usage() {
+webserver_help_usage() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp nginx [options]"
@@ -21,7 +21,7 @@ webserver_help() {
     warp_message_info   " nginx              $(warp_message 'NGinx web service')"
 }
 
-webserver-ssh_help() {
+webserver_ssh_help() {
 
     warp_message ""
     warp_message_info "Usage:"

@@ -30,7 +30,7 @@ function php_info()
     fi
 }
 
-php-simil_ssh() {
+php_simil_ssh() {
     : '
     This function provides a bash pipe as root or www-data user.
     It is called as SSH in order to make it better for developers ack
@@ -39,7 +39,7 @@ php-simil_ssh() {
 
     # Check for wrong input:
     if [[ $# -gt 1 ]]; then
-        php-ssh_wrong_input
+        php_ssh_wrong_input
         exit 1
     else
         if [[ $1 == "--root" ]]; then
@@ -62,7 +62,7 @@ php-simil_ssh() {
             php-ssh_help
             exit 0
         else
-            php-ssh_wrong_input
+            php_ssh_wrong_input
             exit 1
         fi
     fi
@@ -186,7 +186,7 @@ function php_main()
     case "$1" in
         ssh)
             shift 1
-            php-simil_ssh $*
+            php_simil_ssh $*
         ;;
 
         info)
@@ -208,7 +208,7 @@ function php_main()
     esac
 }
 
-php-ssh_wrong_input() {
+php_ssh_wrong_input() {
     warp_message_error "Wrong input."
     php-ssh_help
     exit 1
