@@ -59,7 +59,7 @@ php_simil_ssh() {
             fi
             docker-compose -f $DOCKERCOMPOSEFILE exec -u www-data php bash
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            php-ssh_help
+            php_ssh_help
             exit 0
         else
             php_ssh_wrong_input

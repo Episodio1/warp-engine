@@ -82,7 +82,7 @@ mailhog_simil_ssh() {
             #   include a new (not very usefull) layer.
             docker-compose -f $DOCKERCOMPOSEFILE exec -u mailhog mailhog sh
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            mailhog-ssh_help
+            mailhog_ssh_help
             exit 0
         else
             mailhog_ssh_wrong_input
@@ -93,6 +93,6 @@ mailhog_simil_ssh() {
 
 mailhog_ssh_wrong_input() {
     warp_message_error "Wrong input."
-    mailhog-ssh_help
+    mailhog_ssh_help
     exit 1
 }

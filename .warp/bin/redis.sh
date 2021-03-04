@@ -174,7 +174,7 @@ function redis_main()
 
 redis_ssh_wrong_input() {
     warp_message_error "Wrong input."
-    redis-ssh_help
+    redis_ssh_help
     exit 1
 }
 
@@ -208,7 +208,7 @@ redis_simil_ssh() {
         cache)
             redis_service_check $1
             if [[ $2 == "-h" || $2 == "--help" ]]; then
-                redis-ssh_help
+                redis_ssh_help
                 exit 0
             fi
             redis_check_warp_running
@@ -218,7 +218,7 @@ redis_simil_ssh() {
         session)
             redis_service_check $1
             if [[ $2 == "-h" || $2 == "--help" ]]; then
-                redis-ssh_help
+                redis_ssh_help
                 exit 0
             fi
             redis_check_warp_running
@@ -228,7 +228,7 @@ redis_simil_ssh() {
         fpc)
             redis_service_check $1
             if [[ $2 == "-h" || $2 == "--help" ]]; then
-                redis-ssh_help
+                redis_ssh_help
                 exit 0
             fi
             redis_check_warp_running
@@ -236,7 +236,7 @@ redis_simil_ssh() {
             exit 0
         ;;
         *)
-            redis-ssh_help
+            redis_ssh_help
             exit 1
         ;;
         esac
@@ -253,7 +253,7 @@ redis_simil_ssh_link() {
     elif [[ -z $2 || $2 == "--redis" ]]; then
         docker-compose -f $DOCKERCOMPOSEFILE exec -u redis $1 bash
     elif [[ $1 == "-h" || $1 == "--help" ]]; then
-        redis-ssh_help
+        redis_ssh_help
         exit 0
     else
         redis_ssh_wrong_input

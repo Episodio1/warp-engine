@@ -86,7 +86,7 @@ rabbitmq_simil_ssh() {
             # It is better if defines rabbitmq user as default ######################
             docker-compose -f $DOCKERCOMPOSEFILE exec -u rabbitmq rabbitmq bash
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            rabbitmq-ssh_help
+            rabbitmq_ssh_help
             exit 0
         else
             rabbitmq_ssh_wrong_input
@@ -97,6 +97,6 @@ rabbitmq_simil_ssh() {
 
 rabbitmq_ssh_wrong_input() {
     warp_message_error "Wrong input."
-    rabbitmq-ssh_help
+    rabbitmq_ssh_help
     exit 1
 }

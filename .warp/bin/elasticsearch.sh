@@ -83,7 +83,7 @@ elasticsearch_simil_ssh() {
             # It is better if defines elasticsearch user as default ######################
             docker-compose -f $DOCKERCOMPOSEFILE exec -u elasticsearch elasticsearch bash
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            elasticsearch-ssh_help
+            elasticsearch_ssh_help
             exit 0
         else
             elasticsearch_ssh_wrong_input

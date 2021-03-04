@@ -50,11 +50,11 @@ function webserver_main() {
         ;;
 
         -h | --help)
-            webserver-help_usage
+            webserver_help_usage
         ;;
 
         *)            
-            webserver-help_usage
+            webserver_help_usage
         ;;
     esac    
 }
@@ -89,7 +89,7 @@ webserver_simil_ssh() {
             # It is better if defines nginx user as default ######################
             docker-compose -f $DOCKERCOMPOSEFILE exec -u nginx web bash
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            webserver-ssh_help
+            webserver_ssh_help
             exit 0
         else
             webserver_ssh_wrong_input

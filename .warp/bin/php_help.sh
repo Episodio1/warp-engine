@@ -34,7 +34,7 @@ function php_help_usage()
 
 }
 
-function mphp_ssh_help()
+function php_ssh_help()
 {
     warp_message ""
     warp_message_info "Usage:"
