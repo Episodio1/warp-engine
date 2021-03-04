@@ -1,6 +1,15 @@
 Warp Releases
 =============
 
+### [2021.03.03](https://github.com/SummaSolutions/warp-engine/releases/tag/2021.03.03)
+
+* warp init --help fix.
+* warp fix --sandbox fix.
+* warp info elasticsearch fix.
+* Elasticsearch switch feature.
+* Shell refactor.
+* FS warn with ES 6.x.
+
 ### [2021.01.26](https://github.com/SummaSolutions/warp-engine/releases/tag/2021.01.26)
 
 * PHP Module Installation Functionality to PHP Docker Service.

@@ -140,3 +140,5 @@ PHP_8_0_AVAILABLE_LIBS=("amqp" "apcu" "bcmath" "bz2" "calendar" "dba" "decimal" 
 # parallel* requires images with PHP compiled with thread-safety enabled (zts).
 # pthreads* requires images with PHP compiled with thread-safety enabled (zts).
 # tdlib* not available in apline3.7 docker images and jessie docker images.
+
+ELASTICSEARCH_AVAILABLE_VERSIONS=('7.6.2' '6.5.4' '6.4.2' '5.6.8' '2.4.6' '2.4.4' '1.7.6')

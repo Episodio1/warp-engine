@@ -16,6 +16,7 @@ function elasticsearch_help_usage() {
     warp_message_info   " info               $(warp_message 'display info available')"
     warp_message_info   " ssh                $(warp_message 'connect to elasticsearch by ssh')"
     warp_message_info   " flush              $(warp_message 'Unlock and delete all indexes')"
+    warp_message_info   " switch             $(warp_message 'Switch between ES versions.')"
 
     warp_message ""
     warp_message_info "Help:"
@@ -29,7 +30,7 @@ function elasticsearch_help()
     warp_message_info   " elasticsearch      $(warp_message 'service of elasticsearch')"
 }
 
-elasticsearch-ssh_help() {
+elasticsearch_ssh_help() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp elasticsearch ssh [options]"
@@ -55,7 +56,7 @@ elasticsearch-ssh_help() {
     warp_message ""
 }
 
-elasticsearch-flush_help() {
+elasticsearch_flush_help() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp elasticsearch flush"
@@ -71,4 +72,28 @@ elasticsearch-flush_help() {
     warp_message " warp elasticsearch flush"
     warp_message " warp elasticsearch flush -h"
     warp_message ""
+}
+
+elasticsearch_switch_help () {
+    warp_message ""
+    warp_message_info "Usage:"
+    warp_message      " warp elascticsearch switch [options]"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Options:"
+    warp_message_info   " -h, --help         $(warp_message 'display this help message')"
+    warp_message ""
+
+    warp_message ""
+    warp_message_info "Help:"
+    warp_message " this command allows to change the ElasticSearch version"
+    warp_message " you can check the available versions of ElasticSearch here: $(warp_message_info '[ https://hub.docker.com/r/summasolutions/elasticsearch/tags/ ]')"
+    warp_message ""
+
+    warp_message_info "Example:"
+    warp_message " warp elasticsearch switch 7.6.2"
+    warp_message " warp elasticsearch switch 5.6.8"
+    warp_message " warp elasticsearch switch 6.4.2"
+    warp_message ""    
 }

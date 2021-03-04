@@ -102,7 +102,7 @@ function redis_help()
     warp_message_info   " redis              $(warp_message 'service of redis')"
 }
 
-redis-ssh_help() {
+redis_ssh_help() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp redis ssh [service] [options]"
@@ -138,7 +138,7 @@ redis-ssh_help() {
     warp_message ""
 }
 
-redis-flush_help() {
+redis_flush_help() {
     warp_message ""
     warp_message_info "Usage:"
     warp_message      " warp redis flush [options]"

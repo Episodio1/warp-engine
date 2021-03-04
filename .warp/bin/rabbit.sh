@@ -43,7 +43,7 @@ function rabbit_main()
 
         ssh)
             shift
-            rabbitmq-simil_ssh $*
+            rabbitmq_simil_ssh $*
         ;;
 
         -h | --help)
@@ -56,7 +56,7 @@ function rabbit_main()
     esac
 }
 
-rabbitmq-simil_ssh() {
+rabbitmq_simil_ssh() {
     : '
     This function provides a bash pipe as root or rabbitmq user.
     It is called as SSH in order to make it better for developers ack
@@ -65,7 +65,7 @@ rabbitmq-simil_ssh() {
 
     # Check for wrong input:
     if [[ $# -gt 1 ]]; then
-        rabbitmq-ssh_wrong_input
+        rabbitmq_ssh_wrong_input
         exit 1
     else
         if [[ $1 == "--root" ]]; then
@@ -86,17 +86,17 @@ rabbitmq-simil_ssh() {
             # It is better if defines rabbitmq user as default ######################
             docker-compose -f $DOCKERCOMPOSEFILE exec -u rabbitmq rabbitmq bash
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            rabbitmq-ssh_help
+            rabbitmq_ssh_help
             exit 0
         else
-            rabbitmq-ssh_wrong_input
+            rabbitmq_ssh_wrong_input
             exit 1
         fi
     fi
 }
 
-rabbitmq-ssh_wrong_input() {
+rabbitmq_ssh_wrong_input() {
     warp_message_error "Wrong input."
-    rabbitmq-ssh_help
+    rabbitmq_ssh_help
     exit 1
 }

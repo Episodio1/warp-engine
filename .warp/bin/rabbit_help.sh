@@ -38,7 +38,7 @@ function rabbit_help()
     warp_message_info   " rabbit             $(warp_message 'service of rabbit')"
 }
 
-rabbitmq-ssh_help() {
+rabbitmq_ssh_help() {
 
     warp_message ""
     warp_message_info "Usage:"

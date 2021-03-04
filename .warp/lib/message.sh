@@ -58,4 +58,19 @@ function warp_message_bold()
     warp_message "$HC$1$RC"
 }
 
+warp_process_message() {
+    : '
+    It is a pretiest way to show process flow.
+    Input Args:
+        1.- Message.
+    '
+    printf "$1"
+}
 
+warp_process_OK() {
+    printf "\t$FGRN[OK]$RS\n"
+}
+
+warp_process_FAIL() {
+    printf "\t$FRED[FAIL]$RS\n"
+}

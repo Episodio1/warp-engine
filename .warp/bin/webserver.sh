@@ -46,20 +46,20 @@ function webserver_main() {
 
         ssh)
             shift
-            webserver-simil_ssh $*
+            webserver_simil_ssh $*
         ;;
 
         -h | --help)
-            webserver-help_usage
+            webserver_help_usage
         ;;
 
         *)            
-            webserver-help_usage
+            webserver_help_usage
         ;;
     esac    
 }
 
-webserver-simil_ssh() {
+webserver_simil_ssh() {
     : '
     This function provides a bash pipe as root or nginx user.
     It is called as SSH in order to make it better for developers ack
@@ -68,7 +68,7 @@ webserver-simil_ssh() {
 
     # Check for wrong input:
     if [[ $# -gt 1 ]]; then
-        webserver-ssh_wrong_input
+        webserver_ssh_wrong_input
         exit 1
     else
         if [[ $1 == "--root" ]]; then
@@ -89,16 +89,16 @@ webserver-simil_ssh() {
             # It is better if defines nginx user as default ######################
             docker-compose -f $DOCKERCOMPOSEFILE exec -u nginx web bash
         elif [[ $1 == "-h" || $1 == "--help" ]]; then
-            webserver-ssh_help
+            webserver_ssh_help
             exit 0
         else
-            webserver-ssh_wrong_input
+            webserver_ssh_wrong_input
             exit 1
         fi
     fi
 }
 
-webserver-ssh_wrong_input() {
+webserver_ssh_wrong_input() {
     warp_message_error "Wrong input."
     webserver-ssh_help
     exit 1
