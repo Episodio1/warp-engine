@@ -307,6 +307,6 @@ elasticsearch_snapshot_repo_rebuild() {
         }
     }
     ' &> /dev/null
-    curl -X GET "http://localhost:$ES_HOST2CONTAINER_PORT/_snapshot/backup"  |& grep "\"backup\"" &> /dev/null || { warp_process_FAIL ; exit 1; }
+    curl -X GET "http://localhost:$ES_HOST2CONTAINER_PORT/_snapshot/backup" 2>&1 | grep "\"backup\"" &> /dev/null || { warp_process_FAIL ; exit 1; }
     warp_process_OK
 }
