@@ -787,57 +787,57 @@
                 
                 <h1 id="how-to-install-magento-with-warp">How to install Magento with WARP</h1>
 <h2 id="create-new-folder">Create new folder</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="n">magento_demo</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>mkdir magento_demo
 </code></pre></div>
 </td></tr></table>
 <h2 id="download-warp">Download WARP</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="n">warp</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">ct</span><span class="p">.</span><span class="n">summasolutions</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">warp</span><span class="o">-</span><span class="n">engine</span><span class="o">/</span><span class="n">warp</span> <span class="o">&amp;&amp;</span> <span class="n">chmod</span> <span class="mi">755</span> <span class="n">warp</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>curl -L -o warp http://ct.summasolutions.net/warp-engine/warp &amp;&amp; chmod 755 warp
 </code></pre></div>
 </td></tr></table>
 <h2 id="configure-services">Configure services</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">init</span> <span class="c1">--mode-gandalf \</span>
-    <span class="c1">--framework=m2  \</span>
-    <span class="c1">--vhost=local.magento2.com  \</span>
-    <span class="c1">--php=7.2-fpm  \</span>
-    <span class="c1">--mysql=5.7  \</span>
-    <span class="c1">--elasticsearch=5.6.8  \</span>
-    <span class="c1">--redis=3.2.10-alpine  \</span>
-    <span class="c1">--mailhog</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp init --mode-gandalf \
+    --framework=m2  \
+    --vhost=local.magento2.com  \
+    --php=7.2-fpm  \
+    --mysql=5.7  \
+    --elasticsearch=5.6.8  \
+    --redis=3.2.10-alpine  \
+    --mailhog
 </code></pre></div>
 </td></tr></table>
 <h2 id="download-magento">Download Magento</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">magento</span> <span class="c1">--download 2.3.2</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">magento</span> <span class="o">--</span><span class="n">download</span> <span class="mf">2.3</span><span class="o">.</span><span class="mi">2</span>
 </code></pre></div>
 </td></tr></table>
 <h2 id="start-project">Start project</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="k">start</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp start
 </code></pre></div>
 </td></tr></table>
 <h2 id="install-magento">Install Magento</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">magento</span> <span class="c1">--install</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento --install
 </code></pre></div>
 </td></tr></table>
 <h2 id="create-access-to-website">Create access to website</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;127.0.0.1   local.magento2.com&quot;</span> <span class="p">|</span> sudo tee -a /etc/hosts &gt; /dev/null
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;127.0.0.1   local.magento2.com&quot;</span> <span class="p">|</span> sudo tee -a /etc/hosts &gt; /dev/null
 </code></pre></div>
 </td></tr></table>
 <h3 id="requeriments">Requeriments</h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">Docker</span>
-<span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Docker
+docker-compose
 
-<span class="n">docker</span><span class="o">-</span><span class="n">sync</span> <span class="p">(</span><span class="n">mac</span> <span class="k">only</span><span class="p">)</span>
-<span class="n">rsync</span> <span class="o">^</span><span class="mi">3</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">1</span>
+docker-sync (mac only)
+rsync ^3.1.1
 </code></pre></div>
 </td></tr></table>
 <h3 id="access-to-website-or-adminpanel">Access to website or admin/panel</h3>

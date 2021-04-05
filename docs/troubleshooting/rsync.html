@@ -730,9 +730,9 @@
                 <h1 id="warp-rsync">warp rsync</h1>
 <h2 id="command-rsync">command <strong>rsync</strong></h2>
 <p><code>warp rsync push --all</code></p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>rsync: --chown<span class="o">=</span><span class="m">501</span>:33: unknown option
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>rsync: --chown<span class="o">=</span><span class="m">501</span>:33: unknown option
 rsync error: syntax or usage error <span class="o">(</span>code <span class="m">1</span><span class="o">)</span> at /BuildRoot/Library/Caches/com.apple.xbs/Sources/rsync/rsync-52.200.1/rsync/main.c<span class="o">(</span><span class="m">1337</span><span class="o">)</span> <span class="o">[</span><span class="nv">client</span><span class="o">=</span><span class="m">2</span>.6.9<span class="o">]</span>
 Completed copying all files from host to container
 </code></pre></div>
@@ -745,21 +745,21 @@ Completed copying all files from host to container
 <hr />
 <h2 id="command-rsync_1">command <strong>rsync</strong></h2>
 <p><code>warp rsync push &lt;file&gt;</code></p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Template parsing error: template: :1:3: executing <span class="s2">&quot;&quot;</span> at &lt;index <span class="o">(</span>index .NetworkSettings.Ports <span class="s2">&quot;873/tcp&quot;</span><span class="o">)</span> <span class="m">0</span>&gt;: error calling index: index of untyped nil
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Template parsing error: template: :1:3: executing <span class="s2">&quot;&quot;</span> at &lt;index <span class="o">(</span>index .NetworkSettings.Ports <span class="s2">&quot;873/tcp&quot;</span><span class="o">)</span> <span class="m">0</span>&gt;: error calling index: index of untyped nil
 rsync: failed to connect to localhost <span class="o">(</span>::1<span class="o">)</span>: Connection refused <span class="o">(</span><span class="m">61</span><span class="o">)</span>
 rsync: failed to connect to localhost <span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span>: Connection refused <span class="o">(</span><span class="m">61</span><span class="o">)</span>
-rsync error: error in socket IO <span class="o">(</span>code <span class="m">10</span><span class="o">)</span> at clientserver.c<span class="o">(</span><span class="m">127</span><span class="o">)</span> <span class="o">[</span><span class="nv">sender</span><span class="o">=</span><span class="m">3</span>.1.3<span class="o">]</span>
+rsync error: error <span class="k">in</span> socket IO <span class="o">(</span>code <span class="m">10</span><span class="o">)</span> at clientserver.c<span class="o">(</span><span class="m">127</span><span class="o">)</span> <span class="o">[</span><span class="nv">sender</span><span class="o">=</span><span class="m">3</span>.1.3<span class="o">]</span>
 </code></pre></div>
 </td></tr></table>
 <h3 id="possible-solutions_1">possible solutions</h3>
 <ul>
 <li>Check the file <code>docker-compose-warp.yml</code>, if you have the container <code>appdata</code> like this:</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>  <span class="nt">appdata</span><span class="p">:</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>  <span class="nt">appdata</span><span class="p">:</span>
     <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">alpine:latest</span>
 </code></pre></div>
 </td></tr></table>
@@ -769,10 +769,10 @@ rsync error: error in socket IO <span class="o">(</span>code <span class="m">10<
 <p>You are going to delete all project settings  <br />
 If you go ahead you must reconfigure the entire project</p>
 </div>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp stop --hard
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp stop --hard
 warp reset --hard
 war init
 warp start

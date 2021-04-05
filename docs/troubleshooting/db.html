@@ -729,9 +729,9 @@
                 
                 <h1 id="databases">databases</h1>
 <h2 id="private-db-registry">Private DB Registry</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>ERROR: pull access denied <span class="k">for</span> <span class="m">123456789</span>.dkr.ecr.us-east-1.amazonaws.com/sample-site-dbs, 
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>ERROR: pull access denied <span class="k">for</span> <span class="m">123456789</span>.dkr.ecr.us-east-1.amazonaws.com/sample-site-dbs, 
 repository does not exist or may require‘docker login’: denied: Your Authorization Token has expired. 
 Please run ‘aws ecr get-login --no-include-email’ to fetch a new one.
 </code></pre></div>
@@ -743,15 +743,15 @@ Please run ‘aws ecr get-login --no-include-email’ to fetch a new one.
 <hr />
 <h2 id="update-db">Update DB</h2>
 <p>After update images with de following command <code>warp update --images</code>, you dont see changes on db</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Error response from daemon: remove example-volume-db: 
-volume is in use - <span class="o">[</span>4dde9b2e67f76760f8531adkjaskldjaklsdjkla 962e735f8d878df24a4fb, 26b101b5cffb70de9asdññlm324sl234506786b1cdc43015a2d799dee08<span class="o">]</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Error response from daemon: remove example-volume-db: 
+volume is <span class="k">in</span> use - <span class="o">[</span>4dde9b2e67f76760f8531adkjaskldjaklsdjkla 962e735f8d878df24a4fb, 26b101b5cffb70de9asdññlm324sl234506786b1cdc43015a2d799dee08<span class="o">]</span>
 </code></pre></div>
 </td></tr></table>
 <h3 id="possible-solutions_1">possible solutions</h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp stop --hard
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp stop --hard
 warp volume --rm mysql
 warp start
 </code></pre></div>

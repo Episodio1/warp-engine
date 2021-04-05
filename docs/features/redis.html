@@ -678,20 +678,20 @@
                 <h1 id="how-to-config-redis-on-magento-2">How to config Redis on Magento 2</h1>
 <p>You can configure Redis on Magento automatically by WARP Command, or manual by Magento CLI</p>
 <h2 id="warp-command-for-config-redis-on-magento">WARP Command for config Redis on Magento</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento --config-redis
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento --config-redis
 </code></pre></div>
 </td></tr></table>
 <h2 id="manual-configuration">Manual configuration</h2>
 <p>1) Enable redis for cache.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --cache-backend<span class="o">=</span>redis --cache-backend-redis-server<span class="o">=</span>redis-cache --cache-backend-redis-db<span class="o">=</span><span class="m">0</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --cache-backend<span class="o">=</span>redis --cache-backend-redis-server<span class="o">=</span>redis-cache --cache-backend-redis-db<span class="o">=</span><span class="m">0</span>
 </code></pre></div>
 </td></tr></table>
 <p>2) Enable redis for full page cache.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --page-cache<span class="o">=</span>redis --page-cache-redis-server<span class="o">=</span>redis-fpc --page-cache-redis-db<span class="o">=</span><span class="m">1</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --page-cache<span class="o">=</span>redis --page-cache-redis-server<span class="o">=</span>redis-fpc --page-cache-redis-db<span class="o">=</span><span class="m">1</span>
 </code></pre></div>
 </td></tr></table>
 <p>2) Enable Redis for session.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --session-save<span class="o">=</span>redis --session-save-redis-host<span class="o">=</span>redis-session --session-save-redis-log-level<span class="o">=</span><span class="m">4</span> --session-save-redis-db<span class="o">=</span><span class="m">1</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp magento setup:config:set --no-interaction --session-save<span class="o">=</span>redis --session-save-redis-host<span class="o">=</span>redis-session --session-save-redis-log-level<span class="o">=</span><span class="m">4</span> --session-save-redis-db<span class="o">=</span><span class="m">1</span>
 </code></pre></div>
 </td></tr></table>
 <p><a href="https://devdocs.magento.com/guides/v2.4/config-guide/redis/redis-pg-cache.html">Ref. Magento Docs:</a></p>

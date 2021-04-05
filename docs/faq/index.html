@@ -746,7 +746,7 @@
 <li>docker-sync (only macOS)</li>
 </ul>
 <h2 id="how-to-install-docker-sync-on-macos">How to install <strong>docker-sync</strong> on macOS</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">sync</span> <span class="o">-</span><span class="n">n</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sudo gem install docker-sync -n /usr/local/bin
 </code></pre></div>
 </td></tr></table>
 <hr />
@@ -754,13 +754,13 @@
 <ul>
 <li>on macOS</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">brew</span> <span class="n">install</span> <span class="n">rsync</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>brew install rsync
 </code></pre></div>
 </td></tr></table>
 <ul>
 <li>on Debian</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">apt</span> <span class="n">install</span> <span class="n">rsync</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>apt install rsync
 </code></pre></div>
 </td></tr></table>
 <hr />
@@ -811,7 +811,7 @@
 <p><strong>Configuring xdebug by Console (cli)</strong></p>
 <p>Using Xdebug by console requires to set <strong>PHP_IDE_CONFIG</strong> environment var with same Nginx server_name value.</p>
 <p>Open the <code>.env</code> file located in your root project folder and set the value like this sample:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="nv">PHP_IDE_CONFIG</span><span class="o">=</span><span class="nv">serverName</span><span class="o">=</span>magento2.com
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="nv">PHP_IDE_CONFIG</span><span class="o">=</span><span class="nv">serverName</span><span class="o">=</span>magento2.com
 </code></pre></div>
 </td></tr></table>
 <p><em>Where magento2.com is the server_name set previously in Nginx configuration</em></p>
@@ -830,14 +830,14 @@
 <p>The field <code>xdebug.remote_host</code> depends of your Operating System and your local configurations:
 <strong>Linux:</strong> The IP should be grabbed from Docker network interface, ussually called <code>docker0</code>
 You can get it running the command <code>ifconfig</code> for instance:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>docker0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>  mtu <span class="m">1500</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>docker0: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>  mtu <span class="m">1500</span>
     inet <span class="m">172</span>.17.0.1  netmask <span class="m">255</span>.255.0.0  broadcast <span class="m">172</span>.17.255.255
     inet6 fe80::42:49ff:fec6:dfe7  prefixlen <span class="m">64</span>  scopeid 0x20
     ether <span class="m">02</span>:42:49:c6:df:e7  txqueuelen <span class="m">0</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
@@ -849,16 +849,16 @@ You can get it running the command <code>ifconfig</code> for instance:</p>
 </td></tr></table>
 <p><strong>Mac OS X:</strong> The IP should be <code>xdebug.remote_host=10.254.254.254</code> added as an alias following the next steps:</p>
 <p>1- Create the alias</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sudo ifconfig lo0 <span class="nb">alias</span> <span class="m">10</span>.254.254.254
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sudo ifconfig lo0 <span class="nb">alias</span> <span class="m">10</span>.254.254.254
 </code></pre></div>
 </td></tr></table>
 <p>2- Add the network configuration to OS X launch daemons, to create the alias automatically on system boot process.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sudo curl -o /Library/LaunchDaemons/net.summasolutions.docker_10254_alias.plist http://ct.summasolutions.net/warp-engine/osx/net.summasolutions.docker_10254_alias.plist
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>sudo curl -o /Library/LaunchDaemons/net.summasolutions.docker_10254_alias.plist http://ct.summasolutions.net/warp-engine/osx/net.summasolutions.docker_10254_alias.plist
 </code></pre></div>
 </td></tr></table>
 <hr />
 <h2 id="how-to-use-composer">How to use Composer</h2>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">composer</span> <span class="n">install</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp composer install
 </code></pre></div>
 </td></tr></table>
 <hr />
@@ -867,23 +867,23 @@ You can get it running the command <code>ifconfig</code> for instance:</p>
 <ul>
 <li>To check whether you have a crontab file run the following command:</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">crontab</span> <span class="o">-</span><span class="n">l</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp crontab -l
 </code></pre></div>
 </td></tr></table>
 <ul>
 <li>To create or edit a crontab file run the following command:</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">warp</span> <span class="n">crontab</span> <span class="o">-</span><span class="n">e</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>warp crontab -e
 </code></pre></div>
 </td></tr></table>
 <ul>
 <li>The file that opens has a lot of information but the key part is the example just before the end of the comments section (comments are denoted by lines beginning with #).</li>
 </ul>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="o">#</span> <span class="n">m</span> <span class="n">h</span> <span class="n">dom</span> <span class="n">mon</span> <span class="n">dow</span> <span class="n">command</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code># m h dom mon dow command
 </code></pre></div>
 </td></tr></table>
 <p>Example:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">www</span><span class="o">-</span><span class="k">data</span> <span class="n">echo</span> <span class="ss">&quot;Cron run test&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">cron</span><span class="p">.</span><span class="n">log</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">www</span><span class="o">-</span><span class="n">data</span> <span class="n">echo</span> <span class="s2">&quot;Cron run test&quot;</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">log</span>
 </code></pre></div>
 </td></tr></table>
 <div class="admonition warning">
