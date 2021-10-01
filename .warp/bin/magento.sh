@@ -129,6 +129,7 @@ function magento_install()
     fi; 
 
     VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
+    HTTPS_BINDED_PORT=$(warp_env_read_var HTTPS_BINDED_PORT)
     DATABASE_NAME=$(warp_env_read_var DATABASE_NAME)
     DATABASE_USER=$(warp_env_read_var DATABASE_USER)
     DATABASE_PASSWORD=$(warp_env_read_var DATABASE_PASSWORD)
@@ -136,6 +137,7 @@ function magento_install()
     REDIS_CACHE_VERSION=$(warp_env_read_var REDIS_CACHE_VERSION)
     REDIS_FPC_VERSION=$(warp_env_read_var REDIS_FPC_VERSION)
     REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
+    ELASTIC=$(warp_env_read_var ES_VERSION)
 
     ADMIN_USER="admin"
     ADMIN_PASS="Password123"
@@ -158,22 +160,29 @@ function magento_install()
     warp_message "Forcing reinstall of composer deps to ensure perms & reqs..."
     warp composer install --prefer-dist --ignore-platform-reqs
 
+    if [ ! -z "$ELASTIC" ]
+    then
+       EXTRA_PARAMS=" \ --search-engine=elasticsearch7 \ --elasticsearch-host=elasticsearch \ --elasticsearch-port=9200"
+    else
+       EXTRA_PARAMS=""
+    fi
+
     warp magento setup:install \
         --backend-frontname=admin \
         --db-host=mysql \
         --db-name=$DATABASE_NAME \
         --db-user=$DATABASE_USER \
         --db-password=$DATABASE_PASSWORD \
-        --base-url=https://$VIRTUAL_HOST/ \
+        --base-url=https://$VIRTUAL_HOST:$HTTPS_BINDED_PORT/ \
         --admin-firstname=Admin \
         --admin-lastname=Admin \
         --admin-email=admin@admin.com \
         --admin-user=$ADMIN_USER \
         --admin-password=$ADMIN_PASS \
-        --language=es_AR \
-        --currency=ARS \
-        --timezone=America/Argentina/Buenos_Aires \
-        --use-rewrites=1
+        --language=en_US \
+        --currency=EUR \
+        --timezone=Europe/London \
+        --use-rewrites=1 $EXTRA_PARAMS
 
     warp_message "Turning on developer mode.."
     warp magento deploy:mode:set developer
@@ -219,7 +228,7 @@ function magento_install()
     warp restart
 
     warp_message "Docker development environment setup complete."
-    warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"
+    warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}:${HTTPS_BINDED_PORT}/"
     warp_message "Admin user: $ADMIN_USER"
     warp_message "Admin pass: $ADMIN_PASS"
 }
@@ -227,6 +236,7 @@ function magento_install()
 function magento_install_only()
 {
     VIRTUAL_HOST=$(warp_env_read_var VIRTUAL_HOST)
+    HTTPS_BINDED_PORT=$(warp_env_read_var HTTPS_BINDED_PORT)
     DATABASE_NAME=$(warp_env_read_var DATABASE_NAME)
     DATABASE_USER=$(warp_env_read_var DATABASE_USER)
     DATABASE_PASSWORD=$(warp_env_read_var DATABASE_PASSWORD)
@@ -234,6 +244,7 @@ function magento_install_only()
     REDIS_CACHE_VERSION=$(warp_env_read_var REDIS_CACHE_VERSION)
     REDIS_FPC_VERSION=$(warp_env_read_var REDIS_FPC_VERSION)
     REDIS_SESSION_VERSION=$(warp_env_read_var REDIS_SESSION_VERSION)
+    ELASTIC=$(warp_env_read_var ES_VERSION)
 
     ADMIN_USER="admin"
     ADMIN_PASS="Password123"
@@ -248,21 +259,26 @@ function magento_install_only()
         EXTRA_PARAMS=$*        
     fi;
 
+    if [ ! -z "$ELASTIC" ]
+    then
+       EXTRA_PARAMS="${EXTRA_PARAMS} \ --search-engine=elasticsearch7 \ --elasticsearch-host=elasticsearch \ --elasticsearch-port=9200"
+    fi
+
     warp magento setup:install \
         --backend-frontname=admin \
         --db-host=mysql \
         --db-name=$DATABASE_NAME \
         --db-user=$DATABASE_USER \
         --db-password=$DATABASE_PASSWORD \
-        --base-url=https://$VIRTUAL_HOST/ \
+        --base-url=https://$VIRTUAL_HOST:$HTTPS_BINDED_PORT/ \
         --admin-firstname=Admin \
         --admin-lastname=Admin \
         --admin-email=admin@admin.com \
         --admin-user=$ADMIN_USER \
         --admin-password=$ADMIN_PASS \
-        --language=es_AR \
-        --currency=ARS \
-        --timezone=America/Argentina/Buenos_Aires \
+        --language=en_US \
+        --currency=EUR \
+        --timezone=Europe/London \
         --use-rewrites=1 $EXTRA_PARAMS
 
     # setting values
@@ -288,7 +304,7 @@ function magento_install_only()
     done;
 
     warp_message "Docker development environment setup complete."
-    warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}/"
+    warp_message "You may now access your Magento instance at https://${VIRTUAL_HOST}:${HTTPS_BINDED_PORT}/"
     warp_message "Admin user: $ADMIN_USER"
     warp_message "Admin pass: $ADMIN_PASS"
 }
