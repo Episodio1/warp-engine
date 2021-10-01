@@ -179,9 +179,9 @@ function magento_install()
         --admin-email=admin@admin.com \
         --admin-user=$ADMIN_USER \
         --admin-password=$ADMIN_PASS \
-        --language=en_US \
-        --currency=EUR \
-        --timezone=Europe/London \
+        --language=es_AR \
+        --currency=ARS \
+        --timezone=America/Argentina/Buenos_Aires \
         --use-rewrites=1 $EXTRA_PARAMS
 
     warp_message "Turning on developer mode.."
@@ -276,9 +276,9 @@ function magento_install_only()
         --admin-email=admin@admin.com \
         --admin-user=$ADMIN_USER \
         --admin-password=$ADMIN_PASS \
-        --language=en_US \
-        --currency=EUR \
-        --timezone=Europe/London \
+        --language=es_AR \
+        --currency=ARS \
+        --timezone=America/Argentina/Buenos_Aires \
         --use-rewrites=1 $EXTRA_PARAMS
 
     # setting values
